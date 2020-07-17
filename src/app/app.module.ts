@@ -7,13 +7,20 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { FiltersComponent } from './filters/filters.component';
+import { MainComponent } from './main/main.component';
+import { MainDefultComponent } from './main/main-defult/main-defult.component';
+import { PublicationComponent } from './main/main-defult/publication/publication.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    FiltersComponent
+    FiltersComponent,
+    MainComponent,
+    MainDefultComponent,
+    PublicationComponent
   ],
   imports: [
     BrowserModule,
