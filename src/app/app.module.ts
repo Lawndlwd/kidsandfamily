@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
 import { MainDefultComponent } from './main/main-defult/main-defult.component';
 import { PublicationComponent } from './main/main-defult/publication/publication.component';
 
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PublicationComponent } from './main/main-defult/publication/publication
     FiltersComponent,
     MainComponent,
     MainDefultComponent,
-    PublicationComponent
+    PublicationComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
