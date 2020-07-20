@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FiltersService } from '../services/filters/filters.service';
 
 @Component({
   selector: 'app-filters',
@@ -10,15 +11,14 @@ import { Component, OnInit } from '@angular/core';
   `]
 })
 export class FiltersComponent implements OnInit {
-  profils: string[];
+  profils: Type[] = [];
   publics: string[];
   themes: string[];
   actions: string[];
   structures: string[];
   departements: string[];
 
-  constructor() {
-    this.profils = this.getProfils();
+  constructor(private filtersService: FiltersService) {
     this.publics = this.getPublics();
     this.themes = this.getThemes();
     this.actions = this.getActions();
@@ -27,10 +27,18 @@ export class FiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
+    // initialisation profils
+    this.filtersService.getTypes()
+      .subscribe(response => {
+        for (let index in response) {
+          let type: Type = {
+            id: response[index].id,
+            type: response[index]['type']
+          };
 
-  getProfils() {
-    return ['Particulier', 'professionnel'];
+          this.profils.push(type);
+        }
+      });
   }
 
   getPublics() {
@@ -52,4 +60,9 @@ export class FiltersComponent implements OnInit {
   getDepartements() {
     return ['Loiret', 'Indres-et-Loire'];
   }
+}
+
+interface Type {
+  id: number,
+  type: string
 }

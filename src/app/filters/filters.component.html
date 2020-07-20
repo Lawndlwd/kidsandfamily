@@ -9,11 +9,11 @@
         </div>
   
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body" *ngFor="let profil of profils; let i = index">
+            <div class="card-body" *ngFor="let profil of profils">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="profil-filter-{{ i + 1 }}">
-                    <label class="form-check-label" for="profil-filter-{{ i + 1 }}">
-                        {{ profil }}
+                    <input class="form-check-input" type="checkbox" value="" id="profil-filter-{{ profil.id }}">
+                    <label class="form-check-label" for="profil-filter-{{ profil.id }}">
+                        {{ profil.type }}
                     </label>
                   </div>
             </div>
