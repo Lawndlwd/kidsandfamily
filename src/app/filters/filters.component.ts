@@ -15,11 +15,10 @@ export class FiltersComponent implements OnInit {
   publics;
   themes;
   actions;
-  structures: string[];
+  structures;
   departements: string[];
 
   constructor(private filtersService: FiltersService) {
-    this.structures = this.getStructures();
     this.departements = this.getDepartements();
   }
 
@@ -46,11 +45,13 @@ export class FiltersComponent implements OnInit {
     this.filtersService.getActions()
       .subscribe(response => {
         this.actions = response;
-      }); 
-  }
+      });
 
-  getStructures() {
-    return ['Ludothèque', 'Médiathèque', 'Autre'];
+    // initialisation structures
+    this.filtersService.getStructures()
+      .subscribe(response => {
+        this.structures = response;
+      });
   }
 
   getDepartements() {

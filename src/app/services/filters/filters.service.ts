@@ -21,6 +21,10 @@ export class FiltersService {
   }
 
   getActions() {
-    return this.http.get('http://localhost:8000/api/actions.json')
+    return this.http.get('http://localhost:8000/api/actions.json');
+  }
+
+  getStructures() {
+    return this.http.get('http://localhost:8000/api/structures.json');
   }
 }
