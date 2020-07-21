@@ -11,7 +11,7 @@ import { FiltersService } from '../services/filters/filters.service';
   `]
 })
 export class FiltersComponent implements OnInit {
-  profils: Type[] = [];
+  profils;
   publics;
   themes: string[];
   actions: string[];
@@ -29,15 +29,7 @@ export class FiltersComponent implements OnInit {
     // initialisation profils
     this.filtersService.getTypes()
       .subscribe(response => {
-        for (let index in response) {
-          let type: Type = {
-            id: response[index].id,
-            type: response[index]['type']
-          };
-
-          this.profils.push(type);
-        }
-        console.log(this.profils);
+        this.profils = response;
       });
 
     // initialisation publics_cibles
