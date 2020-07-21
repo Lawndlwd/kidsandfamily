@@ -12,14 +12,13 @@ import { FiltersService } from '../services/filters/filters.service';
 })
 export class FiltersComponent implements OnInit {
   profils: Type[] = [];
-  publics: string[];
+  publics;
   themes: string[];
   actions: string[];
   structures: string[];
   departements: string[];
 
   constructor(private filtersService: FiltersService) {
-    this.publics = this.getPublics();
     this.themes = this.getThemes();
     this.actions = this.getActions();
     this.structures = this.getStructures();
@@ -38,11 +37,14 @@ export class FiltersComponent implements OnInit {
 
           this.profils.push(type);
         }
+        console.log(this.profils);
       });
-  }
 
-  getPublics() {
-    return ['Enfants', 'Ados', 'Adultes'];
+    // initialisation publics_cibles
+    this.filtersService.getPublics()
+    .subscribe(response => {
+      this.publics = response;
+    });
   }
 
   getThemes() {
