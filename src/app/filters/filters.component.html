@@ -68,9 +68,9 @@
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div class="card-body" *ngFor="let action of actions; let i = index">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="action-filter-{{ i + 1 }}">
-                    <label class="form-check-label" for="action-filter-{{ i + 1 }}">
-                        {{ action }}
+                    <input class="form-check-input" type="checkbox" value="" id="action-filter-{{ action.id }}">
+                    <label class="form-check-label" for="action-filter-{{ action.id }}">
+                        {{ action.actions }}
                     </label>
                 </div>
             </div>

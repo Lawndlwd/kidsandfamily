@@ -19,4 +19,8 @@ export class FiltersService {
   getThemes() {
     return this.http.get('http://localhost:8000/api/themes.json');
   }
+
+  getActions() {
+    return this.http.get('http://localhost:8000/api/actions.json')
+  }
 }

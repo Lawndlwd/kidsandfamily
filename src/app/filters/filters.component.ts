@@ -14,12 +14,11 @@ export class FiltersComponent implements OnInit {
   profils;
   publics;
   themes;
-  actions: string[];
+  actions;
   structures: string[];
   departements: string[];
 
   constructor(private filtersService: FiltersService) {
-    this.actions = this.getActions();
     this.structures = this.getStructures();
     this.departements = this.getDepartements();
   }
@@ -42,10 +41,12 @@ export class FiltersComponent implements OnInit {
     .subscribe(response => {
       this.themes = response;
     });
-  }
 
-  getActions() {
-    return ['Je propose mon aide', 'J\'ai besoin d\'aide'];
+    // initialisation actions
+    this.filtersService.getActions()
+      .subscribe(response => {
+        this.actions = response;
+      }); 
   }
 
   getStructures() {
@@ -55,9 +56,4 @@ export class FiltersComponent implements OnInit {
   getDepartements() {
     return ['Loiret', 'Indres-et-Loire'];
   }
-}
-
-interface Type {
-  id: number,
-  type: string
 }
