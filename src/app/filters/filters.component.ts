@@ -13,13 +13,12 @@ import { FiltersService } from '../services/filters/filters.service';
 export class FiltersComponent implements OnInit {
   profils;
   publics;
-  themes: string[];
+  themes;
   actions: string[];
   structures: string[];
   departements: string[];
 
   constructor(private filtersService: FiltersService) {
-    this.themes = this.getThemes();
     this.actions = this.getActions();
     this.structures = this.getStructures();
     this.departements = this.getDepartements();
@@ -37,10 +36,12 @@ export class FiltersComponent implements OnInit {
     .subscribe(response => {
       this.publics = response;
     });
-  }
 
-  getThemes() {
-    return ['Loisir', 'Environnement', 'Autre'];
+    // initialisation thèmes
+    this.filtersService.getThemes()
+    .subscribe(response => {
+      this.themes = response;
+    });
   }
 
   getActions() {
