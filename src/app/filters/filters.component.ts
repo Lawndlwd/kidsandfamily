@@ -16,11 +16,9 @@ export class FiltersComponent implements OnInit {
   themes;
   actions;
   structures;
-  departements: string[];
+  regions;
 
-  constructor(private filtersService: FiltersService) {
-    this.departements = this.getDepartements();
-  }
+  constructor(private filtersService: FiltersService) {}
 
   ngOnInit(): void {
     // initialisation profils
@@ -52,9 +50,8 @@ export class FiltersComponent implements OnInit {
       .subscribe(response => {
         this.structures = response;
       });
-  }
 
-  getDepartements() {
-    return ['Loiret', 'Indres-et-Loire'];
+    // initialisation régions
+    this.regions = this.filtersService.getRegions();
   }
 }

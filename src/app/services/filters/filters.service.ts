@@ -27,4 +27,11 @@ export class FiltersService {
   getStructures() {
     return this.http.get('http://localhost:8000/api/structures.json');
   }
+
+  getRegions() {
+    return [
+      { code: 1, nom: "Bourgogne" }, 
+      { code: 2, nom: "Centre" } 
+    ]
+  }
 }

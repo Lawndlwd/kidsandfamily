@@ -104,11 +104,11 @@
             </h5>
         </div>
         <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
-            <div class="card-body" *ngFor="let departement of departements; let i = index">
+            <div class="card-body" *ngFor="let region of regions">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="departement-filter-{{ i + 1}}">
-                    <label class="form-check-label" for="departement-filter-{{ i + 1}}">
-                        {{ departement }}
+                    <input class="form-check-input" type="checkbox" value="" id="departement-filter-{{ region.code }}">
+                    <label class="form-check-label" for="departement-filter-{{ region.code }}">
+                        {{ region.nom }}
                     </label>
                 </div>
             </div>
