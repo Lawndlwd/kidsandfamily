@@ -4,11 +4,7 @@ import { FiltersService } from '../services/filters/filters.service';
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
-  styles: [`
-    #accordion {
-      font-size: 13px;
-    }
-  `]
+  styleUrls: ['./filters.component.css']
 })
 export class FiltersComponent implements OnInit {
   profils;
