@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FiltersService {
-  private url: string = 'http://localhost:8000/api/';
+  private url: string = 'https://localhost:8000/api/';
 
   constructor(private http: HttpClient) {}
 
