@@ -12,11 +12,15 @@ import { FiltersComponent } from './filters/filters.component';
 import { MainComponent } from './main/main.component';
 import { MainDefaultComponent } from './main/main-default/main-default.component';
 import { PublicationComponent } from './main/main-default/publication/publication.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthComponent } from './auth/auth.component';
+import { FormsModule }   from '@angular/forms';
 
 
 const appRoutes: Routes = [
   { path: 'publications', component: PublicationComponent },
-  { path: 'publications-details/:id', component: PublicationDetailsComponent }
+  { path: 'publications-details/:id', component: PublicationDetailsComponent },
+  { path: 'auth', component: AuthComponent }
 ];
 
 @NgModule({
@@ -30,11 +34,15 @@ const appRoutes: Routes = [
     PublicationComponent,
     FooterComponent,
     PublicationDetailsComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    NgxPaginationModule,
+    FormsModule
+
   ],
   providers: [
     FiltersService
