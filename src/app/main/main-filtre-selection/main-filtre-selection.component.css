@@ -1,0 +1,29 @@
+.container{
+    min-height: 1000px !important;
+}
+
+mat-button-toggle-group {
+    height: 50px;
+    border-radius: 4px;
+    padding:0px !important;
+  }
+  
+  mat-button-toggle {
+    border-radius: 4px;
+    border: 1px solid black;
+    font-size: 15px;
+    color: black;
+    width: 150px;
+    padding:0 !important;
+    background-color: rgba(255, 255, 255, 0.623);
+  }
+  
+.example-selected-value {
+    margin: 15px 0;
+  }
+  
+  .mat-button-toggle-checked {
+    color: white;
+    background-color: rgba(0, 174, 255, 0.719);
+  }
+  
