@@ -21,13 +21,13 @@ import { FiltersComponent } from './filters/filters.component';
     MainComponent,
     MainFiltreSelectionComponent,
     ListComponent,
-    CardComponent
+    CardComponent,
+    FiltersComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonToggleModule,
-    FiltersComponent,
     HttpClientModule
   ],
   
