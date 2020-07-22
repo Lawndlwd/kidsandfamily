@@ -34,8 +34,4 @@ export class PublicationsService {
     }))
   }
 
-  getId(pubs){
-    
-  }
-
 }
