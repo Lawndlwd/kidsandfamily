@@ -1,0 +1,16 @@
+<h3>Dernières Publications</h3>
+<div class="row">
+    <div class="col-4"  
+    *ngFor="let pub of loadedPub">
+        <div class="card">
+            <img src="http://lorempixel.com/400/200/" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h6 class="card-title">{{pub.title}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{pub.createdAtAgo }}</h6>
+            <p class="card-text">{{ pub.theme.theme }}</p>
+            <a href="#" class="card-link">Card link</a>
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-info">load more</button>
