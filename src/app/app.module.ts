@@ -2,7 +2,6 @@ import { FiltersService } from './services/filters/filters.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AppComponent } from './app.component';
@@ -25,6 +24,7 @@ import { FormsModule }   from '@angular/forms';
 const appRoutes: Routes = [
   { path: 'publications', component: PublicationComponent },
   { path: 'publications-details/:id', component: PublicationDetailsComponent },
+  { path: 'publications-filter', component: MainFiltreSelectionComponent },
   { path: 'auth', component: AuthComponent }
 ];
 
