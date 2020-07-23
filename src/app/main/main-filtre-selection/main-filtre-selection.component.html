@@ -19,103 +19,56 @@
 
 <!-- <app-list (callShowList)="ShowList()"></app-list>
 <app-card></app-card>  -->
-<h3 [hidden]="showC" class="shadow  py-3 text-center mt-5">card</h3>
-<div class="row justify-content-end mr-5">
+<div [hidden]="showC" class="shadow  py-3 text-center mt-5">
+  <h3 class="shadow  py-3 text-center mt-5" >card</h3>
 
-  <div [hidden]="showL" class="row">
-   
-  
-    <div class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1736beaf95b%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1736beaf95b%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-        <div class="card-body">
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">9 mins</small>
+  <div id="demoMap" style="height:250px"></div>
+  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+	<script type="text/javascript">
+            // On initialise la latitude et la longitude de Paris (centre de la carte)
+            var lat = 48.852969;
+            var lon = 2.349903;
+            var macarte = null;
+            // Fonction d'initialisation de la carte
+            function initMap() {
+                // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+                macarte = L.map('demoMap').setView([lat, lon], 11);
+                // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+                L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                    // Il est toujours bien de laisser le lien vers la source des données
+                    attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                    minZoom: 1,
+                    maxZoom: 20
+                }).addTo(macarte);
+            }
+            window.onload = function(){
+		// Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+		initMap(); 
+            };
+        </script>
+</div>
+
+<br>
+
+<div [hidden]="showL"  class="row justify-content-end mr-5">
+
+
+  <div class="col-4 mt-5" *ngFor="let pub of loadedPublication | paginate: {id: 'publicationsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
+      <div class="card shadow-lg h-100 ">
+          <span class="card-subtitle py-2 pl-3 mb-2 text-muted">   {{pub.user.firstName}}  </span>
+          <span class="card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</span>
+          <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
+          <div class="card-body">
+              <h6 class="card-title">{{pub.title}}</h6>
+              <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }}  |</span>
+              <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  |</span>
+              <p class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</p>
+              <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
           </div>
-        </div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1736beaf95d%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1736beaf95d%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-        <div class="card-body">
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1736beaf95f%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1736beaf95f%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-        <div class="card-body">
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <div class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1736beaf961%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1736beaf961%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-        <div class="card-body">
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1736beaf964%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1736beaf964%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-        <div class="card-body">
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1736beaf965%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1736beaf965%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.71875%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-        <div class="card-body">
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
+  <div class="col-12 justify-content-center  mx-auto my-5">
+      <pagination-controls id="publicationsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
   </div>
 
 

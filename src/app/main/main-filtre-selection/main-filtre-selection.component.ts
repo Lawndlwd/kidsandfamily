@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { ListComponent } from './list/list.component';
-import { CardComponent } from './card/card.component';
+import { Publication } from '../main-default/publication/Publication.model';
+import { PublicationsService } from '../../services/publications.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-main-filtre-selection',
@@ -14,6 +16,10 @@ export class MainFiltreSelectionComponent implements OnInit {
  
   showL=false;
   showC=true;
+  loadedPublication: Publication[] =[];
+  publicationId: Number ;
+  NumberOfPub: Number;
+  page: Number =1;
 
 
    @Output() ShowList(){
@@ -28,9 +34,19 @@ export class MainFiltreSelectionComponent implements OnInit {
   }
 
 
-  constructor() { }
+  constructor(
+    private pubsService : PublicationsService,
+    private router: Router,
+    ) {
+      this.loadedPublication = new Array<any>();
+   }
 
   ngOnInit(): void {
+    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1')
+    .subscribe(publications =>{
+      this.loadedPublication = publications; 
+      this.NumberOfPub=this.loadedPublication.length;   
+    });
+  
   }
-
 }
