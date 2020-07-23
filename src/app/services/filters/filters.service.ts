@@ -32,55 +32,55 @@ export class FiltersService {
   getRegions() {
     return [
       {
-        code: 84,
+        id: 84,
         nom: "Auvergne-Rhône-Alpes"
       },
       {
-        code: 27,
+        id: 27,
         nom: "Bourgogne-Franche-Comté"
       },
       {
-        code: 53,
+        id: 53,
         nom: "Bretagne"
       },
       {
-        code: 24,
+        id: 24,
         nom: "Centre-Val de Loire"
       },
       {
-        code: 94,
+        id: 94,
         nom: "Corse"
       },
       {
-        code: 44,
+        id: 44,
         nom: "Grand-Est"
       },
       {
-        code: 32,
+        id: 32,
         nom: "Hauts-de-France"
       },
       {
-        code: 11,
+        id: 11,
         nom: "Ile-de-France"
       },
       {
-        code: 28,
+        id: 28,
         nom: "Normandie"
       },
       {
-        code: 75,
+        id: 75,
         nom: "Nouvelle-Aquitaine"
       },
       {
-        code: 76,
+        id: 76,
         nom: "Occitanie"
       },
       {
-        code: 52,
+        id: 52,
         nom: "Pays de la Loire"
       },
       {
-        code: 93,
+        id: 93,
         nom: "Provence-Alpes-Côte d'Azur"
       } 
     ]
