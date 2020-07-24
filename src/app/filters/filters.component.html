@@ -1,13 +1,15 @@
-<div id="accordion" class="mt-5 position-fixed">
-    <div class="card">
-        <div class="card-header" id="headingOne">
+<div class="position-relative">
+
+    <div id="accordion" class="mt-5 position-fixed overflow-y">
+        <div class="card">
+            <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 Profil
             </button>
-            </h5>
-        </div>
-  
+        </h5>
+    </div>
+    
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body" *ngFor="let profil of profils">
                 <div class="form-check">
@@ -16,7 +18,7 @@
                         {{ profil.type }}
                     </label>
                   </div>
-            </div>
+                </div>
         </div>
     </div>
     <div class="card">
@@ -25,7 +27,7 @@
             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 Public
             </button>
-            </h5>
+        </h5>
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body" *ngFor="let public of publics">
@@ -41,9 +43,9 @@
     <div class="card">
         <div class="card-header" id="headingThree">
             <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Thème
-            </button>
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Thème
+                </button>
             </h5>
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
@@ -60,15 +62,15 @@
     <div class="card">
         <div class="card-header" id="headingFour">
             <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                 Action
             </button>
-            </h5>
-        </div>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-            <div class="card-body" *ngFor="let action of actions">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="action-filter-{{ action.id }}">
+        </h5>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+        <div class="card-body" *ngFor="let action of actions">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="action-filter-{{ action.id }}">
                     <label class="form-check-label" for="action-filter-{{ action.id }}">
                         {{ action.actions }}
                     </label>
@@ -79,7 +81,7 @@
     <div class="card">
         <div class="card-header" id="headingFive">
             <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                 Structure
             </button>
             </h5>
@@ -98,9 +100,9 @@
     <div class="card">
         <div class="card-header" id="headingSix">
             <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Département
-            </button>
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Département
+                </button>
             </h5>
         </div>
         <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
@@ -114,4 +116,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -13,6 +13,7 @@ export interface Publication {
     theme:Theme ;
     shortDescription?:string;
     createdAtAgo:string;
+    user: User; 
 }
 export interface Need {
     need: string;
@@ -39,6 +40,7 @@ export interface UserPubComment  {
 }
 export interface User  {
     name: string;
+    firstName?: string;
 }
 export interface Comment  {
     comment: string;

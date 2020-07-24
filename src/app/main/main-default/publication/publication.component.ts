@@ -1,5 +1,5 @@
 import { Publication } from './Publication.model';
-import { PublicationsService } from '../../../services/publications.service';
+import { PublicationsService } from '../../../services/publications/publications.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 

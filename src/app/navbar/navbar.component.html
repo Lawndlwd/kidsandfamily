@@ -6,19 +6,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Accueil</a>
+                <a class="nav-link" routerLink="/">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Carte</a>
+                <a class="nav-link" routerLink="/">Carte</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Boutique</a>
+                <a class="nav-link" routerLink="/">Boutique</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Inscription</a>
+            <li class="nav-item"  *ngIf="!isAuth">
+                <a class="nav-link" routerLink="/">Inscription</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Connexion</a>
+            <li class="nav-item"  *ngIf="!isAuth">
+                <a class="nav-link" routerLink="/auth" href="#">Connexion</a>
+            </li>
+            <li class="nav-item active" *ngIf="isAuth">
+                <a class="nav-link" routerLink="/auth" (click)= "onLogOut()">log out</a>
             </li>
         </ul>
     </div>
