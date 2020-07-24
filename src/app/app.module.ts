@@ -22,7 +22,7 @@ import { FormsModule }   from '@angular/forms';
 
 
 const appRoutes: Routes = [
-  { path: 'publications', component: PublicationComponent },
+  { path: '', component: PublicationComponent },
   { path: 'publications-details/:id', component: PublicationDetailsComponent },
   { path: 'publications-filter', component: MainFiltreSelectionComponent },
   { path: 'auth', component: AuthComponent }
