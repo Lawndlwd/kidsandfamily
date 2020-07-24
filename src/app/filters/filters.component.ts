@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FiltersService } from '../services/filters/filters.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import {Router} from "@angular/router"
+import { R3TargetBinder } from '@angular/compiler';
 
 @Component({
   selector: 'app-filters',
@@ -67,29 +68,42 @@ export class FiltersComponent implements OnInit {
     this.regions = this.filtersService.getRegions();
   }
 
+  
   onCheckboxChange(e) {
     if (e.target.checked) {
       /*
-      * ajout du filtre pour dans le tableau des filtres sélectionnés
+      * ajout du filtre dans le tableau des filtres sélectionnés
       * e.target.value correspond au groupe du filtre sélectionné (ex : profil)
       * e.target.id.split(".")[1] correspond au filtre sélectionné (ex : particulier)
       */
-      this.selectFilters[e.target.value].push(e.target.id.split(".")[1]);
+      this.selectFilters[e.target.value].push((e.target.id.split(".")[1]));
+      // console.log(this.selectFilters);
 
       this.compteur++;
 
-      console.log(this.selectFilters);
     } else {
-      // retrait du filtre unchecked du tableau des filtres sélectionnés
-      this.selectFilters[e.target.value].splice(this.selectFilters[e.target.value].indexOf(e.target.id.split(".")[1]));
+      this.selectFilters[e.target.value].splice(this.selectFilters[e.target.value].indexOf(e.target.id.split(".")[1]), 1);
+      // console.log(this.selectFilters);
       
       this.compteur--;
 
-      console.log(this.selectFilters);
     }
 
+    // prépararation des paramètres à ajouter à la route ['/publications-filter']
+    let params: string = "";
+    for (let filtre in this.selectFilters) {
+      let param: string;
+      for (let i in this.selectFilters[filtre]) {
+        param = (params == "" ? "?" : "&");
+        param += filtre + i + "=" + this.selectFilters[filtre][i];
+        params += param;
+      }
+    }
+
+    // au moins un filtre est sélectionné
     if (this.compteur != 0) {
       this.router.navigate(['/publications-filter']);
+    // aucun filtre n'est sélectionné
     } else {
       this.router.navigate(['/publications']);
     }
