@@ -68,7 +68,6 @@ export class FiltersComponent implements OnInit {
     this.regions = this.filtersService.getRegions();
   }
 
-  
   onCheckboxChange(e) {
     if (e.target.checked) {
       /*
@@ -77,32 +76,23 @@ export class FiltersComponent implements OnInit {
       * e.target.id.split(".")[1] correspond au filtre sélectionné (ex : particulier)
       */
       this.selectFilters[e.target.value].push((e.target.id.split(".")[1]));
-      // console.log(this.selectFilters);
-
       this.compteur++;
-
     } else {
       this.selectFilters[e.target.value].splice(this.selectFilters[e.target.value].indexOf(e.target.id.split(".")[1]), 1);
-      // console.log(this.selectFilters);
-      
       this.compteur--;
-
     }
 
-    // prépararation des paramètres à ajouter à la route ['/publications-filter']
-    let params: string = "";
+    let params = {};
     for (let filtre in this.selectFilters) {
-      let param: string;
       for (let i in this.selectFilters[filtre]) {
-        param = (params == "" ? "?" : "&");
-        param += filtre + i + "=" + this.selectFilters[filtre][i];
-        params += param;
+        params[filtre + i] = this.selectFilters[filtre][i];
       }
     }
 
+    console.log(params);
     // au moins un filtre est sélectionné
     if (this.compteur != 0) {
-      this.router.navigate(['/publications-filter']);
+      this.router.navigate(['/publications-filter'], { queryParams: params });
     // aucun filtre n'est sélectionné
     } else {
       this.router.navigate(['/publications']);
