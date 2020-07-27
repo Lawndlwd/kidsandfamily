@@ -26,6 +26,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthGuard } from './auth/auth.guard';
 import { FiltersService } from './services/filters/filters.service';
 import { RegisterComponent } from './auth/register/register.component';
+import { ActivationComponent } from './activation/activation.component';
+import { ActivationTokenComponent } from './activation-token/activation-token.component';
 
 
 
@@ -46,7 +48,10 @@ import { RegisterComponent } from './auth/register/register.component';
     ListComponent,
     CardComponent,
     LoadingSpinnerComponent,
-    RegisterComponent
+    RegisterComponent,
+    ActivationComponent,
+    ActivationTokenComponent
+
   ],
   imports: [
     BrowserModule,
