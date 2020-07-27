@@ -95,7 +95,7 @@ export class FiltersComponent implements OnInit {
       this.router.navigate(['/publications-filter'], { queryParams: params });
     // aucun filtre n'est sélectionné
     } else {
-      this.router.navigate(['/publications']);
+      this.router.navigate(['']);
     }
   }
 }
