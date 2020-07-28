@@ -13,8 +13,8 @@
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body" *ngFor="let profil of profils">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="profil-filter-{{ profil.id }}">
-                    <label class="form-check-label" for="profil-filter-{{ profil.id }}">
+                    <input class="form-check-input" type="checkbox" value="profil" id="{{ profil.type }}.{{ profil.id }}" (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="{{ profil.type }}.{{ profil.id }}">
                         {{ profil.type }}
                     </label>
                   </div>
@@ -32,8 +32,8 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body" *ngFor="let public of publics">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="public-filter-{{ public.id }}">
-                    <label class="form-check-label" for="public-filter-{{ public.id }}">
+                    <input class="form-check-input" type="checkbox" value="public" id="{{ public.name }}.{{ public.id }}" (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="{{ public.name }}.{{ public.id }}">
                         {{ public.name }}
                     </label>
                 </div>
@@ -51,8 +51,8 @@
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body" *ngFor="let theme of themes">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="theme-filter-{{ theme.id }}">
-                    <label class="form-check-label" for="theme-filter-{{ theme.id }}">
+                    <input class="form-check-input" type="checkbox" value="theme" id="{{ theme.theme }}.{{ theme.id }}" (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="{{ theme.theme }}.{{ theme.id }}">
                         {{ theme.theme }}
                     </label>
                 </div>
@@ -65,13 +65,13 @@
                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                 Action
             </button>
-        </h5>
-    </div>
-    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-        <div class="card-body" *ngFor="let action of actions">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="action-filter-{{ action.id }}">
-                    <label class="form-check-label" for="action-filter-{{ action.id }}">
+            </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+            <div class="card-body" *ngFor="let action of actions">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="action" id="{{ action.actions }}.{{ action.id }}" (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="{{ action.actions }}.{{ action.id }}">
                         {{ action.actions }}
                     </label>
                 </div>
@@ -89,8 +89,8 @@
         <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
             <div class="card-body" *ngFor="let structure of structures">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="structure-filter-{{ structure.id }}">
-                    <label class="form-check-label" for="structure-filter-{{ structure.id }}">
+                    <input class="form-check-input" type="checkbox" value="structure" id="{{ structure.name }}.{{ structure.id }}" (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="{{ structure.name }}.{{ structure.id }}">
                         {{ structure.name }}
                     </label>
                 </div>
@@ -100,16 +100,16 @@
     <div class="card">
         <div class="card-header" id="headingSix">
             <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                    Département
-                </button>
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                Région
+            </button>
             </h5>
         </div>
         <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
             <div class="card-body" *ngFor="let region of regions">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="departement-filter-{{ region.code }}">
-                    <label class="form-check-label" for="departement-filter-{{ region.code }}">
+                    <input class="form-check-input" type="checkbox" value="region" id="{{ region.nom }}.{{ region.id }}" (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="{{ region.nom }}.{{ region.id }}">
                         {{ region.nom }}
                     </label>
                 </div>
