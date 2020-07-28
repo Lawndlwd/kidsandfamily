@@ -1,7 +1,7 @@
-import { AuthService } from './../services/auth/auth.service';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import {AuthService} from '../services/auth/auth.service';
 
 
 @Component({
@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
-  error: string =null; 
-  
+  error: string = null;
 
-  constructor(private authService: AuthService,private router: Router ){
+
+  constructor(private authService: AuthService, private router: Router ){
 
   }
 
@@ -25,24 +25,32 @@ export class AuthComponent {
     const email = form.value.username;
     const password = form.value.password;
 
-    this.isLoading =true
-    this.authService.Login(email,password).subscribe(resData =>{
-      this.isLoading =false;
-      this.router.navigate(['/'])
+    this.isLoading = true;
+    this.authService.Login(email, password).subscribe(resData => {
+      this.isLoading = false;
+      this.router.navigate(['/']);
 
-    },errorRes => {
+    }, errorRes => {
 
-      this.error = errorRes.error.message
-      this.isLoading =false
+
+      const errors = errorRes.error.message;
+      if (errors === 'Invalid credentials.'){
+        this.error = 'Les informations d\'identification invalides.';
+      }
+      else{
+
+        this.error = 'Erreur inconnue';
+      }
+      this.isLoading = false;
 
     });
 
     form.reset();
   }
-  onSubmitt(form: NgForm){
-    const place = form.value.username
-    this.authService.getCor(place).subscribe(resData=>{
-      console.log(resData);
-    })
-  }
+  // onSubmitt(form: NgForm){
+  //   const place = form.value.username
+  //   this.authService.getCor(place).subscribe(resData=>{
+  //     console.log(resData);
+  //   })
+  // }
 }

@@ -8,15 +8,15 @@ declare var L: any;
   selector: 'app-main-filtre-selection',
   templateUrl: './main-filtre-selection.component.html',
   styleUrls: ['./main-filtre-selection.component.css'],
-  
+
 })
 
 export class MainFiltreSelectionComponent implements OnInit {
- 
+
   // longitude: number = 2.2069771;
   // latitude: number = 48.8587741;
   // map: any;
-  
+
   lat:number = 48.852969;
   lon:number = 2.349903;
   macarte = null;
@@ -41,7 +41,7 @@ export class MainFiltreSelectionComponent implements OnInit {
   actions: string[] = [];
   structures: string[] = [];
   regions: string[] = [];
-  
+
 
 
   private _url: string = 'https://127.0.0.1:8000/api/publications.json?';
@@ -136,12 +136,12 @@ export class MainFiltreSelectionComponent implements OnInit {
   //     console.log(args.coordinate);
   //     var lonlat = ol.proj.transform(args.coordinate, 'EPSG:3857', 'EPSG:4326');
   //     console.log(lonlat);
-      
+
   //     var lon = lonlat[0];
   //     var lat = lonlat[1];
   //    // alert(`lat: ${lat} long: ${lon}`);
   //   });
-         
+
   // }
 
   // setCenter() {
@@ -156,35 +156,35 @@ export class MainFiltreSelectionComponent implements OnInit {
     // traitement filtre profile
     if (this.profiles.length != 0) {
       for (let i in this.profiles) {
-        this._params += "profile.type.id[]=" + this.profiles[i] + '&';
+        this._params += 'profile.type.id[]=' + this.profiles[i] + '&';
       }
     }
 
     // traitement filtre public
     if (this.publics.length != 0) {
       for (let i in this.publics) {
-        this._params += "publicCible.id[]=" + this.publics[i] + '&';
+        this._params += 'publicCible.id[]=' + this.publics[i] + '&';
       }
     }
 
     // traitement filtre theme
     if (this.themes.length != 0) {
       for (let i in this.themes) {
-        this._params += "theme.id[]=" + this.themes[i] + '&';
+        this._params += 'theme.id[]=' + this.themes[i] + '&';
       }
     }
 
     // traitement filtre action
     if (this.actions.length != 0) {
       for (let i in this.actions) {
-        this._params += "action.id[]=" + this.actions[i] + '&';
+        this._params += 'action.id[]=' + this.actions[i] + '&';
       }
     }
 
     // traitement filtre structure
     if (this.structures.length != 0) {
       for (let i in this.structures) {
-        this._params += "structure.id[]=" + this.structures[i] + '&';
+        this._params += 'structure.id[]=' + this.structures[i] + '&';
       }
     }
 

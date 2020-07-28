@@ -9,20 +9,20 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class ActivationTokenComponent implements OnInit {
   token: string;
-  id:number;
+  id: number;
 
-  constructor(private router: Router,private authService: AuthService ,private route: ActivatedRoute) { }
+  constructor(private router: Router, private authService: AuthService , private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.token = this.route.snapshot.params['token'];
-    this.id = this.route.snapshot.params['id'];
+    this.token = this.route.snapshot.params.token;
+    this.id = this.route.snapshot.params.id;
 
 
-    this.authService.checkToken(this.token,this.id).subscribe(resData=> {
+    this.authService.checkToken(this.token, this.id).subscribe(resData => {
       console.log(resData);
       if (resData){
-          this.router.navigate(['/auth'])
-      }  
+          this.router.navigate(['/auth']);
+      }
     });
   }
 }

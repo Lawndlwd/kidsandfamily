@@ -1,40 +1,43 @@
-<h3 class="shadow  py-3 bg-info text-center mt-5">Dernières Publications</h3>
+<h3 class="shadow  py-3 amber text-center mt-5">Dernières Publications</h3>
 <div class="row">
-    <div class="col-4 mt-5" *ngFor="let pub of loadedPub | paginate: {id: 'pubsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
-        <div class="card shadow-lg h-100 ">
-            <span class="card-subtitle py-2 pl-3 mb-2 ">   {{pub.user.firstName}} - {{ pub.profile.type.type }}   </span>
-            <span class="card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</span>
-            <img src="http://lorempixel.com/400/200/" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h6 class="card-title">{{pub.title}}</h6>
-                <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }}  |</span>
-                <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  |</span>
-                <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
-                <p class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</p>
-                <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
-            </div>
-        </div>
+  <div class="col-4 mt-5" *ngFor="let pub of loadedPub | paginate: {id: 'pubsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
+    <div class="card shadow-lg h-100 ">
+      <span class="card-subtitle py-2 pl-3 mb-2 ">   {{pub.user.firstName}}  </span>
+      <span class="card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</span>
+      <img src="http://lorempixel.com/400/200/" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h6 class="card-title">{{pub.title}}</h6>
+        <p class="card-subtitle mb-2 text-muted">   {{ pub.shortDescription }}  </p>
+        <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
+      </div>
+      <div class="card-footer">
+        <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
+        <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }} &nbsp;&nbsp; | &nbsp;&nbsp;</span>
+        <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  &nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</span>
+      </div>
     </div>
-    <div class="col-12 justify-content-center  mx-auto my-5">
-        <pagination-controls id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
-    </div>
+  </div>
+  <div class="col-12 justify-content-center  mx-auto my-5">
+    <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
+  </div>
 </div>
 
-<h3 class="shadow py-3 bg-info text-center mt-5 ">A La UN</h3>
+<h3 class="shadow py-3 amber text-center mt-5 ">A La UN</h3>
 <div class="row ">
-    <div class="col-4 mt-5 " *ngFor="let pub of loadedPub ">
-        <div class="card shadow-lg h-100 ">
-            <span class="card-subtitle py-2 pl-3 mb-2 ">   {{pub.user.firstName}}  </span>
-            <span class="card-subtitle py-1 pl-3 text-muted ">{{pub.createdAtAgo }}</span>
-            <img src="http://lorempixel.com/400/200/ " class="card-img-top " alt="... ">
-            <div class="card-body ">
-                <h6 class="card-title ">{{pub.title}}</h6>
-                <span class="card-subtitle mb-2 text-muted ">   {{ pub.theme.theme }}  |</span>
-                <span class="card-subtitle mb-2 text-muted ">   {{pub.action.actions}}  |</span>
-                <p class="card-subtitle mb-2 text-muted "> {{pub.publicCible.name}}</p>
-                <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
-            </div>
-        </div>
+  <div class="col-4 mt-5 " *ngFor="let pub of loadedPub ">
+    <div class="card shadow-lg h-100 ">
+      <span class="card-subtitle py-2 pl-3 mb-2 ">   {{pub.user.firstName}}  </span>
+      <span class="card-subtitle py-1 pl-3 text-muted ">{{pub.createdAtAgo }}</span>
+      <img src="http://lorempixel.com/400/200/ " class="card-img-top " alt="... ">
+      <div class="card-body ">
+        <h6 class="card-title ">{{pub.title}}</h6>
+        <span class="card-subtitle mb-2 text-muted ">   {{ pub.theme.theme }}  |</span>
+        <span class="card-subtitle mb-2 text-muted ">   {{pub.action.actions}}  |</span>
+        <p class="card-subtitle mb-2 text-muted "> {{pub.publicCible.name}}</p>
+        <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
+      </div>
     </div>
+  </div>
 </div>
 

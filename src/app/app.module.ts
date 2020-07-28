@@ -28,6 +28,7 @@ import { FiltersService } from './services/filters/filters.service';
 import { RegisterComponent } from './auth/register/register.component';
 import { ActivationComponent } from './activation/activation.component';
 import { ActivationTokenComponent } from './activation-token/activation-token.component';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 
 
@@ -61,9 +62,10 @@ import { ActivationTokenComponent } from './activation-token/activation-token.co
     BrowserAnimationsModule,
     MatButtonToggleModule,
     AppRoutingModule,
-    RecaptchaModule
+    RecaptchaModule,
+    MDBBootstrapModule.forRoot()
   ],
-  
+
   providers: [
     FiltersService,
     AuthGuard
