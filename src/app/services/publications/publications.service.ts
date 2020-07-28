@@ -34,4 +34,7 @@ export class PublicationsService {
     }))
   }
 
+  getFilteredPubs(url){
+    return this.http.get(url);
+  }
 }

@@ -82,14 +82,8 @@ export class FiltersComponent implements OnInit {
       this.compteur--;
     }
 
-    let params = {};
-    for (let filtre in this.selectFilters) {
-      for (let i in this.selectFilters[filtre]) {
-        params[filtre + i] = this.selectFilters[filtre][i];
-      }
-    }
+    let params = this.selectFilters;
 
-    console.log(params);
     // au moins un filtre est sélectionné
     if (this.compteur != 0) {
       this.router.navigate(['/publications-filter'], { queryParams: params });

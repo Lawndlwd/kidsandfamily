@@ -29,10 +29,24 @@ export class MainFiltreSelectionComponent implements OnInit {
 
   showL=false;
   showC=true;
-  loadedPublication: Publication[] =[];
+  loadedPublication = [];
   publicationId: Number ;
   NumberOfPub: Number;
   page: Number =1;
+
+  // filters params infos
+  profiles: string[] = [];
+  publics: string[] = [];
+  themes: string[] = [];
+  actions: string[] = [];
+  structures: string[] = [];
+  regions: string[] = [];
+  
+
+
+  private _url: string = 'https://127.0.0.1:8000/api/publications.json?';
+  private _params: string;
+
 
    @Output() ShowList(){
     this.showL=false;
@@ -42,22 +56,39 @@ export class MainFiltreSelectionComponent implements OnInit {
     this.showC=false;
     this.showL=true;
   }
+
   constructor(
     private pubsService : PublicationsService,
     private router: Router,
-    )
-     {
-      this.loadedPublication = new Array<any>();
-     }
+    private route: ActivatedRoute
+  ) {
+    this.loadedPublication = new Array<any>();
+  }
 
   ngOnInit(): void {
-    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1')
-    .subscribe(publications =>{
-      this.loadedPublication = publications; 
-      this.NumberOfPub=this.loadedPublication.length;   
+    // récupération des paramètres de la requête
+    this.route.queryParams.subscribe(params => {
+      this.profiles = params['profil'];
+      this.publics = params['public'];
+      this.themes = params['theme'];
+      this.actions = params['action'];
+      this.structures = params['structure'];
+      this.regions = params['region'];
+
+      this._params = '';
+      this.loadedPublication = [];
+
+      this.createRequestParams();
+
+      this.pubsService.getFilteredPubs(this._url + this._params)
+        .subscribe(publications => {
+          for (let i in publications) {
+          this.loadedPublication.push(publications[i]);
+          this.NumberOfPub=this.loadedPublication.length;
+        }
+      });
     });
 
-    
     this.macarte = L.map('map').setView([this.lat, this.lon], 6);
 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
@@ -119,5 +150,44 @@ export class MainFiltreSelectionComponent implements OnInit {
   //   view.setZoom(8);
 
 
+  }
+
+  createRequestParams() {
+    // traitement filtre profile
+    if (this.profiles.length != 0) {
+      for (let i in this.profiles) {
+        this._params += "profile.type.id[]=" + this.profiles[i] + '&';
+      }
+    }
+
+    // traitement filtre public
+    if (this.publics.length != 0) {
+      for (let i in this.publics) {
+        this._params += "publicCible.id[]=" + this.publics[i] + '&';
+      }
+    }
+
+    // traitement filtre theme
+    if (this.themes.length != 0) {
+      for (let i in this.themes) {
+        this._params += "theme.id[]=" + this.themes[i] + '&';
+      }
+    }
+
+    // traitement filtre action
+    if (this.actions.length != 0) {
+      for (let i in this.actions) {
+        this._params += "action.id[]=" + this.actions[i] + '&';
+      }
+    }
+
+    // traitement filtre structure
+    if (this.structures.length != 0) {
+      for (let i in this.structures) {
+        this._params += "structure.id[]=" + this.structures[i] + '&';
+      }
+    }
+
+    // ajouter traitement du filtre region après ajout du champen base de données
   }
 }
