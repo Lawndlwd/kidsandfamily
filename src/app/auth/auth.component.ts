@@ -26,17 +26,23 @@ export class AuthComponent {
     const password = form.value.password;
 
     this.isLoading =true
-      this.authService.Login(email,password).subscribe(resData =>{
-        this.isLoading =false;
-        this.router.navigate(['/'])
-  
-      },errorRes => {
-  
-        this.error = errorRes.error.message
-        this.isLoading =false
-  
-      });
+    this.authService.Login(email,password).subscribe(resData =>{
+      this.isLoading =false;
+      this.router.navigate(['/'])
+
+    },errorRes => {
+
+      this.error = errorRes.error.message
+      this.isLoading =false
+
+    });
 
     form.reset();
+  }
+  onSubmitt(form: NgForm){
+    const place = form.value.username
+    this.authService.getCor(place).subscribe(resData=>{
+      console.log(resData);
+    })
   }
 }

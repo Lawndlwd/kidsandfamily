@@ -8,33 +8,94 @@
         </div>
         <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
             <div class="form-group ">
+                
                 <label for="Nom">Nom</label>
-                <input type="text" id="Nom " class="form-control " ngModel name= LastName  required minlength="2 " />
+                <input type="text" id="Nom " class="form-control " ngModel name= LastName  required minlength="2 " #LastName="ngModel"/>
+
+
+                <div *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)" >
+                    <div class="text-danger" *ngIf="LastName.errors.required">
+                        Name is required.
+                    </div>
+                    <div class="text-danger" *ngIf="LastName.errors.minlength">
+                        Name must be at least 2 characters long.
+                    </div>
+                </div>
+
             </div>
+
+
             <div class="form-group ">
+
                 <label for="Prenom">Prénom</label>
-                <input type="text" id="Prenom " class="form-control " ngModel name=firstName  required minlength="2 " />
+                <input type="text" id="Prenom " class="form-control " ngModel name=firstName  required minlength="2" #firstName="ngModel" />
+                
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" >
+                    <div class="text-danger" *ngIf="firstName.errors.required">
+                        First Name is required
+                    </div>
+                    <div class="text-danger" *ngIf="firstName.errors.minlength">
+                        First Name must be at least 2 characters long.
+                    </div>
+                </div>
+            
             </div>
+           
+           
             <div class="form-group">
                 <label for="email">E-Mail</label>
-                <input type="email" id="email" class="form-control" ngModel name= email required email  />
+                <input type="email" id="email" class="form-control" ngModel name= email required email #email="ngModel"  />
+
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" >
+                    <div class="text-danger" *ngIf="email.errors.required">
+                        Email is required
+                    </div>
+                    <div class="text-danger" *ngIf="email.errors.email">
+                        Email must be a valid email address
+                    </div>
+                </div>
+
+
             </div>
             <div class="form-group ">
                 <label for="password">Password</label>
-                <input type="password" id="password " class="form-control " ngModel name= password  required minlength="6 " />
+                <input type="password" id="password " class="form-control " ngModel name= password pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$"  required minlength="8 "#password="ngModel" />
+
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" >
+                    <div class="text-danger" *ngIf="password.errors.required">
+                        Password is required
+                    </div>
+                    <div class="text-danger text-muted" *ngIf="password.errors.pattern">
+                        <p>Password must be at least: 
+                        <br>8 characters
+                        <br>one capital letter
+                        <br> number</p>
+
+                    </div>
+                </div>
+
             </div>
             <div class="form-group ">
                 <label for="rePassword"> Confirm Password</label>
-                <input type="password" id="rePassword " class="form-control " ngModel name= rePassword  required minlength="6 " />
+                <input type="password" id="rePassword " class="form-control " ngModel  name= rePassword pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$"  required minlength="8 "#rePassword="ngModel" />
+                <div *ngIf="rePassword.invalid && (rePassword.dirty || rePassword.touched) " >
+                    <div class="text-danger" *ngIf="rePassword.errors.required">
+                        Confirm Password is required
+                    </div>
+                    <div class="text-danger" *ngIf="rePassword.value !==  password.value"></div>
+                </div>
             </div>
-            <div class="recaptcha">
-                <re-captcha (resolved)= "resolved($event)" siteKey="6Lcxn7UZAAAAAKGwv5QvzhwYi-mBF0wqJMyeFyKq"></re-captcha> 
+            <div class="mb-2 form-group ">
+                <re-captcha (resolved)= "resolved($event)" siteKey="6Lcxn7UZAAAAAKGwv5QvzhwYi-mBF0wqJMyeFyKq" required></re-captcha> 
             </div>
             <div>
-                <button class="btn btn-primary " type="submit " [disabled]="!authForm.valid " >
+                <button class="btn btn-primary " type="submit " [disabled]="!authForm.valid || !submitCaptcha " >
           {{'Sign UP'}}
         </button> 
             </div>
         </form>
     </div>
 </div>
+
+
