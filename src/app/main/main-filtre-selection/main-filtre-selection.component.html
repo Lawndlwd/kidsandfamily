@@ -1,29 +1,20 @@
 
-<div class="row">
-  <div class="col-2">
-    <app-filters></app-filters>
-  </div>
-  <div class="col-9">
-    <h3 class="shadow  py-3 text-center mt-5">Filtre 1</h3>
-  <div class="row my-4  justify-content-center mr-5">
-    
-    <div class="col-md-6 text-center">
+    <h3 class="shadow  py-3 amber text-center mt-5">Publications filtrées</h3>
+    <div class="row my-4  justify-content-center mr-5">
+      <div class="col-md-6 text-center">
+      <mat-button-toggle-group name="condition" aria-label="condition">
+          <mat-button-toggle value="Liste" (click)="ShowList()"  class="mat-button-toggle-label-content" checked>
+            Liste
+          </mat-button-toggle>
+          <mat-button-toggle value="Carte" (click)="ShowCard()"  class="mat-button-toggle-label-content">
+            Carte
+          </mat-button-toggle>
       
-     
-        <mat-button-toggle-group name="condition" aria-label="condition">
-            <mat-button-toggle value="Liste" (click)="ShowList()"  class="mat-button-toggle-label-content" checked>
-              Liste
-            </mat-button-toggle>
-            <mat-button-toggle value="Carte" (click)="ShowCard()"  class="mat-button-toggle-label-content">
-              Carte
-            </mat-button-toggle>
-       
-          </mat-button-toggle-group>
-          
+        </mat-button-toggle-group>
+      </div>
     </div>
-</div>
 
-<div [hidden]="showC" class="shadow  py-3 text-center mt-5">
+    <div [hidden]="showC" class="shadow  py-3 text-center mt-5">
 
   <!-- <div>
     <div>
@@ -37,7 +28,7 @@
     <button (click)="setCenter()">Go</button>
 </div>
 <br> -->
-<div id="map" ></div>
+    <div id="map" ></div>
 <!-- <div id="mouse-position"></div>
 
  <script type="text/javascript">
@@ -88,4 +79,3 @@ initMap();
   <div class="col-12 justify-content-center  mx-auto my-5">
       <pagination-controls id="publicationsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
   </div>
-</div>
