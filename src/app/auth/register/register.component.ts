@@ -10,26 +10,23 @@ import { NgForm } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  submitCaptcha: boolean = false;
-  isLoginMode = true;
+  submitCaptcha = false;
   isLoading = false;
-  error: string =null; 
-  recaptcha:any[];
-  passworde='';
-  rePassworde= '';
-  samePassworde: boolean= true;
+  error: string = null;
+  recaptcha: any[];
 
-  @ViewChild('authForm') signUpForm : NgForm;
+  @ViewChild('authForm') signUpForm: NgForm;
 
-  constructor(private authService: AuthService,private router: Router ){
+  constructor(private authService: AuthService, private router: Router ){
 
   }
 
   ngOnInit(): void {
   }
 
-  
 
+
+  // tslint:disable-next-line:typedef
   resolved(captchaResponse: any[]){
     this.recaptcha = captchaResponse;
     if (this.recaptcha){
@@ -37,6 +34,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  // tslint:disable-next-line:typedef
   onSubmit() {
     if (!this.signUpForm.valid){
       return;
@@ -46,35 +44,37 @@ export class RegisterComponent implements OnInit {
     const rePassword = this.signUpForm.value.rePassword;
     const lName = this.signUpForm.value.LastName;
     const fName = this.signUpForm.value.firstName;
-    console.log(this.signUpForm.value)
+    console.log(this.signUpForm.value);
     if (password !== rePassword){
-      this.error = 'the two password does not match'
+      this.error = 'the two password does not match';
     }else{
 
-      
-      this.isLoading =true
-      this.authService.signUp(fName, lName,email,password).subscribe(resData =>{
-        this.authService.sendActivation(resData.id).subscribe(resData =>{
-          this.isLoading =false;
-          this.router.navigate(['/activateAccount'])
-    
-        });        
-      },errorRes => {
+
+      this.isLoading = true;
+      this.authService.signUp(fName, lName, email, password).subscribe(resData => {
+        // tslint:disable-next-line:no-shadowed-variable
+        this.authService.sendActivation(resData.id).subscribe(resData => {
+          this.isLoading = false;
+          this.router.navigate(['/activateAccount']);
+
+        });
+      }, errorRes => {
+        // tslint:disable-next-line:triple-equals
         if (errorRes.error['hydra:description'] == 'email: This value is already used.'){
 
-          this.error = 'cette email est deja exist';
+          this.error = 'email: Cette valeur est déjà utilisée.';
         }else{
 
-          this.error = 'error';
+          this.error = 'Erreur inconnue';
         }
         console.log(errorRes);
-        this.isLoading =false
-        
+        this.isLoading = false;
+
       });
-      
+
     }
-    this.signUpForm.controls['password'].reset();
-    this.signUpForm.controls['rePassword'].reset();
+    this.signUpForm.controls.password.reset();
+    this.signUpForm.controls.rePassword.reset();
   }
 
 }
