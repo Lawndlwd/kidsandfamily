@@ -28,6 +28,8 @@ import { FiltersService } from './services/filters/filters.service';
 import { RegisterComponent } from './auth/register/register.component';
 import { ActivationComponent } from './activation/activation.component';
 import { ActivationTokenComponent } from './activation-token/activation-token.component';
+import { from } from 'rxjs';
+import { AuthService } from './services/auth/auth.service';
 
 
 
@@ -66,7 +68,8 @@ import { ActivationTokenComponent } from './activation-token/activation-token.co
   
   providers: [
     FiltersService,
-    AuthGuard
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

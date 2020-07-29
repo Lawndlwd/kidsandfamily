@@ -58,10 +58,12 @@ export class AuthService {
     }
 
   }
+
+
   getCor(email){
     const key:string = 'dad06ede9d99985348d1d5801c524a52';
     const limit:number= 1;
-    return this.http.get('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+email+'&limit=1')
+    return this.http.get('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+email+'&limit=1');
                         //http://api.positionstack.com/v1/forward?
                         //access_key=dad06ede9d99985348d1d5801c524a52
                         //&query=1600%20Pennsylvania%20Ave%20NW,%20Washington%20DC
