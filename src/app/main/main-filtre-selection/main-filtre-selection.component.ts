@@ -4,9 +4,10 @@ import { PublicationsService } from '../../services/publications/publications.se
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { NgForm } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-// declare var ol: any;
+import { HttpClient, XhrFactory } from '@angular/common/http';
+import { Xliff2 } from '@angular/compiler';
 declare var L: any;
+declare var pubs: any;
 
 
 @Component({
@@ -17,30 +18,11 @@ declare var L: any;
 })
 
 export class MainFiltreSelectionComponent implements OnInit {
- 
-  // longitude: number = 2.2069771;
-  // latitude: number = 48.8587741;
-  // map: any;
-  // lat:number = 48.852969;
-  // lon:number = 2.349903;
-  // macarte = null;
-  villes = {
-    "Paris": { "lat": 48.852969, "lon": 2.349903 },
-    "Brest": { "lat": 48.383, "lon": -4.500 },
-    "Quimper": { "lat": 48.000, "lon": -4.100 },
-    "Bayonne": { "lat": 43.500, "lon": -1.467 },
-    "Mureaux": { "lat": 48.9749837, "lon": 1.9161322},
-    "redone": { "lat": 9.89865144, "lon": 2.2145973}
-            };
             
   showL=false;
   showC=true;
   loadedPublication: Publication[] =[];
-  publicationId: Number ;
-  NumberOfPub: Number;
   page: Number =1;
-
-  
 
    @Output() ShowList(){
     this.showL=false;
@@ -50,11 +32,12 @@ export class MainFiltreSelectionComponent implements OnInit {
     this.showC=false;
     this.showL=true;
   }
-  constructor( private http: HttpClient, private pubsService : PublicationsService,private router: Router)
+  constructor(
+     private http: HttpClient,
+     private pubsService : PublicationsService,
+     private router: Router)
      {
       this.loadedPublication = new Array<any>();
-     
-      
      }
   
 
@@ -65,39 +48,48 @@ export class MainFiltreSelectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var macarte = L.map('map').setView([48.8587741, 2.2069771],6);
 
+    var macarte = L.map('map').setView([48.8587741, 2.2069771],5);
+    var markers = [];
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
       attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
       minZoom: 1,
       maxZoom: 20
     }).addTo(macarte);
 
-    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1')
-    .subscribe(publications =>{
-      this.loadedPublication = publications; 
-      this.NumberOfPub=this.loadedPublication.length; 
+    var markerClusters = L.markerClusterGroup();
 
-      for(var key in this.loadedPublication) {
-
-        var publication = this.loadedPublication[key];
-        let adresse = publication.profile.numVoie+' '+publication.profile.nameVoie+' '+publication.profile.codePostal +' '+
-        publication.profile.city +' '+publication.profile.country
-        this.getCor(adresse).subscribe(data=>{
+    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').subscribe(publications =>{
+    this.loadedPublication = publications;
+    let x = this.loadedPublication.length; 
+    
+    for (let key = 0; key < this.loadedPublication.length; key++) {
       
+      var publication = this.loadedPublication[key];
+      
+      let adresse = publication.profile.numVoie+' '+publication.profile.nameVoie+' '+publication.profile.codePostal +' '+
+      publication.profile.city +' '+publication.profile.country;
+
+       
+      
+      var pubDetails = "<strong>"+publication.user.firstName +"</strong><br>" + publication.title + "<br>" +
+      publication.action.actions +"<br><a  href='/publications-details/"+publication.id+"'>"+"Voir le détail</a>";
+       console.log(pubDetails);
+        this.getCor(adresse).subscribe(data=>
+          {
          if (Object.keys(data.data[0]).length !== 0) {
-
-          console.log(data.data[0].latitude, data.data[0].longitude);
             var marker = L.marker([data.data[0].latitude, data.data[0].longitude]).addTo(macarte);
-
+           
+             marker.bindPopup(pubDetails);
             
-            marker.bindPopup(data.data[0]);
+             markerClusters.addLayer(marker);
+             markers.push(marker);
          }
         
-        });     
+         });  
+         macarte.addLayer(markerClusters);   
      }
-    
-      
+
     });
     
   }

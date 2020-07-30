@@ -30,7 +30,11 @@ export class PublicationComponent implements OnInit {
       this.loadedPub = publications; 
       this.NumberOfPub=this.loadedPub.length;   
     });
-  
+    
+    for(let i = 0; i < this.NumberOfPub; i++){
+      console.log(this.loadedPub[i]);
+    }
+    
   }
 
  
