@@ -32,7 +32,7 @@ export class MainFiltreSelectionComponent implements OnInit {
     "Mureaux": { "lat": 48.9749837, "lon": 1.9161322},
     "redone": { "lat": 9.89865144, "lon": 2.2145973}
             };
-            
+
   showL=false;
   showC=true;
   loadedPublication = [];
@@ -72,7 +72,7 @@ export class MainFiltreSelectionComponent implements OnInit {
     this.loadedPublication = new Array<any>();
   }
 
- 
+
 
   ngOnInit(): void {
     // récupération des paramètres de la requête
@@ -106,34 +106,33 @@ export class MainFiltreSelectionComponent implements OnInit {
       maxZoom: 20
     }).addTo(macarte);
 
-    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1')
-    .subscribe(publications =>{
-      this.loadedPublication = publications; 
-      this.NumberOfPub=this.loadedPublication.length; 
-
-      for(var key in this.loadedPublication) {
-
-        var publication = this.loadedPublication[key];
-        let adresse = publication.profile.numVoie+' '+publication.profile.nameVoie+' '+publication.profile.codePostal +' '+
-        publication.profile.city +' '+publication.profile.country
-        this.getCor(adresse).subscribe(data=>{
-      
-         if (Object.keys(data.data[0]).length !== 0) {
-
-          console.log(data.data[0].latitude, data.data[0].longitude);
-            var marker = L.marker([data.data[0].latitude, data.data[0].longitude]).addTo(macarte);
-
-            
-            marker.bindPopup(data.data[0]);
-         }
-        
-        });     
-     }
-    
-      
-    });
-    
-  }
+  //   this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1')
+  //   .subscribe(publications =>{
+  //     this.loadedPublication = publications;
+  //     this.NumberOfPub=this.loadedPublication.length;
+  //
+  //     for(var key in this.loadedPublication) {
+  //
+  //       var publication = this.loadedPublication[key];
+  //       let adresse = publication.profile.numVoie+' '+publication.profile.nameVoie+' '+publication.profile.codePostal +' '+
+  //       publication.profile.city +' '+publication.profile.country
+  //       this.getCor(adresse).subscribe(data=>{
+  //
+  //        if (Object.keys(data.data[0]).length !== 0) {
+  //
+  //         console.log(data.data[0].latitude, data.data[0].longitude);
+  //           var marker = L.marker([data.data[0].latitude, data.data[0].longitude]).addTo(macarte);
+  //
+  //
+  //           marker.bindPopup(data.data[0]);
+  //        }
+  //
+  //       });
+  //    }
+  //
+  //
+  //   });
+   }
 
   getCor(email){
     const key:string = 'dad06ede9d99985348d1d5801c524a52';
