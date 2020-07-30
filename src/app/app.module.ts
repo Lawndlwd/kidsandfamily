@@ -28,6 +28,7 @@ import { FiltersService } from './services/filters/filters.service';
 import { RegisterComponent } from './auth/register/register.component';
 import { ActivationComponent } from './activation/activation.component';
 import { ActivationTokenComponent } from './activation-token/activation-token.component';
+import { AuthService } from './services/auth/auth.service';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ProfileComponent} from './profile/profile.component';
 import {MyInfoComponent} from './profile/my-info/my-info.component';
@@ -72,7 +73,8 @@ import {MyInfoComponent} from './profile/my-info/my-info.component';
 
   providers: [
     FiltersService,
-    AuthGuard
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
