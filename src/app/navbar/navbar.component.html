@@ -1,28 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Kids and Falily</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/">Accueil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/">Carte</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/">Boutique</a>
-            </li>
-            <li class="nav-item"  *ngIf="!isAuth">
-                <a class="nav-link" routerLink="/">Inscription</a>
-            </li>
-            <li class="nav-item"  *ngIf="!isAuth">
-                <a class="nav-link" routerLink="/auth" href="#">Connexion</a>
-            </li>
-            <li class="nav-item active" *ngIf="isAuth">
-                <a class="nav-link" routerLink="/auth" (click)= "onLogOut()">log out</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<mdb-navbar class="navbar navbar-expand-lg navbar-light  amber ">
+  <mdb-navbar-brand><a class="navbar-brand" href="#">Kids and Falily</a></mdb-navbar-brand>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link waves-light" routerLink="/publications">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" href="#">Carte</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" href="#">Boutique</a>
+      </li>
+      <li class="nav-item"  *ngIf="!isAuth">
+        <a class="nav-link waves-light" routerLink="/inscription">Inscription</a>
+      </li>
+      <li class="nav-item"  *ngIf="!isAuth">
+        <a class="nav-link waves-light" routerLink="/auth" href="#">Connexion</a>
+      </li>
+      <li class="nav-item active" *ngIf="isAuth">
+        <a class="nav-link waves-light" routerLink="/auth" (click)= "onLogOut()">log out</a>
+      </li>
+    </ul>
+  </div>
+</mdb-navbar>

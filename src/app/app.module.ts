@@ -26,6 +26,10 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthGuard } from './auth/auth.guard';
 import { FiltersService } from './services/filters/filters.service';
 import { RegisterComponent } from './auth/register/register.component';
+import { ActivationComponent } from './activation/activation.component';
+import { ActivationTokenComponent } from './activation-token/activation-token.component';
+import { AuthService } from './services/auth/auth.service';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 
 
@@ -46,7 +50,10 @@ import { RegisterComponent } from './auth/register/register.component';
     ListComponent,
     CardComponent,
     LoadingSpinnerComponent,
-    RegisterComponent
+    RegisterComponent,
+    ActivationComponent,
+    ActivationTokenComponent
+
   ],
   imports: [
     BrowserModule,
@@ -56,12 +63,14 @@ import { RegisterComponent } from './auth/register/register.component';
     BrowserAnimationsModule,
     MatButtonToggleModule,
     AppRoutingModule,
-    RecaptchaModule
+    RecaptchaModule,
+    MDBBootstrapModule.forRoot()
   ],
-  
+
   providers: [
     FiltersService,
-    AuthGuard
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

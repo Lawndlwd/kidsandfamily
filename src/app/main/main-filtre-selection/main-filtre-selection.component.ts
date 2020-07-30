@@ -2,31 +2,37 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Publication } from '../main-default/publication/Publication.model';
 import { PublicationsService } from '../../services/publications/publications.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 // declare var ol: any;
 declare var L: any;
+
+
 @Component({
   selector: 'app-main-filtre-selection',
   templateUrl: './main-filtre-selection.component.html',
   styleUrls: ['./main-filtre-selection.component.css'],
-  
+
 })
 
 export class MainFiltreSelectionComponent implements OnInit {
- 
+
   // longitude: number = 2.2069771;
   // latitude: number = 48.8587741;
   // map: any;
-  
-  lat:number = 48.852969;
-  lon:number = 2.349903;
-  macarte = null;
+  // lat:number = 48.852969;
+  // lon:number = 2.349903;
+  // macarte = null;
   villes = {
     "Paris": { "lat": 48.852969, "lon": 2.349903 },
     "Brest": { "lat": 48.383, "lon": -4.500 },
     "Quimper": { "lat": 48.000, "lon": -4.100 },
-    "Bayonne": { "lat": 43.500, "lon": -1.467 }
+    "Bayonne": { "lat": 43.500, "lon": -1.467 },
+    "Mureaux": { "lat": 48.9749837, "lon": 1.9161322},
+    "redone": { "lat": 9.89865144, "lon": 2.2145973}
             };
-
+            
   showL=false;
   showC=true;
   loadedPublication = [];
@@ -41,7 +47,7 @@ export class MainFiltreSelectionComponent implements OnInit {
   actions: string[] = [];
   structures: string[] = [];
   regions: string[] = [];
-  
+
 
 
   private _url: string = 'https://127.0.0.1:8000/api/publications.json?';
@@ -60,10 +66,13 @@ export class MainFiltreSelectionComponent implements OnInit {
   constructor(
     private pubsService : PublicationsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {
     this.loadedPublication = new Array<any>();
   }
+
+ 
 
   ngOnInit(): void {
     // récupération des paramètres de la requête
@@ -88,106 +97,88 @@ export class MainFiltreSelectionComponent implements OnInit {
         }
       });
     });
-
-    this.macarte = L.map('map').setView([this.lat, this.lon], 6);
+     var macarte = L.map('map').setView([48.8587741, 2.2069771],6);
+    // this.macarte = L.map('map').setView([this.lat, this.lon], 6);
 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-      // Il est toujours bien de laisser le lien vers la source des données
       attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
       minZoom: 1,
       maxZoom: 20
-    }).addTo(this.macarte);
+    }).addTo(macarte);
 
-    for (let ville in this.villes) {
-      var marker = L.marker([this.villes[ville].lat, this.villes[ville].lon]).addTo(this.macarte);
-          marker.bindPopup(ville);
-     }
-  //   var mousePositionControl = new ol.control.MousePosition({
-  //     // coordinateFormat: ol.coordinate.createStringXY(4),
-  //     // projection: 'EPSG:4326',
-  //     // comment the following two lines to have the mouse position
-  //     // be placed within the map.
-  //     className: 'custom-mouse-position',
-  //     target: document.getElementById('mouse-position'),
-  //     undefinedHTML: '&nbsp;'
-  //   });
+    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1')
+    .subscribe(publications =>{
+      this.loadedPublication = publications; 
+      this.NumberOfPub=this.loadedPublication.length; 
 
-  //   this.map = new ol.Map({
-  //     target: 'map',
-  //     controls: ol.control.defaults({
-  //       attributionOptions: {
-  //         collapsible: false
-  //       }
-  //     }).extend([mousePositionControl]),
-  //     layers: [
-  //       new ol.layer.Tile({
-  //         source: new ol.source.OSM()
-  //       })
-  //     ],
-  //     view: new ol.View({
-  //       center: ol.proj.fromLonLat([2.2069771,48.8587741]),
-  //       zoom: 11,
-  //       minzoom:1,
-  //       maxzoom:20
-  //     })
-  //   });
+      for(var key in this.loadedPublication) {
 
-  //   this.map.on('click', function (args) {
-  //     console.log(args.coordinate);
-  //     var lonlat = ol.proj.transform(args.coordinate, 'EPSG:3857', 'EPSG:4326');
-  //     console.log(lonlat);
+        var publication = this.loadedPublication[key];
+        let adresse = publication.profile.numVoie+' '+publication.profile.nameVoie+' '+publication.profile.codePostal +' '+
+        publication.profile.city +' '+publication.profile.country
+        this.getCor(adresse).subscribe(data=>{
       
-  //     var lon = lonlat[0];
-  //     var lat = lonlat[1];
-  //    // alert(`lat: ${lat} long: ${lon}`);
-  //   });
-         
-  // }
+         if (Object.keys(data.data[0]).length !== 0) {
 
-  // setCenter() {
-  //   var view = this.map.getView();
-  //   view.setCenter(ol.proj.fromLonLat([this.longitude, this.latitude]));
-  //   view.setZoom(8);
+          console.log(data.data[0].latitude, data.data[0].longitude);
+            var marker = L.marker([data.data[0].latitude, data.data[0].longitude]).addTo(macarte);
 
+            
+            marker.bindPopup(data.data[0]);
+         }
+        
+        });     
+     }
+    
+      
+    });
+    
+  }
 
+  getCor(email){
+    const key:string = 'dad06ede9d99985348d1d5801c524a52';
+    const limit:number= 1;
+    return this.http.get('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+email+'&limit=1');
   }
 
   createRequestParams() {
     // traitement filtre profile
     if (this.profiles.length != 0) {
       for (let i in this.profiles) {
-        this._params += "profile.type.id[]=" + this.profiles[i] + '&';
+        this._params += 'profile.type.id[]=' + this.profiles[i] + '&';
       }
     }
 
     // traitement filtre public
     if (this.publics.length != 0) {
       for (let i in this.publics) {
-        this._params += "publicCible.id[]=" + this.publics[i] + '&';
+        this._params += 'publicCible.id[]=' + this.publics[i] + '&';
       }
     }
 
     // traitement filtre theme
     if (this.themes.length != 0) {
       for (let i in this.themes) {
-        this._params += "theme.id[]=" + this.themes[i] + '&';
+        this._params += 'theme.id[]=' + this.themes[i] + '&';
       }
     }
 
     // traitement filtre action
     if (this.actions.length != 0) {
       for (let i in this.actions) {
-        this._params += "action.id[]=" + this.actions[i] + '&';
+        this._params += 'action.id[]=' + this.actions[i] + '&';
       }
     }
 
     // traitement filtre structure
     if (this.structures.length != 0) {
       for (let i in this.structures) {
-        this._params += "structure.id[]=" + this.structures[i] + '&';
+        this._params += 'structure.id[]=' + this.structures[i] + '&';
       }
     }
 
     // ajouter traitement du filtre region après ajout du champen base de données
   }
+
+
 }

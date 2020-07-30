@@ -7,13 +7,15 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 export class AuthResponseData {
-  token: string
+  token?: string
+  activation_token?: string
 }
 export class RegResponseData {
+   id?:number;
    email: string;
    password: string;
-   LastName:  string ;
-   firstName:  string ;
+   LastName?:  string ;
+   firstName?:  string ;
   }
 
 
@@ -57,6 +59,16 @@ export class AuthService {
 
   }
 
+
+  getCor(email){
+    const key:string = 'dad06ede9d99985348d1d5801c524a52';
+    const limit:number= 1;
+    return this.http.get('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+email+'&limit=1');
+                        //http://api.positionstack.com/v1/forward?
+                        //access_key=dad06ede9d99985348d1d5801c524a52
+                        //&query=1600%20Pennsylvania%20Ave%20NW,%20Washington%20DC
+  }
+
   autoLogOut(){
     let expDate:number = 3600*1000 
 
@@ -85,6 +97,16 @@ export class AuthService {
       LastName: lName
     }
     );
+  }
+
+
+  sendActivation(id){
+    return this.http.put<AuthResponseData>('https://127.0.0.1:8000/api/'+id+'/register',{}
+    )
+  }
+
+  checkToken(token,id){
+    return this.http.get<RegResponseData>('https://127.0.0.1:8000/api/'+id+'/register/'+token)
   }
 }
 

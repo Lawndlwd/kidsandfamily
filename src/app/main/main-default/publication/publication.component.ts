@@ -10,15 +10,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./publication.component.css']
 })
 export class PublicationComponent implements OnInit {
-  loadedPub: Publication[] =[];
-  publicationId: Number ;
-  NumberOfPub: Number;
-  page: Number =1;
+  loadedPub: Publication[] = [];
+  publicationId: number ;
+  NumberOfPub: number;
+  page = 1;
 
 
 
   constructor(
-    private pubsService : PublicationsService,
+    private pubsService: PublicationsService,
     private router: Router,
     ) {
       this.loadedPub = new Array<any>();
@@ -26,17 +26,17 @@ export class PublicationComponent implements OnInit {
 
   ngOnInit(): void {
     this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1')
-    .subscribe(publications =>{
-      this.loadedPub = publications; 
-      this.NumberOfPub=this.loadedPub.length;   
+    .subscribe(publications => {
+      this.loadedPub = publications;
+      this.NumberOfPub = this.loadedPub.length;
     });
-  
+
   }
 
- 
+
   // enDtails(){
   //       this.router.navigate(['/publications-details/]);
   //       this.ngOnInit()
   //     }
-  
+
 }

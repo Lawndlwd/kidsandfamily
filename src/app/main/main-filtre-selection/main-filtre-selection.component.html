@@ -1,23 +1,20 @@
-<h3 class="shadow  py-3 text-center mt-5">Filtre 1</h3>
-  <div class="row my-4  justify-content-center mr-5">
-    
-    <div class="col-md-6 text-center">
-      
-     
-        <mat-button-toggle-group name="condition" aria-label="condition">
-            <mat-button-toggle value="Liste" (click)="ShowList()"  class="mat-button-toggle-label-content" checked>
-              Liste
-            </mat-button-toggle>
-            <mat-button-toggle value="Carte" (click)="ShowCard()"  class="mat-button-toggle-label-content">
-              Carte
-            </mat-button-toggle>
-       
-          </mat-button-toggle-group>
-          
-    </div>
-</div>
 
-<div [hidden]="showC" class="shadow  py-3 text-center mt-5">
+    <h3 class="shadow  py-3 amber text-center mt-5">Publications filtrées</h3>
+    <div class="row my-4  justify-content-center mr-5">
+      <div class="col-md-6 text-center">
+      <mat-button-toggle-group name="condition" aria-label="condition">
+          <mat-button-toggle value="Liste" (click)="ShowList()"  class="mat-button-toggle-label-content" checked>
+            Liste
+          </mat-button-toggle>
+          <mat-button-toggle value="Carte" (click)="ShowCard()"  class="mat-button-toggle-label-content">
+            Carte
+          </mat-button-toggle>
+      
+        </mat-button-toggle-group>
+      </div>
+    </div>
+
+    <div [hidden]="showC" class="shadow  py-3 text-center mt-5">
 
   <!-- <div>
     <div>
@@ -31,7 +28,7 @@
     <button (click)="setCenter()">Go</button>
 </div>
 <br> -->
-<div id="map" ></div>
+    <div id="map" ></div>
 <!-- <div id="mouse-position"></div>
 
  <script type="text/javascript">
@@ -63,7 +60,7 @@ initMap();
 
 <br>
 
-<div [hidden]="showL"  class="row justify-content-end mr-5">
+<div [hidden]="showL"  class="row mr-5">
   <div class="col-4 mt-5" *ngFor="let pub of loadedPublication | paginate: {id: 'publicationsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
       <div class="card shadow-lg h-100">
           <span class="card-subtitle py-2 pl-3 mb-2 text-muted">   {{pub.user.firstName}} - {{ pub.profile.type.type }}  </span>
@@ -71,15 +68,17 @@ initMap();
           <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
           <div class="card-body">
               <h6 class="card-title">{{pub.title}}</h6>
-              <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }}  |</span>
-              <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  |</span>
               <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
-              <p class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</p>
               <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
+          </div>
+          <div class="card-footer">
+            <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
+            <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }} &nbsp;&nbsp; | &nbsp;&nbsp;</span>
+            <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  &nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <span class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</span>
           </div>
       </div>
   </div>
   <div class="col-12 justify-content-center  mx-auto my-5">
       <pagination-controls id="publicationsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
   </div>
-</div>
