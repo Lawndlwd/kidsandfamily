@@ -34,7 +34,7 @@ const appRoutes: Routes = [
  {
     path: 'mon-compte', component: ProfileComponent, canActivate: [AuthGuard], children: [
       {path: '', component: MyInfoComponent, canActivate: [AuthGuard]},
-      // { path: 'activateAccount', component: ActivationComponent},
+       { path: 'a', component: RegisterComponent},
       // { path: 'activateAccount', component: ActivationComponent},
       // { path: 'activateAccount', component: ActivationComponent},
     ]

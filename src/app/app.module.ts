@@ -32,6 +32,7 @@ import { AuthService } from './services/auth/auth.service';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ProfileComponent} from './profile/profile.component';
 import {MyInfoComponent} from './profile/my-info/my-info.component';
+import { ProfileFilterComponent } from './profile/profile-filter/profile-filter.component';
 
 
 
@@ -56,7 +57,8 @@ import {MyInfoComponent} from './profile/my-info/my-info.component';
     ActivationComponent,
     ActivationTokenComponent,
     ProfileComponent,
-    MyInfoComponent
+    MyInfoComponent,
+    ProfileFilterComponent
 
   ],
     imports: [

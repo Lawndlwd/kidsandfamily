@@ -41,7 +41,7 @@ export class MyInfoComponent implements OnInit {
   loadedData: UserObject;
   loadedProf: ProfessionObject[];
 
-  @ViewChild('infoForm') infoForm: NgForm;
+  @ViewChild('myInfoForm') infoForm: NgForm;
 
   constructor(private profileService: ProfileService) { }
 
@@ -65,39 +65,40 @@ export class MyInfoComponent implements OnInit {
         userPubComments: resData.userPubComments,
         centerOfInterests: resData.centerOfInterests,
         publications: resData.publications,
-        profession: resData.profession,
+        profession: resData.profession.id,
         isActivated: resData.isActivated,
       };
     });
 
 
     this.profileService.getProfession().subscribe(resData  => {
-      console.log(resData);
       this.loadedProf = resData;
     });
-    console.log(this.loadedData.id);
-
-
-
   }
 
 
-  onSubmit(infoForm: NgForm){
-    if (!this.infoForm.valid){
-      return;
-    }
+  // tslint:disable-next-line:typedef
+  onSubmit(){
+
+    // if (!this.infoForm.valid){
+    //   return;
+    // }
     const lName = this.infoForm.value.LastName;
     const fName = this.infoForm.value.firstName;
     const mStatus = this.infoForm.value.maritalStatus;
-    const birthday = this.infoForm.value.bithday;
+    const birthday = this.infoForm.value.birthday;
     const gender = this.infoForm.value.gender;
-    const teleFix = this.infoForm.value.phoneFix;
-    const teleMob = this.infoForm.value.phoneMobile;
-    const profession = this.infoForm.value.profession;
+    const teleFix: number = +this.infoForm.value.teleFix;
+    const teleMob: number = +this.infoForm.value.telemob;
+    const profession = '/api/professions/' + this.infoForm.value.profession;
+    console.log( typeof birthday);
+
 
     this.profileService.saveMyInfo(this.loadedData.id, fName, lName, mStatus, birthday, gender, teleFix, teleMob, profession)
       .subscribe(resData => {
         console.log(resData);
+      }, error => {
+        console.log(error);
       });
   }
 

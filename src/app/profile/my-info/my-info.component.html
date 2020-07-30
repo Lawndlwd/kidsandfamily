@@ -6,7 +6,7 @@
         <div class="text-center my-auto" *ngIf = "isLoading" >
             <app-loading-spinner></app-loading-spinner>
         </div> -->
-        <form class="text-center  p-5" #infoForm="ngForm" (ngSubmit)="onSubmit(infoForm)">
+        <form class="text-center  p-5" #myInfoForm="ngForm" (ngSubmit)="onSubmit()">
             <p class="h4 mb-4">Mon Compte</p>
             <div class="row justify-content-between ">
                 <div class="md-form col-3 px-0">
@@ -43,25 +43,12 @@
 
                 </div>
               <div class="md-form col-3 px-0">
-                <select class="browser-default custom-select">
+                <select class="browser-default custom-select" [(ngModel)]="loadedData.maritalStatus" name= maritalStatus    #maritalStatus="ngModel">
                   <option selected class="text-muted">Marital Status</option>
                   <option value="m">Marié</option>
-                  <option value="c">Clebatere</option>
-                  <option value="d">Divorce</option>
+                  <option value="c">Célibataire</option>
+                  <option value="d">Divorcé</option>
                 </select>
-
-                <div class="text-left" *ngIf="telemob.invalid && (teleFix.dirty || teleFix.touched)" >
-                  <small class="text-danger text-left" *ngIf="teleFix.errors.required">
-                    Mot de passe obligatoire
-                  </small>
-                  <div class=" text-left" *ngIf="teleFix.errors.pattern">
-                    <small id="passwordHelpBlockMD" class="form-text text-muted">
-                      11
-                    </small>
-
-                  </div>
-                </div>
-
               </div>
             </div>
 
@@ -69,7 +56,8 @@
             <div class="form-group">
               <div id="date-picker-example" class="text-left md-outline input-with-post-icon datepicker" inline="true">
                 <label for="dataOfBrith">Birthday</label>
-                <input  placeholder="Select date" type="date" id="dataOfBrith" class=" form-control">
+                <input  placeholder="Select date" type="date" id="dataOfBrith" class=" form-control"
+                        [(ngModel)]="loadedData.bithday" name= birthday   #birthday="ngModel" >
               </div>
 
 
@@ -90,7 +78,7 @@
 
             </div>
             <div class="md-form col-3 px-0">
-              <select class="browser-default custom-select">
+              <select class="browser-default custom-select" [(ngModel)]="loadedData.gender" name= gender    #gender="ngModel">
                 <option selected class="text-muted">Genre</option>
                 <option value="m">Male</option>
                 <option value="f">Female</option>
@@ -100,46 +88,36 @@
           </div>
           <div class="row justify-content-between ">
             <div class="md-form col-3 px-0 ">
-                <label for="tele-fix">Téléphone Fix</label>
-                <input mdbInput type="tel" id="tele-fix " class="form-control " ngModel name= telefix pattern="^(?=.*[0-9]).{11}$"  required minlength="11 "#teleFix="ngModel" />
+                <label for="tele-fix ">Téléphone Fix</label>
+                <input mdbInput type="tel" id="tele-fix " class="form-control " [(ngModel)]="loadedData.phoneFix" name= "teleFix" pattern="^(?=.*[0-9]).{9}$"   minlength="9 " maxlength="9" #teleFix="ngModel" />
 
 
-                <div class="text-left" *ngIf="telemob.invalid && (telemob.dirty || telemob.touched)" >
-                    <small class="text-danger text-left" *ngIf="telemob.errors.required">
-                        Mot de passe obligatoire
-                    </small>
-                    <div class=" text-left" *ngIf="telemob.errors.pattern">
-                        <small id="passwordHelpBlockMD" class="form-text text-muted">
-                             11
-                         </small>
-
-                    </div>
+                <div class="text-left" *ngIf="teleFix.invalid && (teleFix.dirty || teleFix.touched)" >
+                  <small id="passwordHelpBlockMD" class="form-text text-danger">
+                    Invalid Phone number
+                  </small>
                 </div>
 
             </div>
-          <div class="md-form col-3 px-0">
-            <label for="tele-mob">Téléphone Mobile</label>
-            <input mdbInput type="tel" id="tele-mob " class="form-control " [(ngModel)]="loadedData.phoneMobile" name= telemob pattern="^(?=.*[0-9]).{11}$"  required minlength="11 "#telemob="ngModel" />
+            <div class="md-form col-3 px-0">
+                <label for="tele-mob ">Téléphone Mobile</label>
+                <input mdbInput type="tel" id="tele-mob " class="form-control " [(ngModel)]="loadedData.phoneMobile" name="telemob" pattern="^(?=.*[0-9]).{9}$"   minlength="9 " maxlength="9" #telemob="ngModel" />
 
 
-            <div class="text-left" *ngIf="telemob.invalid && (teleFix.dirty || teleFix.touched)" >
-              <small class="text-danger text-left" *ngIf="teleFix.errors.required">
-                Mot de passe obligatoire
-              </small>
-              <div class=" text-left" *ngIf="teleFix.errors.pattern">
-                <small id="passwordHelpBlockMD" class="form-text text-muted">
-                  11
-                </small>
+              <div class="text-left" *ngIf="telemob.invalid && (telemob.dirty || telemob.touched)" >
+                <div class=" text-left" *ngIf="telemob.errors.pattern">
+                  <small id="passwordHelpBlockMD" class="form-text text-danger">
+                    Invalid Phone number
+                  </small>
 
+                </div>
               </div>
+
             </div>
 
-          </div>
-
           <div class="md-form col-3 px-0 ">
-            <select class="browser-default custom-select " >
-              <option selected class="text-muted">Profession</option>
-              <option  *ngFor="let profession of loadedProf" [value]=" profession.id ">{{ profession.profession }}</option>
+            <select class="browser-default custom-select " [(ngModel)]="loadedData.profession" name= profession    #profession="ngModel" >
+              <option  *ngFor="let profession of loadedProf" [value]="profession.id ">{{ profession.profession }}</option>
             </select>
           </div>
           </div>

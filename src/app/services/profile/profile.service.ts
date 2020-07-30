@@ -12,6 +12,8 @@ import {Publication} from '../../main/main-default/publication/publication.model
 })
 export class ProfileService {
   urlInfo = 'https://127.0.0.1:8000/getuser';
+  token = JSON.parse(localStorage.getItem('userToken'));
+
 
   constructor(
     private http: HttpClient,
@@ -22,10 +24,9 @@ export class ProfileService {
 
   // tslint:disable-next-line:typedef
   getUserInfo() {
-    const token = JSON.parse(localStorage.getItem('userToken'));
     return this.http.get<UserObject>(this.urlInfo, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token._token
+        Authorization: 'Bearer ' + this.token._token
       })
     });
   }
@@ -45,24 +46,29 @@ export class ProfileService {
   }
 
   saveMyInfo(
-     id: number,
-     fName: string ,
-     lName: string ,
-     mStatus?: string ,
-     birthday?: string ,
-     gander?: string ,
-     teleFix?: number,
-     teleMob?: number ,
-     profession?: ProfessionObject
+    id: number,
+    fName: string,
+    lName: string,
+    mStatus?: string,
+    birthday?: string,
+    gender?: string,
+    teleFix?: number,
+    teleMob?: number,
+    profession?: string
   ){
     return this.http.put('https://127.0.0.1:8000/api/users/' + id + '.json', {
       firstName: fName,
       LastName: lName,
       maritalStatus: mStatus,
       bithday: birthday,
+      gender,
       phoneFix: teleFix,
       phoneMobile: teleMob,
       profession
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
     });
   }
 
