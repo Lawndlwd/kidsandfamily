@@ -1,0 +1,71 @@
+import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Router } from '@angular/router';
+import {AuthService} from '../auth/auth.service';
+import {exhaustMap, map, take} from 'rxjs/operators';
+import {User} from '../auth/User.model';
+import {ProfessionObject, UserObject} from '../../profile/my-info/my-info.component';
+import {Publication} from '../../main/main-default/publication/publication.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProfileService {
+  urlInfo = 'https://127.0.0.1:8000/getuser';
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  )
+  { }
+
+  // tslint:disable-next-line:typedef
+  getUserInfo() {
+    const token = JSON.parse(localStorage.getItem('userToken'));
+    return this.http.get<UserObject>(this.urlInfo, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token._token
+      })
+    });
+  }
+
+    getProfession(){
+      return this.http.
+      get<ProfessionObject>('https://127.0.0.1:8000/api/professions.json')
+      .pipe(map ((resData: ProfessionObject) => {
+        const arrProf: ProfessionObject[] = [];
+        for (const key in resData){
+          if (resData.hasOwnProperty(key)){
+            arrProf.push(resData[key]);
+          }
+        }
+        return arrProf;
+      }));
+  }
+
+  saveMyInfo(
+     id: number,
+     fName: string ,
+     lName: string ,
+     mStatus?: string ,
+     birthday?: string ,
+     gander?: string ,
+     teleFix?: number,
+     teleMob?: number ,
+     profession?: ProfessionObject
+  ){
+    return this.http.put('https://127.0.0.1:8000/api/users/' + id + '.json', {
+      firstName: fName,
+      LastName: lName,
+      maritalStatus: mStatus,
+      bithday: birthday,
+      phoneFix: teleFix,
+      phoneMobile: teleMob,
+      profession
+    });
+  }
+
+
+
+}

@@ -1,0 +1,154 @@
+<div class="row justify-content-center m-0 p-0 mt-5">
+    <div class="col-xs-11 col-md-11 col-md-offset-3 ">
+        <!-- <div class="alert alert-danger"  *ngIf="error">
+            {{error}}
+        </div>
+        <div class="text-center my-auto" *ngIf = "isLoading" >
+            <app-loading-spinner></app-loading-spinner>
+        </div> -->
+        <form class="text-center  p-5" #infoForm="ngForm" (ngSubmit)="onSubmit(infoForm)">
+            <p class="h4 mb-4">Mon Compte</p>
+            <div class="row justify-content-between ">
+                <div class="md-form col-3 px-0">
+
+                    <label for="Nom">Nom</label>
+                    <input mdbInput type="text" id="Nom " class="form-control " [(ngModel)]="loadedData.LastName" name= LastName  required minlength="2 " #lastName="ngModel"/>
+
+
+                    <div class="text-left" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" >
+                        <small class="text-danger text-left" *ngIf="lastName.errors.required">
+                            Le nom est obligatoire.
+                        </small>
+                        <small class="text-danger text-left" *ngIf="lastName.errors.minlength">
+                            Le nom doit comporter au moins 2 caractères.
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="md-form col-3 px-0">
+
+                    <label for="Prenom">Prénom</label>
+                    <input mdbInput type="text" id="Prenom " class="form-control " [(ngModel)]="loadedData.firstName" name=firstName  required minlength="2" #firstName="ngModel" />
+
+                    <div class="text-left" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" >
+                        <small class="text-danger " *ngIf="firstName.errors.required">
+                            Le prénom est obligatoire
+                        </small>
+                        <small class="text-danger text-left" *ngIf="firstName.errors.minlength">
+                            Le prénom doit comporter au moins 2 caractères.
+                        </small>
+                    </div>
+
+                </div>
+              <div class="md-form col-3 px-0">
+                <select class="browser-default custom-select">
+                  <option selected class="text-muted">Marital Status</option>
+                  <option value="m">Marié</option>
+                  <option value="c">Clebatere</option>
+                  <option value="d">Divorce</option>
+                </select>
+
+                <div class="text-left" *ngIf="telemob.invalid && (teleFix.dirty || teleFix.touched)" >
+                  <small class="text-danger text-left" *ngIf="teleFix.errors.required">
+                    Mot de passe obligatoire
+                  </small>
+                  <div class=" text-left" *ngIf="teleFix.errors.pattern">
+                    <small id="passwordHelpBlockMD" class="form-text text-muted">
+                      11
+                    </small>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          <div class="row justify-content-between ">
+            <div class="form-group">
+              <div id="date-picker-example" class="text-left md-outline input-with-post-icon datepicker" inline="true">
+                <label for="dataOfBrith">Birthday</label>
+                <input  placeholder="Select date" type="date" id="dataOfBrith" class=" form-control">
+              </div>
+
+
+            </div>
+            <div class="md-form col-3 px-0">
+              <label for="email">Email</label>
+              <input mdbInput type="email" id="email" class="form-control" disabled [(ngModel)]="loadedData.email" name= email required email #email="ngModel"  />
+
+              <div class="text-left" *ngIf="email.invalid && (email.dirty || email.touched)" >
+                <small class="text-danger text-left" *ngIf="email.errors.required">
+                  Email est obligatoire
+                </small>
+                <small class="text-danger text-left" *ngIf="email.errors.email">
+                  L'e-mail doit être une adresse e-mail valide
+                </small>
+              </div>
+
+
+            </div>
+            <div class="md-form col-3 px-0">
+              <select class="browser-default custom-select">
+                <option selected class="text-muted">Genre</option>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+              </select>
+
+            </div>
+          </div>
+          <div class="row justify-content-between ">
+            <div class="md-form col-3 px-0 ">
+                <label for="tele-fix">Téléphone Fix</label>
+                <input mdbInput type="tel" id="tele-fix " class="form-control " ngModel name= telefix pattern="^(?=.*[0-9]).{11}$"  required minlength="11 "#teleFix="ngModel" />
+
+
+                <div class="text-left" *ngIf="telemob.invalid && (telemob.dirty || telemob.touched)" >
+                    <small class="text-danger text-left" *ngIf="telemob.errors.required">
+                        Mot de passe obligatoire
+                    </small>
+                    <div class=" text-left" *ngIf="telemob.errors.pattern">
+                        <small id="passwordHelpBlockMD" class="form-text text-muted">
+                             11
+                         </small>
+
+                    </div>
+                </div>
+
+            </div>
+          <div class="md-form col-3 px-0">
+            <label for="tele-mob">Téléphone Mobile</label>
+            <input mdbInput type="tel" id="tele-mob " class="form-control " [(ngModel)]="loadedData.phoneMobile" name= telemob pattern="^(?=.*[0-9]).{11}$"  required minlength="11 "#telemob="ngModel" />
+
+
+            <div class="text-left" *ngIf="telemob.invalid && (teleFix.dirty || teleFix.touched)" >
+              <small class="text-danger text-left" *ngIf="teleFix.errors.required">
+                Mot de passe obligatoire
+              </small>
+              <div class=" text-left" *ngIf="teleFix.errors.pattern">
+                <small id="passwordHelpBlockMD" class="form-text text-muted">
+                  11
+                </small>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="md-form col-3 px-0 ">
+            <select class="browser-default custom-select " >
+              <option selected class="text-muted">Profession</option>
+              <option  *ngFor="let profession of loadedProf" [value]=" profession.id ">{{ profession.profession }}</option>
+            </select>
+          </div>
+          </div>
+
+            <div>
+                <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit " >{{"save"}}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+

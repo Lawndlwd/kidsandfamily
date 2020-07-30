@@ -1,4 +1,4 @@
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ActivationComponent } from './activation/activation.component';
 import { ActivationTokenComponent } from './activation-token/activation-token.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {ProfileComponent} from './profile/profile.component';
+import {MyInfoComponent} from './profile/my-info/my-info.component';
 
 
 
@@ -51,20 +53,22 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
     LoadingSpinnerComponent,
     RegisterComponent,
     ActivationComponent,
-    ActivationTokenComponent
+    ActivationTokenComponent,
+    ProfileComponent,
+    MyInfoComponent
 
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    NgxPaginationModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MatButtonToggleModule,
-    AppRoutingModule,
-    RecaptchaModule,
-    MDBBootstrapModule.forRoot()
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        NgxPaginationModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatButtonToggleModule,
+        AppRoutingModule,
+        RecaptchaModule,
+        MDBBootstrapModule.forRoot(),
+    ],
 
   providers: [
     FiltersService,
