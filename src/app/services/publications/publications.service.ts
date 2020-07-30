@@ -29,7 +29,7 @@ export class PublicationsService {
     return this.http.get(url)
     .pipe(map ((responseData: Publication) => {
       let arrPub: Publication[] =[];
-      arrPub.push(responseData)
+      arrPub.push(responseData);
       return arrPub;
     }))
   }

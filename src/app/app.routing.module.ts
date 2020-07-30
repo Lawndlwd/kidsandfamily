@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-
 import { ActivationComponent } from './activation/activation.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { PublicationDetailsComponent } from './main/main-default/publication-details/publication-details.component';
@@ -14,19 +13,16 @@ import { ActivationTokenComponent } from './activation-token/activation-token.co
 import { MainComponent } from './main/main.component';
 import { MainDefaultComponent } from './main/main-default/main-default.component';
 
-
-
 // , canActivate: [AuthGuard] 
 const appRoutes: Routes = [
     { 
       path: '', component: MainComponent,
       children: [
         { path: 'publications', component: MainDefaultComponent },
-        { path: 'publications-filter', component: MainFiltreSelectionComponent }
+        { path: 'publications-filter', component: MainFiltreSelectionComponent },
+        { path: 'publications-details/:id', component: PublicationDetailsComponent }
       ] 
     },
-    { path: 'publications-details/:id', component: PublicationDetailsComponent },
-    // { path: 'publications-filter', component: MainFiltreSelectionComponent },
     { path: 'auth', component: AuthComponent },
     { path: 'inscription', component: RegisterComponent },
     { path: 'activateAccount', component: ActivationComponent},
