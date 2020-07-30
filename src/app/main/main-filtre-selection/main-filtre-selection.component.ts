@@ -9,6 +9,35 @@ import { Xliff2 } from '@angular/compiler';
 declare var L: any;
 declare var pubs: any;
 
+export class FirstData {
+  data:adresseData[];
+}
+
+// export class secondData {
+//   data:adresseData;
+// }
+
+export class adresseData {
+  administrative_area: string;
+  confidence: number;
+  continent: string;
+  country: string;
+  country_code: string;
+  county: string;
+  label: string;
+  latitude: number;
+  locality: any;
+  longitude: number;
+  name: string;
+  neighbourhood: string;
+  number:string;
+  postal_code: string;
+  region: string;
+  region_code: string;
+  street: string;
+  type: string;
+
+}
 
 @Component({
   selector: 'app-main-filtre-selection',
@@ -44,7 +73,8 @@ export class MainFiltreSelectionComponent implements OnInit {
   getCor(email){
     const key:string = 'dad06ede9d99985348d1d5801c524a52';
     const limit:number= 1;
-    return this.http.get('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+email+'&limit=1');
+    return this.http.get<FirstData>('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+email+'&limit=1');
+
   }
 
   ngOnInit(): void {
@@ -75,10 +105,10 @@ export class MainFiltreSelectionComponent implements OnInit {
       var pubDetails = "<strong>"+publication.user.firstName +"</strong><br>" + publication.title + "<br>" +
       publication.action.actions +"<br><a  href='/publications-details/"+publication.id+"'>"+"Voir le détail</a>";
        console.log(pubDetails);
-        this.getCor(adresse).subscribe(data=>
-          {
-         if (Object.keys(data.data[0]).length !== 0) {
-            var marker = L.marker([data.data[0].latitude, data.data[0].longitude]).addTo(macarte);
+        this.getCor(adresse).subscribe(response=> {
+          console.log(response);
+         if (Object.keys(response.data[0]).length !== 0) {
+            var marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
            
              marker.bindPopup(pubDetails);
             
