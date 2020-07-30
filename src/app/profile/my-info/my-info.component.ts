@@ -40,6 +40,9 @@ export class ProfessionObject {
 export class MyInfoComponent implements OnInit {
   loadedData: UserObject;
   loadedProf: ProfessionObject[];
+  isLoading = false;
+  success = false;
+  failed = false;
 
   @ViewChild('myInfoForm') infoForm: NgForm;
 
@@ -47,8 +50,9 @@ export class MyInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.profileService.getUserInfo().subscribe(resData => {
-
+      this.isLoading = false;
       this.loadedData = {
         id: resData.id,
         firstName: resData.firstName,
@@ -65,7 +69,7 @@ export class MyInfoComponent implements OnInit {
         userPubComments: resData.userPubComments,
         centerOfInterests: resData.centerOfInterests,
         publications: resData.publications,
-        profession: resData.profession.id,
+        profession: resData.profession,
         isActivated: resData.isActivated,
       };
     });
@@ -73,17 +77,20 @@ export class MyInfoComponent implements OnInit {
 
     this.profileService.getProfession().subscribe(resData  => {
       this.loadedProf = resData;
+
     });
+
   }
 
 
   // tslint:disable-next-line:typedef
   onSubmit(){
+    this.isLoading = true;
 
     // if (!this.infoForm.valid){
     //   return;
     // }
-    const lName = this.infoForm.value.LastName;
+    const lName = this.infoForm.value.lastName;
     const fName = this.infoForm.value.firstName;
     const mStatus = this.infoForm.value.maritalStatus;
     const birthday = this.infoForm.value.birthday;
@@ -91,15 +98,18 @@ export class MyInfoComponent implements OnInit {
     const teleFix: number = +this.infoForm.value.teleFix;
     const teleMob: number = +this.infoForm.value.telemob;
     const profession = '/api/professions/' + this.infoForm.value.profession;
-    console.log( typeof birthday);
 
-
-    this.profileService.saveMyInfo(this.loadedData.id, fName, lName, mStatus, birthday, gender, teleFix, teleMob, profession)
+    this.isLoading = true;
+    this.profileService.saveMyInfo(65, fName, lName, mStatus, birthday, gender, teleFix, teleMob, profession)
       .subscribe(resData => {
         console.log(resData);
+        this.success = true;
+        this.isLoading = false;
       }, error => {
         console.log(error);
+        this.failed =true;
       });
+
   }
 
 }

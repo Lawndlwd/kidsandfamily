@@ -13,6 +13,7 @@ import { MainComponent } from './main/main.component';
 import { MainDefaultComponent } from './main/main-default/main-default.component';
 import {ProfileComponent} from './profile/profile.component';
 import {MyInfoComponent} from './profile/my-info/my-info.component';
+import {MyProfileComponent} from './profile/my-profile/my-profile.component';
 
 
 
@@ -31,14 +32,14 @@ const appRoutes: Routes = [
     { path: 'activateAccount', component: ActivationComponent},
     { path: ':id/activateaccount/:token', component: ActivationTokenComponent},
     // { path: 'publications', component: MainDefaultComponent }
- {
-    path: 'mon-compte', component: ProfileComponent, canActivate: [AuthGuard], children: [
-      {path: '', component: MyInfoComponent, canActivate: [AuthGuard]},
-       { path: 'a', component: RegisterComponent},
-      // { path: 'activateAccount', component: ActivationComponent},
-      // { path: 'activateAccount', component: ActivationComponent},
-    ]
-  }
+    { path: 'mon-compte', component: ProfileComponent, canActivate: [AuthGuard], children:
+        [
+          { path: '', component: MyInfoComponent, canActivate: [AuthGuard]},
+          { path: 'profile', component: MyProfileComponent},
+          // { path: 'activateAccount', component: ActivationComponent},
+          // { path: 'activateAccount', component: ActivationComponent},
+        ]
+    }
 ];
 
 @NgModule({

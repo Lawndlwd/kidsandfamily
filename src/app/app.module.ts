@@ -33,6 +33,7 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ProfileComponent} from './profile/profile.component';
 import {MyInfoComponent} from './profile/my-info/my-info.component';
 import { ProfileFilterComponent } from './profile/profile-filter/profile-filter.component';
+import { MyProfileComponent } from './profile/my-profile/my-profile.component';
 
 
 
@@ -58,7 +59,8 @@ import { ProfileFilterComponent } from './profile/profile-filter/profile-filter.
     ActivationTokenComponent,
     ProfileComponent,
     MyInfoComponent,
-    ProfileFilterComponent
+    ProfileFilterComponent,
+    MyProfileComponent
 
   ],
     imports: [
