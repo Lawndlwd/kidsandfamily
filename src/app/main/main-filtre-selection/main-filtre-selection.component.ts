@@ -6,16 +6,15 @@ import { AuthService } from '../../services/auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { HttpClient, XhrFactory } from '@angular/common/http';
 import { Xliff2 } from '@angular/compiler';
+import { concatMap, flatMap } from 'rxjs/operators';
+
 declare var L: any;
 declare var pubs: any;
+declare var google: any;
 
-export class FirstData {
+export class ResData {
   data:adresseData[];
 }
-
-// export class secondData {
-//   data:adresseData;
-// }
 
 export class adresseData {
   administrative_area: string;
@@ -39,6 +38,21 @@ export class adresseData {
 
 }
 
+
+
+export class  pubProfileAdresse {
+  adressComplete: string;
+  city: string;
+  codePostal: string;
+  country: string;
+  id: number;
+  nameVoie: string;
+  numVoie: string;
+  sousType: [];
+  state: string;
+  type: object;
+}
+
 @Component({
   selector: 'app-main-filtre-selection',
   templateUrl: './main-filtre-selection.component.html',
@@ -51,6 +65,8 @@ export class MainFiltreSelectionComponent implements OnInit {
   showL=false;
   showC=true;
   loadedPublication: Publication[] =[];
+  NumberOfPub: Number;
+
   page: Number =1;
 
    @Output() ShowList(){
@@ -62,18 +78,18 @@ export class MainFiltreSelectionComponent implements OnInit {
     this.showL=true;
   }
   constructor(
-     private http: HttpClient,
-     private pubsService : PublicationsService,
+     public http: HttpClient,
+     public pubsService : PublicationsService,
      private router: Router)
      {
       this.loadedPublication = new Array<any>();
      }
   
 
-  getCor(email){
+  getCor(infos){
     const key:string = 'dad06ede9d99985348d1d5801c524a52';
     const limit:number= 1;
-    return this.http.get<FirstData>('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+email+'&limit=1');
+    return this.http.get<ResData>('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+infos+'&limit=1');
 
   }
 
@@ -89,34 +105,58 @@ export class MainFiltreSelectionComponent implements OnInit {
 
     var markerClusters = L.markerClusterGroup();
 
-    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').subscribe(publications =>{
+    // this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').pipe(
+    //   flatMap((res1) => this.getCor(res1.profile.country) )
+      
+    // ).subscribe((res2) => {
+    //   console.log(res2)
+    // });
+
+    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').subscribe(publications =>
+    {
     this.loadedPublication = publications;
     let x = this.loadedPublication.length; 
-    
+    // var geocoder = new google.maps.Geocoder();
+
     for (let key = 0; key < this.loadedPublication.length; key++) {
       
       var publication = this.loadedPublication[key];
       
-      let adresse = publication.profile.numVoie+' '+publication.profile.nameVoie+' '+publication.profile.codePostal +' '+
-      publication.profile.city +' '+publication.profile.country;
-
-       
+      let adresse = publication.profile.numVoie+' '+publication.profile.nameVoie+' '+publication.profile.codePostal 
+      +' '+publication.profile.city +' '+publication.profile.country;
       
+      // console.log(publication);
+
+      // geocoder.geocode( { 'address': adresse}, function(results, status) {
+
+      //   if (status == google.maps.GeocoderStatus.OK) {
+      //     var latitude = results[0].geometry.location.lat();
+      //     var longitude = results[0].geometry.location.lng();
+      //     // console.log(latitude, longitude);
+      //   } 
+      // }); 
+
       var pubDetails = "<strong>"+publication.user.firstName +"</strong><br>" + publication.title + "<br>" +
       publication.action.actions +"<br><a  href='/publications-details/"+publication.id+"'>"+"Voir le détail</a>";
-       console.log(pubDetails);
-        this.getCor(adresse).subscribe(response=> {
-          console.log(response);
+      
+        console.log(pubDetails);
+        // for (let k = 0; k < pubDetails.length; k++){
+            
+       this.getCor(adresse).subscribe(response=> {
+          // console.log(response);
          if (Object.keys(response.data[0]).length !== 0) {
             var marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
-           
-             marker.bindPopup(pubDetails);
+
             
-             markerClusters.addLayer(marker);
-             markers.push(marker);
+              marker.bindPopup(pubDetails);
+              markerClusters.addLayer(marker);
+             markers.push(marker);  
+             
          }
         
          });  
+
+        // }
          macarte.addLayer(markerClusters);   
      }
 

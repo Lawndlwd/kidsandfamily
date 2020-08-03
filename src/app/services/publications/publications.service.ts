@@ -10,7 +10,7 @@ export class PublicationsService {
 
 
 
-  constructor(private http : HttpClient) {
+  constructor(public http : HttpClient) {
   }
   getPubsNoArgment(url){
     return this.http.get(url)
