@@ -16,6 +16,7 @@ import {MyInfoComponent} from './profile/my-info/my-info.component';
 import {MyProfileComponent} from './profile/my-profile/my-profile.component';
 import {ShowMyProfilenComponent} from './profile/show-my-profilen/show-my-profilen.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
+import {DeleteProfileComponent} from './profile/delete-profile/delete-profile.component';
 
 
 
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
           { path: '', component: MyInfoComponent, canActivate: [AuthGuard]},
           { path: 'profile', component: MyProfileComponent},
           { path: 'profiles', component: ShowMyProfilenComponent},
-          { path: 'edit-profile', component: EditProfileComponent},
+          { path: 'edit-profile/:id', component: EditProfileComponent},
+          { path: 'delete-profile/:id', component: DeleteProfileComponent},
         ]
     }
 ];

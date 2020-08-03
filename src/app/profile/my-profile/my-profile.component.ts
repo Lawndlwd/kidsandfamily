@@ -4,6 +4,7 @@ import {ProfileService} from '../../services/profile/profile.service';
 import {UserObject} from '../my-info/my-info.component';
 import {Profile} from '../../main/main-default/publication/publication.model';
 import {CardService} from '../../services/card/card.service';
+import {Router} from '@angular/router';
 
 
 export class Type {
@@ -25,13 +26,14 @@ export class MyProfileComponent implements OnInit {
 
 
 
-  constructor(private profileService: ProfileService, private cardService: CardService) { }
+  constructor(private profileService: ProfileService, private cardService: CardService, private router: Router) { }
 
   types: Type[];
   sousTypes: SousType[];
   typeSelected = false;
   isLoading = false;
   profile: Profile;
+  profiles: Profile[] = [];
   hasProfiles = false;
   success = false;
   failed = false;
@@ -43,14 +45,14 @@ n;
   ngOnInit(): void {
 
     this.isLoading = true;
-    this.profileService.getUserInfo().subscribe(resData => {
-      if (resData.profiles){
+
+    this.profileService.getUserProfile().subscribe(resData => {
+
+      if (resData){
+        this.profiles = resData;
         this.hasProfiles = true;
       }
-
     });
-
-
 
     this.profileService.getTypes().subscribe(resData  => {
       this.types = resData;
@@ -58,6 +60,8 @@ n;
 
 
     });
+    this.typeSelected = true;
+
 
 
 
@@ -102,17 +106,21 @@ n;
     const city = this.ProfileForm.value.city;
     const state = this.ProfileForm.value.state;
     const country = this.ProfileForm.value.country;
-    const address = voie + ' ' + rue + ' ' + city + ' ' + country;
+    const address = voie + ' ' + rue + ',' + city  + ',' + country;
+    const numProfile = +this.profiles.length + 1;
+    console.log(numProfile);
 
     this.cardService.getLocalisation(address).subscribe(resCor => {
       if (resCor.data[0]) {
         const lon: string = String(resCor.data[0].longitude);
         const lat: string = String(resCor.data[0].latitude);
 
-        this.profileService.createProfile(type, sousType, adressComplete, city, codePostal, country, rue, 1, voie, state, lon, lat)
+
+        this.profileService.createProfile(type, sousType, adressComplete, city, codePostal, country, rue, numProfile, voie, state, lon, lat)
           .subscribe(resData => {
             console.log(resData);
             this.success = true;
+            this.router.navigate(['mon-compte/profiles']);
             this.isLoading = false;
           }, error => {
             console.log(error);

@@ -24,7 +24,6 @@ export class ProfileService {
   )
   { }
 
-  // tslint:disable-next-line:typedef
   getUserInfo(): Observable<UserObject> {
     return this.http.get<UserObject>(this.urlInfo, {
       headers: new HttpHeaders({
@@ -114,8 +113,37 @@ export class ProfileService {
   }
 
   getProfiles(id){
-    return this.http.
-    get<Profile>('https://127.0.0.1:8000/api/profiles/' + id + '.json');
+    return this.http.get<Profile>('https://127.0.0.1:8000/api/profiles/' + id + '.json')
+      ;
+  }
+  editProfiles(
+    id: number,
+    type: string ,
+    sousType: string ,
+    city: string,
+    codePostal: number,
+    country: string,
+    nameVoie: string,
+    numVoie: number,
+    state: string,
+    adressComplete?: string,
+  ){
+    return this.http.put<Profile>('https://127.0.0.1:8000/api/profiles/' + id + '.json', {
+      type,
+      sousType,
+      adressComplete,
+      city,
+      codePostal,
+      country,
+      nameVoie,
+      numVoie,
+      state,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    })
+      ;
   }
 
 
@@ -151,6 +179,14 @@ export class ProfileService {
       lan,
       lat,
     }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    });
+  }
+
+  deleteProfile(id): Observable<Profile> {
+    return this.http.delete<Profile>('https://127.0.0.1:8000/api/profiles/' + id, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.token._token
       })

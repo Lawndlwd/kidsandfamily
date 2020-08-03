@@ -2,8 +2,57 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Publication } from '../main-default/publication/Publication.model';
 import { PublicationsService } from '../../services/publications/publications.service';
 import { ActivatedRoute, Router } from '@angular/router';
-// declare var ol: any;
+import { AuthService } from '../../services/auth/auth.service';
+import { NgForm } from '@angular/forms';
+import { HttpClient, XhrFactory } from '@angular/common/http';
+import { Xliff2 } from '@angular/compiler';
+import { concatMap, flatMap } from 'rxjs/operators';
+
 declare var L: any;
+declare var pubs: any;
+declare var google: any;
+
+export class ResData {
+  data: adresseData[];
+}
+
+export class adresseData {
+  administrative_area: string;
+  confidence: number;
+  continent: string;
+  country: string;
+  country_code: string;
+  county: string;
+  label: string;
+  latitude: number;
+  locality: any;
+  longitude: number;
+  name: string;
+  neighbourhood: string;
+  number: string;
+  postal_code: string;
+  region: string;
+  region_code: string;
+  street: string;
+  type: string;
+
+}
+
+
+
+export class  pubProfileAdresse {
+  adressComplete: string;
+  city: string;
+  codePostal: string;
+  country: string;
+  id: number;
+  nameVoie: string;
+  numVoie: string;
+  sousType: [];
+  state: string;
+  type: object;
+}
+
 @Component({
   selector: 'app-main-filtre-selection',
   templateUrl: './main-filtre-selection.component.html',
@@ -13,181 +62,106 @@ declare var L: any;
 
 export class MainFiltreSelectionComponent implements OnInit {
 
-  // longitude: number = 2.2069771;
-  // latitude: number = 48.8587741;
-  // map: any;
-
-  lat:number = 48.852969;
-  lon:number = 2.349903;
-  macarte = null;
-  villes = {
-    "Paris": { "lat": 48.852969, "lon": 2.349903 },
-    "Brest": { "lat": 48.383, "lon": -4.500 },
-    "Quimper": { "lat": 48.000, "lon": -4.100 },
-    "Bayonne": { "lat": 43.500, "lon": -1.467 }
-            };
-
-  showL=false;
-  showC=true;
-  loadedPublication = [];
-  publicationId: Number ;
+  showL = false;
+  showC = true;
+  loadedPublication: Publication[] = [];
   NumberOfPub: Number;
-  page: Number =1;
+  isLoading = false;
+  page: Number = 1;
 
-  // filters params infos
-  profiles: string[] = [];
-  publics: string[] = [];
-  themes: string[] = [];
-  actions: string[] = [];
-  structures: string[] = [];
-  regions: string[] = [];
-
-
-
-  private _url: string = 'https://127.0.0.1:8000/api/publications.json?';
-  private _params: string;
-
-
-   @Output() ShowList(){
-    this.showL=false;
-    this.showC=true;
+  @Output() ShowList(){
+    this.showL = false;
+    this.showC = true;
   }
   @Output() ShowCard(){
-    this.showC=false;
-    this.showL=true;
+    this.showC = false;
+    this.showL = true;
   }
-
   constructor(
-    private pubsService : PublicationsService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
+    public http: HttpClient,
+    public pubsService: PublicationsService,
+    private router: Router)
+  {
     this.loadedPublication = new Array<any>();
   }
 
-  ngOnInit(): void {
-    // récupération des paramètres de la requête
-    this.route.queryParams.subscribe(params => {
-      this.profiles = params['profil'];
-      this.publics = params['public'];
-      this.themes = params['theme'];
-      this.actions = params['action'];
-      this.structures = params['structure'];
-      this.regions = params['region'];
 
-      this._params = '';
-      this.loadedPublication = [];
-
-      this.createRequestParams();
-
-      this.pubsService.getFilteredPubs(this._url + this._params)
-        .subscribe(publications => {
-          for (let i in publications) {
-          this.loadedPublication.push(publications[i]);
-          this.NumberOfPub=this.loadedPublication.length;
-        }
-      });
-    });
-
-    this.macarte = L.map('map').setView([this.lat, this.lon], 6);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-      // Il est toujours bien de laisser le lien vers la source des données
-      attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-      minZoom: 1,
-      maxZoom: 20
-    }).addTo(this.macarte);
-
-    for (let ville in this.villes) {
-      var marker = L.marker([this.villes[ville].lat, this.villes[ville].lon]).addTo(this.macarte);
-          marker.bindPopup(ville);
-     }
-  //   var mousePositionControl = new ol.control.MousePosition({
-  //     // coordinateFormat: ol.coordinate.createStringXY(4),
-  //     // projection: 'EPSG:4326',
-  //     // comment the following two lines to have the mouse position
-  //     // be placed within the map.
-  //     className: 'custom-mouse-position',
-  //     target: document.getElementById('mouse-position'),
-  //     undefinedHTML: '&nbsp;'
-  //   });
-
-  //   this.map = new ol.Map({
-  //     target: 'map',
-  //     controls: ol.control.defaults({
-  //       attributionOptions: {
-  //         collapsible: false
-  //       }
-  //     }).extend([mousePositionControl]),
-  //     layers: [
-  //       new ol.layer.Tile({
-  //         source: new ol.source.OSM()
-  //       })
-  //     ],
-  //     view: new ol.View({
-  //       center: ol.proj.fromLonLat([2.2069771,48.8587741]),
-  //       zoom: 11,
-  //       minzoom:1,
-  //       maxzoom:20
-  //     })
-  //   });
-
-  //   this.map.on('click', function (args) {
-  //     console.log(args.coordinate);
-  //     var lonlat = ol.proj.transform(args.coordinate, 'EPSG:3857', 'EPSG:4326');
-  //     console.log(lonlat);
-
-  //     var lon = lonlat[0];
-  //     var lat = lonlat[1];
-  //    // alert(`lat: ${lat} long: ${lon}`);
-  //   });
-
-  // }
-
-  // setCenter() {
-  //   var view = this.map.getView();
-  //   view.setCenter(ol.proj.fromLonLat([this.longitude, this.latitude]));
-  //   view.setZoom(8);
-
+  getCor(infos){
+    const key = 'dad06ede9d99985348d1d5801c524a52';
+    const limit = 1;
+    return this.http.get<ResData>('http://api.positionstack.com/v1/forward?access_key=' + key + '&query=' + infos + '&limit=1');
 
   }
 
-  createRequestParams() {
-    // traitement filtre profile
-    if (this.profiles.length != 0) {
-      for (let i in this.profiles) {
-        this._params += 'profile.type.id[]=' + this.profiles[i] + '&';
-      }
-    }
+  ngOnInit(): void {
+    this.isLoading = true;
+    const macarte = L.map('map').setView([48.8587741, 2.2069771], 5);
+    const markers = [];
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+      attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+      minZoom: 1,
+      maxZoom: 20
+    }).addTo(macarte);
 
-    // traitement filtre public
-    if (this.publics.length != 0) {
-      for (let i in this.publics) {
-        this._params += 'publicCible.id[]=' + this.publics[i] + '&';
-      }
-    }
+    const markerClusters = L.markerClusterGroup();
 
-    // traitement filtre theme
-    if (this.themes.length != 0) {
-      for (let i in this.themes) {
-        this._params += 'theme.id[]=' + this.themes[i] + '&';
-      }
-    }
+    // this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').pipe(
+    //   flatMap((res1) => this.getCor(res1.profile.country) )
 
-    // traitement filtre action
-    if (this.actions.length != 0) {
-      for (let i in this.actions) {
-        this._params += 'action.id[]=' + this.actions[i] + '&';
-      }
-    }
+    // ).subscribe((res2) => {
+    //   console.log(res2)
+    // });
 
-    // traitement filtre structure
-    if (this.structures.length != 0) {
-      for (let i in this.structures) {
-        this._params += 'structure.id[]=' + this.structures[i] + '&';
-      }
-    }
+    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').subscribe(publications =>
+    {
+      this.loadedPublication = publications;
+      const x = this.loadedPublication.length;
+      // var geocoder = new google.maps.Geocoder();
 
-    // ajouter traitement du filtre region après ajout du champen base de données
+      for (let key = 0; key < this.loadedPublication.length; key++) {
+
+        const publication = this.loadedPublication[key];
+
+        const adresse = publication.profile.numVoie + ' ' + publication.profile.nameVoie + ' ' + publication.profile.codePostal
+          + ' ' + publication.profile.city + ' ' + publication.profile.country;
+
+        // console.log(publication);
+
+        // geocoder.geocode( { 'address': adresse}, function(results, status) {
+
+        //   if (status == google.maps.GeocoderStatus.OK) {
+        //     var latitude = results[0].geometry.location.lat();
+        //     var longitude = results[0].geometry.location.lng();
+        //     // console.log(latitude, longitude);
+        //   }
+        // });
+
+        const pubDetails = '<strong>' + publication.user.firstName + '</strong><br>' + publication.title + '<br>' +
+          publication.action.actions + '<br><a  href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>';
+
+        console.log(pubDetails);
+        // for (let k = 0; k < pubDetails.length; k++){
+
+        this.getCor(adresse).subscribe(response => {
+          // console.log(response);
+          if (Object.keys(response.data[0]).length !== 0) {
+            const marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
+
+            marker.bindPopup(pubDetails);
+            markerClusters.addLayer(marker);
+            markers.push(marker);
+
+          }
+
+        });
+
+        // }
+        macarte.addLayer(markerClusters);
+        this.isLoading = false;
+
+      }
+
+    });
+
   }
 }

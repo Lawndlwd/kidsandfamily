@@ -87,8 +87,6 @@ export class MyInfoComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   onSubmit(){
-    console.log(this.loadedData.id);
-
     this.isLoading = true;
 
     // if (!this.infoForm.valid){
