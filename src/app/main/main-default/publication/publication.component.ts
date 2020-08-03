@@ -30,7 +30,6 @@ export class PublicationComponent implements OnInit {
       this.loadedPub = publications;
       this.NumberOfPub = this.loadedPub.length;
     });
-
   }
 
 

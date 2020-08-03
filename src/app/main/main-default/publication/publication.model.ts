@@ -30,7 +30,15 @@ export interface SousType  {
 export interface Profile  {
     type: Type ;
     sous_type: SousType ;
-}
+    adressComplete: string;
+    city: string;
+    codePostal: string;
+    country: string;
+    id: number;
+    nameVoie: string;
+    numVoie: string;
+    state: string;
+    }
 export interface Type  {
     type: string;
 }
