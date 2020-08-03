@@ -18,4 +18,6 @@ import {
 })
 export class AppComponent {
   title = 'kids-and-family-app';
+
+  constructor() {}
 }
