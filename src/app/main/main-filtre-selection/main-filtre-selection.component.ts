@@ -1,13 +1,17 @@
 import { Component, OnInit,Output } from '@angular/core';
 import { Publication } from '../main-default/publication/Publication.model';
 import { PublicationsService } from '../../services/publications/publications.service';
-import { ActivatedRoute ,Router } from '@angular/router';
-import { HttpClient} from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { NgForm } from '@angular/forms';
+import { HttpClient, XhrFactory } from '@angular/common/http';
+import { Xliff2 } from '@angular/compiler';
+import { concatMap, flatMap } from 'rxjs/operators';
 
 declare const L: any;
 
 export class ResData {
-  data:adresseData[];
+  data: adresseData[];
 }
 
 export class adresseData {
@@ -30,6 +34,7 @@ export class adresseData {
   street: string;
   type: string;
 }
+
 @Component({
   selector: 'app-main-filtre-selection',
   templateUrl: './main-filtre-selection.component.html',
@@ -43,6 +48,7 @@ export class MainFiltreSelectionComponent implements OnInit {
   NumberOfPub: Number;
 
   page: Number = 1;
+
   // filters params infos
   profiles: string[] = [];
   publics: string[] = [];
@@ -51,13 +57,11 @@ export class MainFiltreSelectionComponent implements OnInit {
   structures: string[] = [];
   regions: string[] = [];
 
-
-
   private _url: string = 'https://127.0.0.1:8000/api/publications.json?';
   private _params: string;
 
 
-   @Output() ShowList(){
+  @Output() ShowList(){
     this.showL = false;
     this.showC = true;
   }
@@ -139,8 +143,6 @@ export class MainFiltreSelectionComponent implements OnInit {
     });
   }
 
- 
-
   createRequestParams() {
     // traitement filtre profile
     if (this.profiles.length != 0) {
@@ -179,6 +181,4 @@ export class MainFiltreSelectionComponent implements OnInit {
 
     // ajouter traitement du filtre region après ajout du champen base de données
   }
-
-
 }

@@ -15,11 +15,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private authServirce: AuthService) { }
 
   ngOnInit(): void {
-    this.userSub = this.authServirce.user.subscribe(user =>{
-      this.isAuth= !!user;
+    this.userSub = this.authServirce.user.subscribe(user => {
+      this.isAuth = !!user;
     });
   }
-  
+
   onLogOut(){
     this.authServirce.logOut();
   }

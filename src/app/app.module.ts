@@ -1,4 +1,4 @@
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +30,13 @@ import { ActivationComponent } from './activation/activation.component';
 import { ActivationTokenComponent } from './activation-token/activation-token.component';
 import { AuthService } from './services/auth/auth.service';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {ProfileComponent} from './profile/profile.component';
+import {MyInfoComponent} from './profile/my-info/my-info.component';
+import { ProfileFilterComponent } from './profile/profile-filter/profile-filter.component';
+import { MyProfileComponent } from './profile/my-profile/my-profile.component';
+import { ShowMyProfilenComponent } from './profile/show-my-profilen/show-my-profilen.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { DeleteProfileComponent } from './profile/delete-profile/delete-profile.component';
 
 
 
@@ -52,20 +59,27 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
     LoadingSpinnerComponent,
     RegisterComponent,
     ActivationComponent,
-    ActivationTokenComponent
+    ActivationTokenComponent,
+    ProfileComponent,
+    MyInfoComponent,
+    ProfileFilterComponent,
+    MyProfileComponent,
+    ShowMyProfilenComponent,
+    EditProfileComponent,
+    DeleteProfileComponent
 
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    NgxPaginationModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MatButtonToggleModule,
-    AppRoutingModule,
-    RecaptchaModule,
-    MDBBootstrapModule.forRoot()
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        NgxPaginationModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatButtonToggleModule,
+        AppRoutingModule,
+        RecaptchaModule,
+        MDBBootstrapModule.forRoot(),
+    ],
 
   providers: [
     FiltersService,

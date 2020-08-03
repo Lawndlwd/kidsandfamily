@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FiltersService } from '../services/filters/filters.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import {Router} from "@angular/router";
+import {Router} from "@angular/router"
 import { R3TargetBinder } from '@angular/compiler';
 
 @Component({
@@ -89,7 +89,7 @@ export class FiltersComponent implements OnInit {
       this.router.navigate(['/publications-filter'], { queryParams: params });
     // aucun filtre n'est sélectionné
     } else {
-      this.router.navigate(['/publications']);
+      this.router.navigate(['']);
     }
   }
 }
