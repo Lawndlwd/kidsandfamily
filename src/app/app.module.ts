@@ -34,6 +34,8 @@ import {ProfileComponent} from './profile/profile.component';
 import {MyInfoComponent} from './profile/my-info/my-info.component';
 import { ProfileFilterComponent } from './profile/profile-filter/profile-filter.component';
 import { MyProfileComponent } from './profile/my-profile/my-profile.component';
+import { ShowMyProfilenComponent } from './profile/show-my-profilen/show-my-profilen.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 
 
 
@@ -60,7 +62,9 @@ import { MyProfileComponent } from './profile/my-profile/my-profile.component';
     ProfileComponent,
     MyInfoComponent,
     ProfileFilterComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    ShowMyProfilenComponent,
+    EditProfileComponent
 
   ],
     imports: [

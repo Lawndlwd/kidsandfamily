@@ -14,6 +14,8 @@ import { MainDefaultComponent } from './main/main-default/main-default.component
 import {ProfileComponent} from './profile/profile.component';
 import {MyInfoComponent} from './profile/my-info/my-info.component';
 import {MyProfileComponent} from './profile/my-profile/my-profile.component';
+import {ShowMyProfilenComponent} from './profile/show-my-profilen/show-my-profilen.component';
+import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
 
 
 
@@ -36,8 +38,8 @@ const appRoutes: Routes = [
         [
           { path: '', component: MyInfoComponent, canActivate: [AuthGuard]},
           { path: 'profile', component: MyProfileComponent},
-          // { path: 'activateAccount', component: ActivationComponent},
-          // { path: 'activateAccount', component: ActivationComponent},
+          { path: 'profiles', component: ShowMyProfilenComponent},
+          { path: 'edit-profile', component: EditProfileComponent},
         ]
     }
 ];

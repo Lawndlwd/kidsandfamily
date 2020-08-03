@@ -5,8 +5,9 @@ import {AuthService} from '../auth/auth.service';
 import {exhaustMap, map, take} from 'rxjs/operators';
 import {User} from '../auth/User.model';
 import {ProfessionObject, UserObject} from '../../profile/my-info/my-info.component';
-import {Publication} from '../../main/main-default/publication/publication.model';
-import {Type} from '../../profile/my-profile/my-profile.component';
+import {Profile, Publication} from '../../main/main-default/publication/publication.model';
+import {SousType, Type} from '../../profile/my-profile/my-profile.component';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class ProfileService {
   { }
 
   // tslint:disable-next-line:typedef
-  getUserInfo() {
+  getUserInfo(): Observable<UserObject> {
     return this.http.get<UserObject>(this.urlInfo, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.token._token
@@ -32,7 +33,7 @@ export class ProfileService {
     });
   }
 
-    getProfession(){
+    getProfession(): any {
       return this.http.
       get<ProfessionObject>('https://127.0.0.1:8000/api/professions.json')
       .pipe(map ((resData: ProfessionObject) => {
@@ -53,10 +54,10 @@ export class ProfileService {
     mStatus?: string,
     birthday?: string,
     gender?: string,
-    teleFix?: number,
-    teleMob?: number,
+    teleFix?: string,
+    teleMob?: string,
     profession?: string
-  ){
+  ): Observable<any>{
     return this.http.put('https://127.0.0.1:8000/api/users/' + id + '.json', {
       firstName: fName,
       LastName: lName,
@@ -74,8 +75,7 @@ export class ProfileService {
   }
 
 
-  // tslint:disable-next-line:typedef
-  getTypes(){
+  getTypes(): Observable<any>{
     return this.http.
     get<Type>('https://127.0.0.1:8000/api/types.json')
     .pipe(map ((resData: Type) => {
@@ -90,11 +90,71 @@ export class ProfileService {
   }
 
 
-  // tslint:disable-next-line:typedef
-  getSousTypes(id){
+  getSousTypes(id): Observable<SousType>{
     return this.http.
-    get<Type>('https://127.0.0.1:8000/api/types.json?id=' + id);
+    get<SousType>('https://127.0.0.1:8000/api/types.json?id=' + id);
   }
 
+
+  getUserProfile(): Observable<any> {
+    return this.http.get<UserObject>(this.urlInfo, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    }).pipe(map (resData => {
+      console.log(resData);
+      const arrProf: Profile[] = [];
+      for (const key in resData.profiles){
+        if (resData.profiles.hasOwnProperty(key)){
+          arrProf.push(resData.profiles[key]);
+        }
+      }
+      return arrProf;
+    }));
+  }
+
+  getProfiles(id){
+    return this.http.
+    get<Profile>('https://127.0.0.1:8000/api/profiles/' + id + '.json');
+  }
+
+
+
+  createProfile(
+    type: string,
+    sousType: string,
+    adressComplete: string,
+    city: string,
+    codePostal: number,
+    country: string,
+    nameVoie: string,
+    numProfile: number,
+    numVoie: number,
+    state: string,
+    lan: string,
+    lat: string,
+  ): Observable<Profile>{
+    console.log(lan);
+    console.log(lat);
+
+    return this.http.post<Profile>('https://127.0.0.1:8000/api/profiles.json', {
+      type,
+      sousType,
+      adressComplete,
+      city,
+      codePostal,
+      country,
+      numProfile,
+      nameVoie,
+      numVoie,
+      state,
+      lan,
+      lat,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    });
+  }
 
 }

@@ -12,8 +12,8 @@ export class UserObject {
   gender?: string;
   maritalStatus?: string;
   bithday?: Date;
-  phoneFix?: number;
-  phoneMobile?: number;
+  phoneFix?: string;
+  phoneMobile?: string;
   createdAt: Date;
   profiles?: Profile;
   themes?: Theme;
@@ -52,6 +52,7 @@ export class MyInfoComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.profileService.getUserInfo().subscribe(resData => {
+      console.log(resData);
       this.isLoading = false;
       this.loadedData = {
         id: resData.id,
@@ -79,12 +80,15 @@ export class MyInfoComponent implements OnInit {
       this.loadedProf = resData;
 
     });
+    console.log(this.loadedData.id);
 
   }
 
 
   // tslint:disable-next-line:typedef
   onSubmit(){
+    console.log(this.loadedData.id);
+
     this.isLoading = true;
 
     // if (!this.infoForm.valid){
@@ -95,19 +99,19 @@ export class MyInfoComponent implements OnInit {
     const mStatus = this.infoForm.value.maritalStatus;
     const birthday = this.infoForm.value.birthday;
     const gender = this.infoForm.value.gender;
-    const teleFix: number = +this.infoForm.value.teleFix;
-    const teleMob: number = +this.infoForm.value.telemob;
+    const teleFix: string = this.infoForm.value.teleFix;
+    const teleMob: string = this.infoForm.value.telemob;
     const profession = '/api/professions/' + this.infoForm.value.profession;
 
     this.isLoading = true;
-    this.profileService.saveMyInfo(65, fName, lName, mStatus, birthday, gender, teleFix, teleMob, profession)
+    this.profileService.saveMyInfo(this.loadedData.id, fName, lName, mStatus, birthday, gender, teleFix, teleMob, profession)
       .subscribe(resData => {
         console.log(resData);
         this.success = true;
         this.isLoading = false;
       }, error => {
         console.log(error);
-        this.failed =true;
+        this.failed = true;
       });
 
   }
