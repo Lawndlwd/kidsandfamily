@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FiltersService } from '../services/filters/filters.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import {Router} from "@angular/router"
+import {Router} from "@angular/router";
 import { R3TargetBinder } from '@angular/compiler';
 
 @Component({
@@ -82,14 +82,8 @@ export class FiltersComponent implements OnInit {
       this.compteur--;
     }
 
-    let params = {};
-    for (let filtre in this.selectFilters) {
-      for (let i in this.selectFilters[filtre]) {
-        params[filtre + i] = this.selectFilters[filtre][i];
-      }
-    }
+    let params = this.selectFilters;
 
-    console.log(params);
     // au moins un filtre est sélectionné
     if (this.compteur != 0) {
       this.router.navigate(['/publications-filter'], { queryParams: params });
