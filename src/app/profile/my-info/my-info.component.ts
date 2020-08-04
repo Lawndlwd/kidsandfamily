@@ -82,7 +82,6 @@ export class MyInfoComponent implements OnInit {
       this.loadedProf = resData;
 
     });
-    console.log(this.loadedData.id);
 
   }
 

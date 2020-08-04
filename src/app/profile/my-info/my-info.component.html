@@ -123,7 +123,7 @@
 
             <div class="form-group col-3 text-left px-0">
               <label for="profession">Profession</label>
-            <select id="profession" class="browser-default custom-select " [(ngModel)]="loadedData.profession.id" name= profession    #profession="ngModel" >
+            <select id="profession" class="browser-default custom-select " [(ngModel)]="!loadedData.profession ? 1 : loadedData.profession.id" name= profession    #profession="ngModel" >
               <option  *ngFor="let profession of loadedProf" [value]="profession.id ">{{ profession.profession }}</option>
             </select>
           </div>
