@@ -9,6 +9,12 @@ import {Profile, Publication} from '../../main/main-default/publication/publicat
 import {SousType, Type} from '../../profile/my-profile/my-profile.component';
 import {Observable} from 'rxjs';
 
+export class CenterOfIntreset {
+  id: number;
+  CenterOfInterest: string;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -191,6 +197,23 @@ export class ProfileService {
         Authorization: 'Bearer ' + this.token._token
       })
     });
+  }
+
+  getInterest(): Observable<any> {
+    return this.http.get<CenterOfIntreset>('https://127.0.0.1:8000/api/center_of_interests.json', {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    }).pipe(map (resData => {
+      console.log(resData);
+      const arrProf: CenterOfIntreset[] = [];
+      for (const key in resData){
+        if (resData.hasOwnProperty(key)){
+          arrProf.push(resData[key]);
+        }
+      }
+      return arrProf;
+    }));
   }
 
 }

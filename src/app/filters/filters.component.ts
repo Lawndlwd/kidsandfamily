@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FiltersService } from '../services/filters/filters.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import {Router} from "@angular/router"
+import {Router} from '@angular/router';
 import { R3TargetBinder } from '@angular/compiler';
 
 @Component({

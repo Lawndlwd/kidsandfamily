@@ -1,12 +1,8 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { Publication } from '../main-default/publication/Publication.model';
-import { PublicationsService } from '../../services/publications/publications.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { NgForm } from '@angular/forms';
-import { HttpClient, XhrFactory } from '@angular/common/http';
-import { Xliff2 } from '@angular/compiler';
-import { concatMap, flatMap } from 'rxjs/operators';
+import {Component, OnInit, Output} from '@angular/core';
+import {Publication} from '../main-default/publication/Publication.model';
+import {PublicationsService} from '../../services/publications/publications.service';
+import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
 declare var L: any;
 declare var pubs: any;
@@ -137,7 +133,7 @@ export class MainFiltreSelectionComponent implements OnInit {
         // });
 
         const pubDetails = '<strong>' + publication.user.firstName + '</strong><br>' + publication.title + '<br>' +
-          publication.action.actions + '<br><a  href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>';
+          publication.action.actions + '<br><a  href=\'/publications-details/' + String(publication.id) + '\'>' + 'Voir le détail</a>';
 
         console.log(pubDetails);
         // for (let k = 0; k < pubDetails.length; k++){
@@ -163,5 +159,10 @@ export class MainFiltreSelectionComponent implements OnInit {
 
     });
 
+  }
+  deta(): void {
+    alert('fgsdf');
+
+    this.router.navigate(['publications-details/1']);
   }
 }

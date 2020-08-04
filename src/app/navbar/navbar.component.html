@@ -1,5 +1,5 @@
-<mdb-navbar class="navbar navbar-expand-lg navbar-light  amber ">
-  <mdb-navbar-brand><a class="navbar-brand" href="#">Kids and Falily</a></mdb-navbar-brand>
+<nav class="navbar navbar-expand-lg navbar-light  amber ">
+  <a class="navbar-brand" href="#">Kids and Falily</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -20,9 +20,9 @@
       <li class="nav-item"  *ngIf="!isAuth">
         <a class="nav-link waves-light" routerLink="/auth" href="#">Connexion</a>
       </li>
-      <li class="nav-item active" *ngIf="isAuth">
+      <li class="nav-item" *ngIf="isAuth">
         <a class="nav-link waves-light" routerLink="/auth" (click)= "onLogOut()">log out</a>
       </li>
     </ul>
   </div>
-</mdb-navbar>
+</nav>

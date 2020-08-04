@@ -36,7 +36,7 @@ import { ProfileFilterComponent } from './profile/profile-filter/profile-filter.
 import { MyProfileComponent } from './profile/my-profile/my-profile.component';
 import { ShowMyProfilenComponent } from './profile/show-my-profilen/show-my-profilen.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
-import { DeleteProfileComponent } from './profile/delete-profile/delete-profile.component';
+import { CenterOfInterestComponent } from './profile/center-of-interest/center-of-interest.component';
 
 
 
@@ -66,7 +66,7 @@ import { DeleteProfileComponent } from './profile/delete-profile/delete-profile.
     MyProfileComponent,
     ShowMyProfilenComponent,
     EditProfileComponent,
-    DeleteProfileComponent
+    CenterOfInterestComponent,
 
   ],
     imports: [

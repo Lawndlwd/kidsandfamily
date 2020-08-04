@@ -16,7 +16,7 @@ import {MyInfoComponent} from './profile/my-info/my-info.component';
 import {MyProfileComponent} from './profile/my-profile/my-profile.component';
 import {ShowMyProfilenComponent} from './profile/show-my-profilen/show-my-profilen.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
-import {DeleteProfileComponent} from './profile/delete-profile/delete-profile.component';
+import {CenterOfInterestComponent} from './profile/center-of-interest/center-of-interest.component';
 
 
 
@@ -25,7 +25,7 @@ const appRoutes: Routes = [
     {
       path: '', component: MainComponent,
       children: [
-        { path: 'publications', component: MainDefaultComponent },
+        { path: '', component: MainDefaultComponent },
         { path: 'publications-filter', component: MainFiltreSelectionComponent },
         { path: 'publications-details/:id', component: PublicationDetailsComponent }
       ]
@@ -41,7 +41,7 @@ const appRoutes: Routes = [
           { path: 'profile', component: MyProfileComponent},
           { path: 'profiles', component: ShowMyProfilenComponent},
           { path: 'edit-profile/:id', component: EditProfileComponent},
-          { path: 'delete-profile/:id', component: DeleteProfileComponent},
+           { path: 'center-of-interest', component: CenterOfInterestComponent},
         ]
     }
 ];
