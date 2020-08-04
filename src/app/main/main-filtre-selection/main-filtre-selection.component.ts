@@ -128,7 +128,7 @@ export class MainFiltreSelectionComponent implements OnInit {
     this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').subscribe(publications =>
     {
       this.loadedPublicationCarte = publications;
-      const x = this.loadedPublicationCarte.length;
+      const x = this.loadedPublication.length;
 
       for (let key = 0; key < x; key++) {
         const publication = this.loadedPublicationCarte[key];
