@@ -48,7 +48,6 @@ export class MainFiltreSelectionComponent implements OnInit {
   loadedPublicationCarte;
   NumberOfPub: Number;
   isLoading;
-
   page: Number = 1;
 
   // filters params infos
