@@ -8,10 +8,9 @@ import { Publication } from '../../main/main-default/publication/publication.mod
 })
 export class PublicationsService {
 
-
-
   constructor(private http: HttpClient) {
   }
+  
   getPubsNoArgment(url){
     return this.http.get(url)
     .pipe(map ((responseData: Publication) => {

@@ -22,28 +22,28 @@ import {CenterOfInterestComponent} from './profile/center-of-interest/center-of-
 
 // , canActivate: [AuthGuard]
 const appRoutes: Routes = [
-    {
-      path: '', component: MainComponent,
-      children: [
-        { path: '', component: MainDefaultComponent },
-        { path: 'publications-filter', component: MainFiltreSelectionComponent },
-        { path: 'publications-details/:id', component: PublicationDetailsComponent }
-      ]
-    },
-    { path: 'auth', component: AuthComponent },
-    { path: 'inscription', component: RegisterComponent },
-    { path: 'activateAccount', component: ActivationComponent},
-    { path: ':id/activateaccount/:token', component: ActivationTokenComponent},
-    // { path: 'publications', component: MainDefaultComponent }
-    { path: 'mon-compte', component: ProfileComponent, canActivate: [AuthGuard], children:
-        [
-          { path: '', component: MyInfoComponent, canActivate: [AuthGuard]},
-          { path: 'profile', component: MyProfileComponent},
-          { path: 'profiles', component: ShowMyProfilenComponent},
-          { path: 'edit-profile/:id', component: EditProfileComponent},
-           { path: 'center-of-interest', component: CenterOfInterestComponent},
-        ]
-    }
+  {
+    path: '', component: MainComponent,
+    children: [
+      { path: '', component: MainDefaultComponent },
+      { path: 'publications-filter', component: MainFiltreSelectionComponent },
+      { path: 'publications-details/:id', component: PublicationDetailsComponent }
+    ]
+  },
+  { path: 'auth', component: AuthComponent },
+  { path: 'inscription', component: RegisterComponent },
+  { path: 'activateAccount', component: ActivationComponent},
+  { path: ':id/activateaccount/:token', component: ActivationTokenComponent},
+  {
+    path: 'mon-compte', component: ProfileComponent, canActivate: [AuthGuard],
+    children: [
+      { path: '', component: MyInfoComponent, canActivate: [AuthGuard]},
+      { path: 'profile', component: MyProfileComponent},
+      { path: 'profiles', component: ShowMyProfilenComponent},
+      { path: 'edit-profile/:id', component: EditProfileComponent},
+      { path: 'center-of-interest', component: CenterOfInterestComponent},
+    ]
+  }
 ];
 
 @NgModule({

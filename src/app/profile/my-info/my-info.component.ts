@@ -73,6 +73,8 @@ export class MyInfoComponent implements OnInit {
         profession: resData.profession,
         isActivated: resData.isActivated,
       };
+    }, error => {
+      console.log(error);
     });
 
 
@@ -80,7 +82,6 @@ export class MyInfoComponent implements OnInit {
       this.loadedProf = resData;
 
     });
-    console.log(this.loadedData.id);
 
   }
 
