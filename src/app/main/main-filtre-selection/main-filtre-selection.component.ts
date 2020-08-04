@@ -1,4 +1,4 @@
-import { Component, OnInit,Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Publication } from '../main-default/publication/Publication.model';
 import { PublicationsService } from '../../services/publications/publications.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -84,7 +84,7 @@ export class MainFiltreSelectionComponent implements OnInit {
   getCor(infos){
     const key = 'dad06ede9d99985348d1d5801c524a52';
     const limit = 1;
-    return this.http.get<ResData>('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+infos+'&limit=1');
+    return this.http.get<ResData>('http://api.positionstack.com/v1/forward?access_key=' + key + '&query=' + infos + '&limit=1');
   }
 
   ngOnInit(): void {
@@ -108,13 +108,13 @@ export class MainFiltreSelectionComponent implements OnInit {
         .subscribe(publications => {
           for (let i in publications) {
           this.loadedPublication.push(publications[i]);
-          this.NumberOfPub=this.loadedPublication.length;
+          this.NumberOfPub = this.loadedPublication.length;
         }
       });
     });
 
     this.isLoading = false;
-    
+
     const macarte = L.map('map').setView([48.8587741, 2.2069771], 5 );
     const markers = [];
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
@@ -137,15 +137,15 @@ export class MainFiltreSelectionComponent implements OnInit {
 
         const pubDetails = '<strong>' + publication.user.firstName + '</strong><br>' + publication.title + '<br>' +
         publication.action.actions + '<br><a  href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>';
-        this.getCor(adresse).subscribe(response=> {
+        this.getCor(adresse).subscribe(response => {
           if (Object.keys(response.data[0]).length !== 0) {
-            var marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
+            const marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
             marker.bindPopup(pubDetails);
             markerClusters.addLayer(marker);
-            markers.push(marker);  
+            markers.push(marker);
           }
         });
-          macarte.addLayer(markerClusters); 
+        macarte.addLayer(markerClusters);
       }
     });
   }
