@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
-      { path: 'publications', component: MainDefaultComponent },
+      { path: '', component: MainDefaultComponent },
       { path: 'publications-filter', component: MainFiltreSelectionComponent },
       { path: 'publications-details/:id', component: PublicationDetailsComponent }
     ]
