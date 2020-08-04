@@ -11,7 +11,7 @@ export class MainComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.router.navigate(['publications']);
+    // this.router.navigate(['publications']);
   }
 
 }

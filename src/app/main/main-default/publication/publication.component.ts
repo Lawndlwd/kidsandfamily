@@ -31,8 +31,11 @@ export class PublicationComponent implements OnInit {
       this.NumberOfPub = this.loadedPub.length;
     });
 
-  }
+    for(let i = 0; i < this.NumberOfPub; i++){
+      console.log(this.loadedPub[i]);
+    }
 
+  }
 
   // enDtails(){
   //       this.router.navigate(['/publications-details/]);

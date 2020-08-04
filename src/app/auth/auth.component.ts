@@ -46,6 +46,15 @@ export class AuthComponent {
     });
 
     form.reset();
+
+    // const token = localStorage.getItem('userToken');
+    //
+    // this.authService.getFirstInfo(token).subscribe(user => {
+    //   console.log(user);
+    // }, error => {
+    //   console.log(error);
+    // });
+
   }
   // onSubmitt(form: NgForm){
   //   const place = form.value.username

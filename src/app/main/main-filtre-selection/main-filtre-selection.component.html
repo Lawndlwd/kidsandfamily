@@ -1,84 +1,52 @@
-
-    <h3 class="shadow  py-3 amber text-center mt-5">Publications filtrées</h3>
-    <div class="row my-4  justify-content-center mr-5">
-      <div class="col-md-6 text-center">
-      <mat-button-toggle-group name="condition" aria-label="condition">
-          <mat-button-toggle value="Liste" (click)="ShowList()"  class="mat-button-toggle-label-content" checked>
-            Liste
-          </mat-button-toggle>
-          <mat-button-toggle value="Carte" (click)="ShowCard()"  class="mat-button-toggle-label-content">
-            Carte
-          </mat-button-toggle>
-      
-        </mat-button-toggle-group>
-      </div>
-    </div>
-
-    <div [hidden]="showC" class="shadow  py-3 text-center mt-5">
-
-  <!-- <div>
-    <div>
-        <label for="latitude">Latitude:</label>
-        <input id="latitude" type="number" [(ngModel)]="latitude" placeholder="Latitude">
-    </div>
-    <div>
-        <label for="longitude">Longitude:</label>
-        <input id="longitude" type="number" [(ngModel)]="longitude" placeholder="Longitude">
-    </div>
-    <button (click)="setCenter()">Go</button>
+<div class="text-center spinner my-auto position-absolute" *ngIf = "isLoading" >
+  <app-loading-spinner></app-loading-spinner>
 </div>
-<br> -->
-    <div id="map" ></div>
-<!-- <div id="mouse-position"></div>
+<h3 class="shadow  py-3 amber text-center mt-5">Publications filtrées</h3>
+<div class="row my-4  justify-content-center mr-5">
+  <div class="col-md-6 text-center">
+    <mat-button-toggle-group name="condition" aria-label="condition">
+      <mat-button-toggle value="Liste" (click)="ShowList()"  class="mat-button-toggle-label-content" checked>
+        Liste
+      </mat-button-toggle>
+      <mat-button-toggle value="Carte" (click)="ShowCard()"  class="mat-button-toggle-label-content">
+        Carte
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
 
- <script type="text/javascript">
-  // On initialise la latitude et la longitude de Paris (centre de la carte)
-  var lat = 48.852969;
-  var lon = 2.349903;
-  var macarte = null;
-  // Fonction d'initialisation de la carte
-  function initMap() {
-      // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
-      macarte = L.map('map').setView([lat, lon], 11);
-      // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
-      L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-          // Il est toujours bien de laisser le lien vers la source des données
-          attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-          minZoom: 1,
-          maxZoom: 20
-      }).addTo(macarte);
-  }
-  window.onload = function(){
-// Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
-initMap(); 
-  };
-</script> -->
+<div [hidden]="showC" class="shadow  py-3 text-center mt-5">
 
-        
+<div id="map"></div>
 
-</div><!--hidden-->
+</div><!--showC-->
 
 <br>
 
-<div [hidden]="showL"  class="row mr-5">
+<div [hidden]="showL"  class="row justify-content-end mr-5">
   <div class="col-4 mt-5" *ngFor="let pub of loadedPublication | paginate: {id: 'publicationsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
-      <div class="card shadow-lg h-100">
-          <span class="card-subtitle py-2 pl-3 mb-2 text-muted">   {{pub.user.firstName}} - {{ pub.profile.type.type }}  </span>
-          <span class="card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</span>
-          <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
-          <div class="card-body">
-              <h6 class="card-title">{{pub.title}}</h6>
-              <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
-              <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
-          </div>
-          <div class="card-footer">
-            <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
-            <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }} &nbsp;&nbsp; | &nbsp;&nbsp;</span>
-            <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  &nbsp;&nbsp;|&nbsp;&nbsp;</span>
-            <span class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</span>
-          </div>
+    <div class="card shadow-lg h-100 ">
+      <span class="card-subtitle py-2 pl-3 mb-2 text-muted">   {{pub.user.firstName}} - {{pub.profile.type.type}} </span>
+      <span class="card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</span>
+      <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h6 class="card-title">{{pub.title}}</h6>
+        <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }}  |</span>
+        <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  |</span>
+        <p class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</p>
+        <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
       </div>
+      <div class="card-footer">
+        <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
+        <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }} &nbsp;&nbsp; | &nbsp;&nbsp;</span>
+        <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  &nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</span>
+      </div>
+    </div>
   </div>
   <div class="col-12 justify-content-center  mx-auto my-5">
       <pagination-controls id="publicationsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
   </div>
+</div> <!--showL-->
+
+<!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> -->

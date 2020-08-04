@@ -5,7 +5,7 @@ export interface Publication {
     descriptionBenefits?: string;
     startedAt?: Date;
     endAt?: Date;
-    needs: Need  ;  
+    needs: Need  ;
     action: Action ;
     profile?: Profile ;
     publicCible: PublicCible ;
@@ -13,7 +13,7 @@ export interface Publication {
     theme:Theme ;
     shortDescription?:string;
     createdAtAgo:string;
-    user: User; 
+    user: User;
 }
 export interface Need {
     need: string;
@@ -25,13 +25,25 @@ export interface Theme  {
     theme: string;
 }
 export interface SousType  {
-    name: string;
+  id: number;
+  sousType: string;
 }
 export interface Profile  {
+    id: number;
     type: Type ;
-    sous_type: SousType ;
+    sousType: SousType ;
+    User: string;
+    adressComplete?: string;
+    city: string;
+    codePostal: number;
+    country: string;
+    nameVoie: string;
+    numProfile: number;
+    numVoie: number;
+    state: string;
 }
 export interface Type  {
+    id: number;
     type: string;
 }
 export interface UserPubComment  {

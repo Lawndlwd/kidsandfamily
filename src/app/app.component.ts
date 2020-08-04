@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {
   trigger,
   state,
@@ -7,6 +7,7 @@ import {
   transition,
   // ...
 } from '@angular/animations';
+import {AuthService} from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,12 @@ import {
     // animation triggers go here
   ]
 })
-export class AppComponent {
+export class AppComponent implements  OnInit{
   title = 'kids-and-family-app';
+
+  constructor(private authService: AuthService) {
+  }
+  ngOnInit(): void {
+    this.authService.autoLogin();
+  }
 }
