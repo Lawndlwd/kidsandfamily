@@ -7,8 +7,8 @@ import { UploadService } from './../services/upload/upload.service';
   styleUrls: ['./upload-form.component.css']
 })
 export class UploadFormComponent implements OnInit {
-  selectedFile;
-  publication: string;
+  selectedFiles: string[];
+  publication: string = '7';
   token = JSON.parse(localStorage.getItem('userToken'));
 
   constructor(private upload: UploadService) { }
@@ -17,21 +17,22 @@ export class UploadFormComponent implements OnInit {
   }
 
   onSelected(event) {
-    this.selectedFile = event.target.files[0];
+    this.selectedFiles = event.target.files;
   }
 
   onUpload() {
     const formData = new FormData();
-    formData.append('file', this.selectedFile);
-    
-    formData.append('publication', this.publication);
+    for(let file of this.selectedFiles) {
+      formData.append('file', file);
+      formData.append('publication', this.publication);
 
-    this.upload.publicationPicture(formData, this.token)
-      .subscribe(response => {
-        console.log(response); 
-      }, error => {
-        console.log(error);
-      }
-    );
+      this.upload.publicationPicture(formData, this.token)
+        .subscribe(response => {
+          console.log(response); 
+        }, error => {
+          console.log(error);
+        }
+      );
+    }
   }
 }
