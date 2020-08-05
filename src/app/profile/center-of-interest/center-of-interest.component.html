@@ -2,10 +2,15 @@
   <div class="col-8 my-5 ">
     <p class="h4  my-5">Mes centres d'intérêts</p>
     <div class="col-12 mx-auto">
-      <div class="custom-control custom-checkbox custom-control-inline col-5 my-2" *ngFor="let int of interest">
-        <input type="checkbox" class="custom-control-input"  id="defaultInline{{int.id}}" (change)="onSelected($event)">
-        <label class="custom-control-label h6" for="defaultInline{{int.id}}">{{int.CenterOfInterest}}</label>
+      <form class="text-center  p-5 " #centreOfInterest="ngForm" (ngSubmit)="onSubmit()" >
+      <div class="custom-control form-group custom-checkbox custom-control-inline col-5 my-2" *ngFor="let interest of interests;let k=index;">
+        <input type="checkbox" class="custom-control-input" [name]="interest.id" [id]="interest.id"  ngModel   [value]="interest.id" (change)="onCheck(interest.id)" #fdq="ngModel">
+        <label class="custom-control-label h6" for="{{ interest.id }}">{{interest.CenterOfInterest}}</label>
       </div>
+        <div class="col-11">
+          <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit" >{{"save"}}</button>
+        </div>
+      </form>
     </div>
 
   </div>

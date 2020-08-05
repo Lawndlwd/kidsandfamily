@@ -216,4 +216,18 @@ export class ProfileService {
     }));
   }
 
+
+  setCenterOfIntreset(
+    id: number,
+    centerOfInterests: CenterOfIntreset[],
+  ): Observable<any>{
+    return this.http.put<UserObject>('https://127.0.0.1:8000/api/users/' + id + '.json', {
+      centerOfInterests,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    })
+      ;
+  }
 }
