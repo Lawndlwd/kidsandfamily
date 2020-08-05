@@ -17,6 +17,7 @@ import {MyProfileComponent} from './profile/my-profile/my-profile.component';
 import {ShowMyProfilenComponent} from './profile/show-my-profilen/show-my-profilen.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
 import {CenterOfInterestComponent} from './profile/center-of-interest/center-of-interest.component';
+import {SecurityComponent} from './profile/security/security.component';
 
 
 
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
       { path: 'profiles', component: ShowMyProfilenComponent},
       { path: 'edit-profile/:id', component: EditProfileComponent},
       { path: 'center-of-interest', component: CenterOfInterestComponent},
+      { path: 'security-setting', component: SecurityComponent},
     ]
   }
 ];

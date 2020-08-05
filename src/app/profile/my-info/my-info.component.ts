@@ -1,6 +1,6 @@
 import { NgForm } from '@angular/forms';
 import {Component, OnInit,  ViewChild} from '@angular/core';
-import {ProfileService} from '../../services/profile/profile.service';
+import {CenterOfIntreset, ProfileService} from '../../services/profile/profile.service';
 import {Profile, Publication, Theme, UserPubComment} from '../../main/main-default/publication/publication.model';
 declare var $: any;
 
@@ -18,11 +18,11 @@ export class UserObject {
   profiles?: Profile;
   themes?: Theme;
   userPubComments?: UserPubComment;
-  centerOfInterests?: any;
+  centerOfInterests?: CenterOfIntreset;
   publications?: Publication;
   profession?: any;
   isActivated: boolean;
-
+  resetPassword?: string;
 
 }
 export class ProfessionObject {

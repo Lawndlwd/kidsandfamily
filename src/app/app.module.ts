@@ -38,6 +38,7 @@ import { ShowMyProfilenComponent } from './profile/show-my-profilen/show-my-prof
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { CenterOfInterestComponent } from './profile/center-of-interest/center-of-interest.component';
 import { SecurityComponent } from './profile/security/security.component';
+import { SetPasswordComponent } from './profile/security/set-password/set-password.component';
 
 
 
@@ -69,6 +70,7 @@ import { SecurityComponent } from './profile/security/security.component';
     EditProfileComponent,
     CenterOfInterestComponent,
     SecurityComponent,
+    SetPasswordComponent,
 
   ],
     imports: [

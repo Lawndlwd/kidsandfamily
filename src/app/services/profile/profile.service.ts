@@ -12,6 +12,7 @@ import {Observable} from 'rxjs';
 export class CenterOfIntreset {
   id: number;
   CenterOfInterest: string;
+  checked = false;
 }
 
 
@@ -205,7 +206,6 @@ export class ProfileService {
         Authorization: 'Bearer ' + this.token._token
       })
     }).pipe(map (resData => {
-      console.log(resData);
       const arrProf: CenterOfIntreset[] = [];
       for (const key in resData){
         if (resData.hasOwnProperty(key)){
@@ -219,7 +219,9 @@ export class ProfileService {
 
   setCenterOfIntreset(
     id: number,
-    centerOfInterests: CenterOfIntreset[],
+    centerOfInterests: [{
+      id: number,
+    }],
   ): Observable<any>{
     return this.http.put<UserObject>('https://127.0.0.1:8000/api/users/' + id + '.json', {
       centerOfInterests,
@@ -230,4 +232,26 @@ export class ProfileService {
     })
       ;
   }
+
+  // tslint:disable-next-line:typedef
+  resetPasswordmail(id) {
+    return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password-mail', {}, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  resetPassword(id, password) {
+    return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password', {
+      password,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    });
+  }
+
+
 }
