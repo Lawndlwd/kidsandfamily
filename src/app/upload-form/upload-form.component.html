@@ -1,1 +1,4 @@
-<p>upload-form works!</p>
+<form action="POST" class="form-group">
+    <input type="file" (change)="onSelected($event)">
+    <button class="btn btn-light" (click)="onUpload()">Upload</button>
+</form>
