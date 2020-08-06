@@ -1,15 +1,20 @@
-<h1 class="text-center">Uploader des images</h1>
-<div class="row">
-    <form action="" class="form-group mx-auto">
-        <input type="file" multiple="multiple" (change)="onSelected($event)">
-        <button class="btn btn-light" (click)="onUpload()">Upload</button>
-    </form>
-</div>
-
-<h1 class="text-center">Images associées à la publication</h1>
-<div class="row">
-    <div class="col-sm-4 col-md-3 mb-4" *ngFor="let publicationPicture of publicationPictures">
-        <img src="https://localhost:8000/publication/pictures/{{ publicationPicture['filePath'] }}" class="img-fluid mx-auto d-block" alt="Responsive image">
+<div class="row mt-5">
+    <div class="col-md-4 mb-5">
+        <h1 class="text-center mb-5">Uploader des images</h1>
+        <div class="row">
+            <form action="" class="form mx-auto">
+                <input type="file" multiple="multiple" (change)="onSelected($event)">
+                <button class="btn btn-light" (click)="onUpload()">Upload</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h1 class="text-center mb-5">Images associées à la publication</h1>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 mb-4" *ngFor="let publicationPicture of publicationPictures">
+                <img src="https://localhost:8000/publication/pictures/{{ publicationPicture['filePath'] }}" class="img-fluid mx-auto d-block" alt="Responsive image">
+            </div>
+        </div>
     </div>
 </div>
     
