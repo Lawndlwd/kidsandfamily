@@ -1,24 +1,29 @@
-<h3 class="shadow  py-3 amber text-center mt-5">Détails: {{loadedDetails[0].title}} </h3>
-<div class="row">
-    <div class="col-4 mt-5">
-        <span>theme: {{loadedDetails[0].theme.theme}}</span>
+<h3 class="shadow  py-3 amber text-center mt-5">{{loadedDetails[0].title}} </h3>
+<div class="row justify-content-center">
+    <div class="col-5 col-md-4 mt-5">
+      <p class="h5 d-inline">theme: </p>
+      <span> {{loadedDetails[0].theme.theme}}</span>
     </div>
-    <div class="col-4 mt-5">
-        <span>action: {{loadedDetails[0].action.actions}}</span>
+    <div class="col-5 col-md-4 mt-5">
+        <p class="h5 d-inline">action: </p>
+        <span> {{loadedDetails[0].action.actions}}</span>
     </div>
-    <div class="col-4 mt-5">
-        <span>profile type: {{loadedDetails[0].profile.type.type}}</span>
+    <div class="col-5 col-md-4 mt-5">
+      <p class="h5 d-inline">Profile type: </p>
+      <span> {{loadedDetails[0].profile.type.type}}</span>
     </div>
-    <div class="col-4 mt-5">
-        <span>public Cible: {{loadedDetails[0].publicCible.name}}</span>
+    <div class="col-5 col-md-4 mt-5">
+      <p class="h5 d-inline">Public Cible: </p>
+      <span> {{loadedDetails[0].publicCible.name}}</span>
     </div>
-    <div class="col-4 mt-5">
-        <span>{{loadedDetails[0].startedAt}}</span>
+    <div class="col-5 col-md-4 mt-5">
+      <span>{{loadedDetails[0].startedAt}}</span>
     </div>
-    <div class="col-4 mt-5">
-        <span>{{loadedDetails[0].endAt}}</span>
+    <div class="col-5 col-md-4mt-5">
+      <span>{{loadedDetails[0].endAt}}</span>
     </div>
-    <div class="col-9 mt-5 mx-auto">
-        <span>{{loadedDetails[0].description}}</span>
+    <div class="col-11 mt-5 mx-auto">
+      <p class="h5 d-inline">Description: </p>
+      <span>{{loadedDetails[0].description}}</span>
     </div>
 </div>

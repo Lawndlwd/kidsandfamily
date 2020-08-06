@@ -1,0 +1,29 @@
+.carousel {
+  position: relative;
+  max-height: 500px;
+}
+
+.carousel img {
+
+  max-height: 500px;
+
+}
+.black-overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,.6);
+}
+
+.black-overlay-text{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: whitesmoke;
+  z-index: 5;
+}
+

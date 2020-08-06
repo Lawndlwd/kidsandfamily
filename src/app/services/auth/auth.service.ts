@@ -59,16 +59,16 @@ export class AuthService {
   }
 
 
-  getCor(email){
+  getCor(email) {
     const key = 'dad06ede9d99985348d1d5801c524a52';
     const limit = 1;
-    return this.http.get('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+email+'&limit=1');
-                        //http://api.positionstack.com/v1/forward?
-                        //access_key=dad06ede9d99985348d1d5801c524a52
-                        //&query=1600%20Pennsylvania%20Ave%20NW,%20Washington%20DC
+    return this.http.get('http://api.positionstack.com/v1/forward?access_key=' + key + '&query=' + email + '&limit=1');
+    //http://api.positionstack.com/v1/forward?
+    //access_key=dad06ede9d99985348d1d5801c524a52
+    //&query=1600%20Pennsylvania%20Ave%20NW,%20Washington%20DC
   }
 
-  autoLogOut(){
+  autoLogOut(): void{
     const expDate: number = 1800 * 1000;
 
     this.tokenExpDate = setTimeout(() => {

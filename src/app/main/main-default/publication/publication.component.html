@@ -1,14 +1,23 @@
 <h3 class="shadow  py-3 amber text-center mt-5">Dernières Publications</h3>
-<div class="row">
-  <div class="col-4 mt-5" *ngFor="let pub of loadedPub | paginate: {id: 'pubsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
-    <div class="card shadow-lg h-100 ">
-      <span class="card-subtitle py-2 pl-3 mb-2 ">   {{pub.user.firstName}} - {{ pub.profile.type.type }}  </span>
-      <span class="card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</span>
+<div class="row justify-content-center">
+  <div class="col-11 col-sm-5 col-md-4 col-xl-3 mt-5" *ngFor="let pub of loadedPub | paginate: {id: 'pubsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
+    <div class="card h-100 ">
+      <div class="row justify-content-around">
+        <div class="col-3 m-2">
+          <img class="" src="assets/img/avatar.png" width="40">
+        </div>
+        <div class="col-8">
+          <p class="  text-right card-subtitle py-2 pl-3 mb-2 ">   {{pub.user.firstName}} - {{ pub.profile.type.type }}  </p>
+          <p class="text-right card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</p>
+        </div>
+     </div>
       <img src="http://lorempixel.com/400/200/" class="card-img-top" alt="...">
-      <div class="card-body">
+      <div class="card-body ">
         <h6 class="card-title">{{pub.title}}</h6>
         <p class="card-subtitle mb-2 text-muted">   {{ pub.shortDescription }}  </p>
-        <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
+        <div class=" row justify-content-end">
+          <a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
+        </div>
       </div>
       <div class="card-footer">
         <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
@@ -18,7 +27,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12 justify-content-center  mx-auto my-5">
+  <div class="col-12 justify-content-center text-center mx-auto my-5">
     <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
   </div>
 </div>
