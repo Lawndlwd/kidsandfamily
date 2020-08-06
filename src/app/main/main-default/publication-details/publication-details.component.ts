@@ -10,25 +10,25 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./publication-details.component.css']
 })
 export class PublicationDetailsComponent implements OnInit {
-  loadedDetails= [];
-  id:number;
-  url='https://127.0.0.1:8000/api/publications/';
+  loadedDetails = [];
+  id: number;
+  url = 'https://127.0.0.1:8000/api/publications/';
 
-  constructor(private pubService: PublicationsService,private route: ActivatedRoute
+  constructor(private pubService: PublicationsService, private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params.id;
 
     // this.route.params
     // .subscribe((params: Params) =>{
     //     this.id = params['id'];
     // })
 
-    this.pubService.getPubsWithArgment(this.url+this.id+'.json')
-    .subscribe(publications =>{
+    this.pubService.getPubsWithArgment(this.url + this.id + '.json')
+    .subscribe(publications => {
       this.loadedDetails = publications;
-    }); 
-    
+    });
+
   }
 }

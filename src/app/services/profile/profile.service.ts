@@ -9,6 +9,13 @@ import {Profile, Publication} from '../../main/main-default/publication/publicat
 import {SousType, Type} from '../../profile/my-profile/my-profile.component';
 import {Observable} from 'rxjs';
 
+export class CenterOfIntreset {
+  id: number;
+  CenterOfInterest: string;
+  checked = false;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -193,4 +200,65 @@ export class ProfileService {
     });
   }
 
+  getInterest(): Observable<any> {
+    return this.http.get<CenterOfIntreset>('https://127.0.0.1:8000/api/center_of_interests.json', {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    }).pipe(map (resData => {
+      const arrProf: CenterOfIntreset[] = [];
+      for (const key in resData){
+        if (resData.hasOwnProperty(key)){
+          arrProf.push(resData[key]);
+        }
+      }
+      return arrProf;
+    }));
+  }
+
+
+  setCenterOfIntreset(
+    id: number,
+    centerOfInterests: [{
+      id: number,
+    }],
+  ): Observable<any>{
+    return this.http.put<UserObject>('https://127.0.0.1:8000/api/users/' + id + '.json', {
+      centerOfInterests,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    })
+      ;
+  }
+
+  // tslint:disable-next-line:typedef
+  resetPasswordmail(id) {
+    return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password-mail', {}, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  resetPassword(id, password) {
+    return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password', {
+      password,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    });
+  }
+
+
+  deleteUser(id): any {
+    return this.http.delete('https://127.0.0.1:8000/api/users/' + id + '.json', {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    });
+  }
 }
