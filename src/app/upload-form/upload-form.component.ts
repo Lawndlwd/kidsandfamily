@@ -22,7 +22,6 @@ export class UploadFormComponent implements OnInit {
     this.download.getPublicationPictures(this.publicationId, this.token)
       .subscribe(response => {
         this.publicationPictures = response['publicationPictures'];
-        // console.log(response['publicationPictures'][0]['filePath']);
       }, error => {
         console.log(error);
       });
@@ -47,5 +46,10 @@ export class UploadFormComponent implements OnInit {
         }
       );
     }
+  }
+
+  onDelete(event) {
+    // console.log(event.target.value);
+    this.download.deletePublicationPicture(publicationPictureId).subscribe
   }
 }

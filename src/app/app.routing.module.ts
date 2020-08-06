@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -17,7 +16,7 @@ import {MyProfileComponent} from './profile/my-profile/my-profile.component';
 import {ShowMyProfilenComponent} from './profile/show-my-profilen/show-my-profilen.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
 import {DeleteProfileComponent} from './profile/delete-profile/delete-profile.component';
-
+import { UploadFormComponent } from './upload-form/upload-form.component';
 
 
 // , canActivate: [AuthGuard]
@@ -43,7 +42,8 @@ const appRoutes: Routes = [
       { path: 'edit-profile/:id', component: EditProfileComponent},
       { path: 'delete-profile/:id', component: DeleteProfileComponent},
     ]
-  }
+  },
+  { path: 'upload-picture', component: UploadFormComponent }
 ];
 
 @NgModule({
