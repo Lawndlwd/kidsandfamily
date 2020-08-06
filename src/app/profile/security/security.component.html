@@ -1,67 +1,99 @@
-<div *ngIf="error">
-  <div class="alert alert-danger"  *ngFor="let err of error">
-    {{err}}
-  </div>
-  <div *ngIf="messages">
-    <div class="alert alert-success"  *ngFor="let message of messages">
+ <div class="col-md-3 customAlert" *ngFor="let message of messages" [class.visible]="messages">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" >
       {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-</div>
+  </div>
+  <div class="col-md-3 customAlert" *ngFor="let err of error" [class.visible]="error">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+      {{err}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+ <div class="row mt-5 pt-5">
+   <p class="h4 text-center mb-5 col-12"><mdb-icon class="text-info" fas icon="cog"></mdb-icon>&nbsp;&nbsp;|&nbsp;&nbsp;Mon Compte - Mes Paramétre</p>
+ </div>
+ <div class="text-center spinner my-auto position-absolute" *ngIf = "isLoading" >
+   <app-loading-spinner></app-loading-spinner>
+ </div>
+ <div *ngIf="!canChange">
 
-<div *ngIf="!canChange">
-<div class="row justify-content-center mt-5 pt-5" *ngIf="!emailSent">
-  <button mdbBtn type="button" (click)="basicModal.show()" size="lg" color="deep-orange" mdbWavesEffect>Mes informations</button>
+    <div class="row justify-content-around mt-5 pt-5" *ngIf="!emailSent">
+      <button mdbBtn type="button" (click)="basicModal.show()" size="lg" color="deep-purple" mdbWavesEffect>Changer mon mot de passe</button>
+      <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                  <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" >Attention</h4>
+              </div>
+              <div class="modal-body">
+                Changer mon mot de passe<br>
+                Etes-vous sûr de vouloir changer votre mot de passe!?
 
-  <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
-            <span aria-hidden="true">×</span>
-          </button>
-          <h4 class="modal-title w-100" id="myModalLabel">Supprimer mon profil</h4>
-        </div>
-        <div class="modal-footer">
-          <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
-          <button type="button" mdbBtn color="pink" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onResetPassword()" >Confirmer la suppression</button>
-        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
+                <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onResetPassword()" >Confirmer</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      <button mdbBtn type="button" (click)="basicModal1.show()" size="lg" color="red" mdbWavesEffect>Supprimer mon compte</button>
+      <div mdbModal #basicModal1="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal1.hide()">
+                  <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" >Attention</h4>
+              </div>
+              <div class="modal-body">
+                Supprimer mon compte<br>
+                Etes-vous sûr de vouloir supprimer votre compte!?
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal1.hide()" mdbWavesEffect>Annuler</button>
+                <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal1.hide(); onDeleteUser()" >Confirmer</button>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
-  </div>
-  <!--  <div class="col-11 mt-3">-->
-  <!--    <button mdbBtn type="button" size="lg" color="deep-orange" mdbWavesEffect>Amber</button>-->
-  <!--  </div>-->
-</div>
 
-<div class="row justify-content-center mt-5 pt-5" *ngIf="emailSent">
-  <form class="text-center  p-5" #secretKeyForm="ngForm" (ngSubmit)="onSubmit()">
-    <p class="h4 mb-4">Mon Compte</p>
+    <div class="row justify-content-center mt-5" *ngIf="emailSent">
+  <form class="text-center  " #secretKeyForm="ngForm" (ngSubmit)="onSubmit()">
+    <p class="h4 mb-4">Code de vérification</p>
     <div class="row justify-content-between ">
-      <div class="md-form col-6 px-0">
+      <div class="md-form col-12 px-0">
 
-        <label for="key">Secret Key</label>
+        <label for="key">Code de vérification</label>
         <input mdbInput type="text" id="key" class="form-control " ngModel  name= key  #key="ngModel"/>
 
-
-<!--        <div class="text-left" *ngIf="Key.invalid && (Key.dirty || Key.touched)" >-->
-<!--          <small class="text-danger text-left" *ngIf="Key.errors.required">-->
-<!--            Le nom est obligatoire.-->
-<!--          </small>-->
-<!--        </div>-->
-
       </div>
-      <div>
-        <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!secretKeyForm.valid " >{{"save"}}</button>
+      <div class="col-12">
+        <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit" [disabled]="!secretKeyForm.valid " >{{"Confirmer"}}</button>
       </div>
     </div>
   </form>
 </div>
+
 </div>
+
+
 <div *ngIf="canChange">
 
-  <div class="row justify-content-center mt-5 pt-5">
-    <form class="text-center  p-5" #resetPasswordForm="ngForm" (ngSubmit)="onSubmitKey()">
-      <div class="md-form ">
+  <div class="row justify-content-center mt-5">
+    <form class="text-center col-8 p-5" #resetPasswordForm="ngForm" (ngSubmit)="onSubmitKey()">
+      <div class="md-form col-12">
         <label for="password">Nouveau  Mot de passe</label>
         <input mdbInput type="password" id="password" class="form-control " ngModel name= password pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$"  required minlength="8 "#password="ngModel" />
 
@@ -82,7 +114,7 @@
         </div>
 
       </div>
-      <div class="md-form ">
+      <div class="md-form col-12">
         <label for="rePassword"> Confirmez le mot de passe </label>
         <input mdbInput type="password" id="rePassword" class="form-control " ngModel  name= rePassword pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$"  required minlength="8 "#rePassword="ngModel" />
         <div class="text-left" *ngIf="rePassword.invalid && (rePassword.dirty || rePassword.touched) " >
@@ -93,7 +125,7 @@
         </div>
       </div>
       <div>
-        <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!resetPasswordForm.valid " >{{"save"}}</button>
+        <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!resetPasswordForm.valid " >{{"Confirmer"}}</button>
       </div>
     </form>
   </div>

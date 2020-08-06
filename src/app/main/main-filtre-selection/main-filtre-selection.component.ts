@@ -59,7 +59,7 @@ export class MainFiltreSelectionComponent implements OnInit {
   structures: string[] = [];
   regions: string[] = [];
 
-  private _url: string = 'https://127.0.0.1:8000/api/publications.json?';
+  private _url = 'https://127.0.0.1:8000/api/publications.json?';
   private _params: string;
 
 
@@ -92,12 +92,12 @@ export class MainFiltreSelectionComponent implements OnInit {
 
     // récupération des paramètres de la requête
     this.route.queryParams.subscribe(params => {
-      this.profiles = params['profil'];
-      this.publics = params['public'];
-      this.themes = params['theme'];
-      this.actions = params['action'];
-      this.structures = params['structure'];
-      this.regions = params['region'];
+      this.profiles = params.profil;
+      this.publics = params.public;
+      this.themes = params.theme;
+      this.actions = params.action;
+      this.structures = params.structure;
+      this.regions = params.region;
 
       this._params = '';
       this.loadedPublication = [];
@@ -106,7 +106,7 @@ export class MainFiltreSelectionComponent implements OnInit {
 
       this.pubsService.getFilteredPubs(this._url + this._params)
         .subscribe(publications => {
-          for (let i in publications) {
+          for (const i in publications) {
           this.loadedPublication.push(publications[i]);
           this.NumberOfPub = this.loadedPublication.length;
         }
@@ -135,7 +135,26 @@ export class MainFiltreSelectionComponent implements OnInit {
         const adresse = publication.profile.numVoie + ' ' + publication.profile.nameVoie + ' ' + publication.profile.codePostal
         + ' ' + publication.profile.city + ' ' + publication.profile.country;
 
-        const pubDetails = '<strong>' + publication.user.firstName + '</strong><br>' + publication.title + '<br>' +
+        const pubDetails = '<div class="card h-100 ">' +
+        '<span class="card-subtitle py-2 pl-3 mb-2 text-muted">' +  publication.user.firstName + publication.profile.type.type + '</span>' +
+          '<span class="card-subtitle py-1 pl-3 text-muted">' + publication.createdAtAgo + '</span>' +
+        '<img src="https://picsum.photos/400/200" class="card-img-top" alt="...">' +
+        '<div class="card-body">' +
+        '<h6 class="card-title">' + publication.title + '</h6>' +
+        '<span class="card-subtitle mb-2 text-muted">   ' +  publication.theme.theme + '  |</span>' +
+          '<span class="card-subtitle mb-2 text-muted">   ' +  publication.action.actions + '  |</span>' +
+          '<p class="card-subtitle mb-2 text-muted"> ' + publication.publicCible.name + '</p>' +
+          '<div class=" row justify-content-end">' +
+          // tslint:disable-next-line:max-line-length
+          '<a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>' +
+          // '<a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect routerLink="/publications-details/'{{pub.id}}'" routerLinkActive="router-link-active">En Details</a>'
+      '</div>      </div>';
+
+
+
+
+
+        const pubDetailss = '<strong>' + publication.user.firstName + '</strong><br>' + publication.title + '<br>' +
         publication.action.actions + '<br><a  href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>';
         this.getCor(adresse).subscribe(response => {
           if (Object.keys(response.data[0]).length !== 0) {
@@ -150,38 +169,38 @@ export class MainFiltreSelectionComponent implements OnInit {
     });
   }
 
-  createRequestParams() {
+createRequestParams() {
     // traitement filtre profile
     if (this.profiles.length != 0) {
-      for (let i in this.profiles) {
+      for (const i in this.profiles) {
         this._params += 'profile.type.id[]=' + this.profiles[i] + '&';
       }
     }
 
     // traitement filtre public
     if (this.publics.length != 0) {
-      for (let i in this.publics) {
+      for (const i in this.publics) {
         this._params += 'publicCible.id[]=' + this.publics[i] + '&';
       }
     }
 
     // traitement filtre theme
     if (this.themes.length != 0) {
-      for (let i in this.themes) {
+      for (const i in this.themes) {
         this._params += 'theme.id[]=' + this.themes[i] + '&';
       }
     }
 
     // traitement filtre action
     if (this.actions.length != 0) {
-      for (let i in this.actions) {
+      for (const i in this.actions) {
         this._params += 'action.id[]=' + this.actions[i] + '&';
       }
     }
 
     // traitement filtre structure
     if (this.structures.length != 0) {
-      for (let i in this.structures) {
+      for (const i in this.structures) {
         this._params += 'structure.id[]=' + this.structures[i] + '&';
       }
     }

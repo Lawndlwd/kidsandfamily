@@ -44,6 +44,7 @@ export class MyInfoComponent implements OnInit {
   success = false;
   failed = false;
 
+
   @ViewChild('myInfoForm') infoForm: NgForm;
 
   constructor(private profileService: ProfileService) { }
@@ -104,10 +105,12 @@ export class MyInfoComponent implements OnInit {
       .subscribe(resData => {
         console.log(resData);
         this.success = true;
+        setTimeout(() => this.success = false, 3500);
         this.isLoading = false;
       }, error => {
         console.log(error);
         this.failed = true;
+        setTimeout(() => this.failed = false, 3500);
       });
 
   }

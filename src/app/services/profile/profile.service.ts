@@ -254,4 +254,11 @@ export class ProfileService {
   }
 
 
+  deleteUser(id): any {
+    return this.http.delete('https://127.0.0.1:8000/api/users/' + id + '.json', {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token._token
+      })
+    });
+  }
 }

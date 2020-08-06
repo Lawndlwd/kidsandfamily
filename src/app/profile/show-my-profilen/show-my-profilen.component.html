@@ -1,11 +1,11 @@
 
-<div class="row mt-3 mr-5 justify-content-end" *ngIf="!noProfiles">
-  <button class="col-3" routerLink="/mon-compte/profile" mdbBtn type="button"  color="deep-orange" mdbWavesEffect>Créer un profil</button>
+<div class="row mt-3 mx-0  mr-md-5 justify-content-end" *ngIf="!noProfiles">
+  <button class="col-7 col-sm-4 col-md-3 p-2" routerLink="/mon-compte/profile" mdbBtn type="button"  color="deep-purple" mdbWavesEffect>Créer un profil&nbsp;&nbsp;&nbsp;<mdb-icon fas icon="plus-circle"></mdb-icon></button>
 </div>
 <div class="row justify-content-center my-5 bg-warning " *ngIf="noProfiles">
   <div class="col-8 my-5">
     Vous n'est pas des profiles
-    <button class="col-3" routerLink="/mon-compte/profile" mdbBtn type="button"  color="deep-orange" mdbWavesEffect>Créer un profil</button>
+    <button class="col-3" routerLink="/mon-compte/profile" mdbBtn type="button"  color="deep-purple" mdbWavesEffect>Créer un profil </button>
   </div>
 </div>
 <div class="alert alert-danger"  *ngIf="failed">
@@ -15,9 +15,11 @@
   <app-loading-spinner></app-loading-spinner>
 </div>
 <div *ngIf = "!isLoading">
-  <table class="table table-hover mt-5 pt-5" *ngIf="!noProfiles">
+  <table class="table  table-responsive  table-hover ml-lg-5 mt-5 pt-5" *ngIf="!noProfiles">
     <thead>
     <tr>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
       <th scope="col">#</th>
       <th scope="col">Type</th>
       <th scope="col">Sous Type</th>
@@ -29,15 +31,9 @@
     </thead>
     <tbody *ngFor=" let profile of userProfiles">
       <tr>
-        <th scope="row">{{ profile.numProfile }}</th>
-        <td>{{ profile.type.type }}</td>
-        <td>{{ profile.sousType.sousType }}</td>
-        <td>{{ profile.numVoie }}, {{ profile.nameVoie |uppercase}}</td>
-        <td>{{ profile.codePostal }}</td>
-        <td>{{ profile.city |uppercase }}, {{ profile.country |uppercase}}</td>
         <td>
 
-          <a routerLink="/mon-compte/edit-profile/{{profile.id}}"><mdb-icon fas icon="pencil-alt"></mdb-icon></a></td>
+          <a  routerLink="/mon-compte/edit-profile/{{profile.id}}"><mdb-icon class="purple-text" fas icon="pencil-alt"></mdb-icon></a></td>
         <td>
           <mdb-icon fas icon="trash-alt" (click)="basicModal.show()" class="pink-text ml-3"  mdbWavesEffect></mdb-icon>
 
@@ -48,15 +44,26 @@
                   <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
                     <span aria-hidden="true">×</span>
                   </button>
-                  <h4 class="modal-title w-100" id="myModalLabel">Supprimer mon profil</h4>
+                  <h4 class="modal-title w-100" id="myModalLabel">Attention,</h4>
+                </div>
+                <div class="modal-body">
+                  Supprimer mon profil<br>
+                  Toutes les publications liées à ce profil seront supprimées, vous ne pourrez plus récupérer votre profil
+
                 </div>
                 <div class="modal-footer">
-                  <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
-                  <button type="button" mdbBtn color="pink" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(profile.id)" >Confirmer la suppression</button>
+                  <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
+                  <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(profile.id)" >Confirmer la suppression</button>
                 </div>
               </div>
             </div>
           </div></td>
+        <th scope="row">{{ profile.numProfile }}</th>
+        <td>{{ profile.type.type }}</td>
+        <td>{{ profile.sousType.sousType }}</td>
+        <td>{{ profile.numVoie }}, {{ profile.nameVoie |uppercase}}</td>
+        <td>{{ profile.codePostal }}</td>
+        <td>{{ profile.city |uppercase }}, {{ profile.country |uppercase}}</td>
       </tr>
     </tbody>
   </table>
