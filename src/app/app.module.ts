@@ -41,6 +41,7 @@ import { UploadFormComponent } from './upload-form/upload-form.component';
 import { FiltersService } from './services/filters/filters.service';
 import { AuthService } from './services/auth/auth.service';
 import { UploadService } from './services/upload/upload.service';
+import { DownloadService } from './services/download/download.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { UploadService } from './services/upload/upload.service';
     FiltersService,
     AuthGuard,
     AuthService,
-    UploadService
+    UploadService,
+    DownloadService
   ],
   bootstrap: [AppComponent]
 })
