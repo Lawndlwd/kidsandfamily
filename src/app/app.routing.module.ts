@@ -15,8 +15,10 @@ import {MyInfoComponent} from './profile/my-info/my-info.component';
 import {MyProfileComponent} from './profile/my-profile/my-profile.component';
 import {ShowMyProfilenComponent} from './profile/show-my-profilen/show-my-profilen.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
-import {DeleteProfileComponent} from './profile/delete-profile/delete-profile.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
+import {CenterOfInterestComponent} from './profile/center-of-interest/center-of-interest.component';
+import {SecurityComponent} from './profile/security/security.component';
+
 
 
 // , canActivate: [AuthGuard]
@@ -33,14 +35,15 @@ const appRoutes: Routes = [
   { path: 'inscription', component: RegisterComponent },
   { path: 'activateAccount', component: ActivationComponent},
   { path: ':id/activateaccount/:token', component: ActivationTokenComponent},
-  { 
+  {
     path: 'mon-compte', component: ProfileComponent, canActivate: [AuthGuard],
     children: [
       { path: '', component: MyInfoComponent, canActivate: [AuthGuard]},
       { path: 'profile', component: MyProfileComponent},
       { path: 'profiles', component: ShowMyProfilenComponent},
       { path: 'edit-profile/:id', component: EditProfileComponent},
-      { path: 'delete-profile/:id', component: DeleteProfileComponent},
+      { path: 'center-of-interest', component: CenterOfInterestComponent},
+      { path: 'security-setting', component: SecurityComponent},
     ]
   },
   { path: 'upload-picture', component: UploadFormComponent }

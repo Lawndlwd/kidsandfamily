@@ -3,3 +3,13 @@
   right: 15px;
   position: absolute;
 }
+.nav-item {
+  border-bottom:2px solid #51d6a2;
+  transition: border-bottom-color .5s;
+}
+.nav-item:hover {
+  border-bottom:2px solid #ffc107;
+}
+.active{
+  border-bottom:2px solid #ffc107;
+}

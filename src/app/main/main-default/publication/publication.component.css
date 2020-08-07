@@ -1,0 +1,16 @@
+.card{
+  -webkit-box-shadow: 3px 1px 35px -30px rgba(0,0,0,1);
+  -moz-box-shadow: 3px 1px 35px -30px rgba(0,0,0,1);
+  box-shadow: 2px 1px 35px -30px rgba(0,0,0,1);
+  transition: all 250ms;
+}
+.card:hover {
+  margin-top: -2px ;
+  -webkit-box-shadow: 22px 36px 80px -12px rgba(0,0,255,0.3);
+  -moz-box-shadow: 22px 36px 80px -12px rgba(0,0,255,0.3);
+  box-shadow: 22px 36px 80px -12px rgba(0,0,255,0.3);
+}
+/*rgba(0,0,255,0.1)*/
+ul .ngx-pagination{
+  text-align: center;
+}
