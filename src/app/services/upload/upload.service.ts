@@ -19,5 +19,11 @@ export class UploadService {
       formData,
       { headers: authorizationToken }
     );
-  }  
+  }
+
+  deletePublicationPicture(publicationPictureId) {
+    return this.http.delete(
+      `https://localhost:8000/api/publication_pictures/${publicationPictureId}`
+    );
+  }
 }

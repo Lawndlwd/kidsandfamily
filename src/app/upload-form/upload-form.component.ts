@@ -16,6 +16,9 @@ export class UploadFormComponent implements OnInit {
   publicationId: string = '7';
   token = JSON.parse(localStorage.getItem('userToken'));
 
+  // delete
+  publicationPictureId: string = '31';
+
   constructor(private upload: UploadService, private download: DownloadService) { }
 
   ngOnInit(): void {
@@ -39,7 +42,7 @@ export class UploadFormComponent implements OnInit {
 
       this.upload.publicationPicture(formData, this.token)
         .subscribe(response => {
-          console.log(response);
+          // console.log(response);
           this.ngOnInit();
         }, error => {
           console.log(error);
@@ -49,7 +52,14 @@ export class UploadFormComponent implements OnInit {
   }
 
   onDelete(event) {
-    // console.log(event.target.value);
-    this.download.deletePublicationPicture(publicationPictureId).subscribe
+    this.publicationPictureId = event.target.value;
+    this.upload.deletePublicationPicture(this.publicationPictureId)
+      .subscribe(response => {
+        // console.log(response);
+        this.ngOnInit();
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 }
