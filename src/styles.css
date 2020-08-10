@@ -5,7 +5,11 @@ html {
 
 html, body { height: 100%; }
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f5f5f5;
+}
 
 .spinner{
   top: 50%;
@@ -15,3 +19,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 input.ng-invalid.ng-touched {
   border-bottom: 1px solid red;
 }
+
+.customAlert{
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  transition:  all 0.2s ease-in-out;
+  opacity: 0;
+  z-index: 9999999999999999999999;
+}
+.visible  {
+  opacity: .8;
+  transform: translateY(1.25rem);
+}
+

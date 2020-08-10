@@ -27,6 +27,7 @@ export class EditProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute, private profileService: ProfileService, private cardService: CardService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.id = this.route.snapshot.params.id;
     this.profileService.getProfiles(this.id)
       .subscribe(resData => {
@@ -38,8 +39,13 @@ export class EditProfileComponent implements OnInit {
             arrSousTypes.push(resType[0].sousTypes[key]);
           }
           this.sousTypes = arrSousTypes;
+          this.isLoading = false;
         });
-      }, error => console.log(error));
+      }, error => {
+        console.log(error);
+
+        this.isLoading = false;
+      });
 
 
     this.profileService.getTypes().subscribe(resData  => {
@@ -96,14 +102,17 @@ export class EditProfileComponent implements OnInit {
       .subscribe(resData => {
         console.log(resData);
         this.success = true;
+        setTimeout(() => this.success = false, 3500);
         this.isLoading = false;
       }, error => {
         console.log(error);
         this.failed = true;
+        setTimeout(() => this.failed = false, 3500);
       });
   }else {
         this.isLoading = false;
         this.failed = true;
+        setTimeout(() => this.failed = false, 3500);
       }
     });
   }

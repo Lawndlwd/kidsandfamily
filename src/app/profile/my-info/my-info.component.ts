@@ -1,6 +1,6 @@
 import { NgForm } from '@angular/forms';
 import {Component, OnInit,  ViewChild} from '@angular/core';
-import {ProfileService} from '../../services/profile/profile.service';
+import {CenterOfIntreset, ProfileService} from '../../services/profile/profile.service';
 import {Profile, Publication, Theme, UserPubComment} from '../../main/main-default/publication/publication.model';
 declare var $: any;
 
@@ -18,11 +18,11 @@ export class UserObject {
   profiles?: Profile;
   themes?: Theme;
   userPubComments?: UserPubComment;
-  centerOfInterests?: any;
+  centerOfInterests?: CenterOfIntreset;
   publications?: Publication;
   profession?: any;
   isActivated: boolean;
-
+  resetPassword?: string;
 
 }
 export class ProfessionObject {
@@ -43,6 +43,7 @@ export class MyInfoComponent implements OnInit {
   isLoading = false;
   success = false;
   failed = false;
+
 
   @ViewChild('myInfoForm') infoForm: NgForm;
 
@@ -73,8 +74,6 @@ export class MyInfoComponent implements OnInit {
         profession: resData.profession,
         isActivated: resData.isActivated,
       };
-    }, error => {
-      console.log(error);
     });
 
 
@@ -82,8 +81,6 @@ export class MyInfoComponent implements OnInit {
       this.loadedProf = resData;
 
     });
-    console.log(this.loadedData.id);
-
   }
 
 
@@ -108,10 +105,12 @@ export class MyInfoComponent implements OnInit {
       .subscribe(resData => {
         console.log(resData);
         this.success = true;
+        setTimeout(() => this.success = false, 3500);
         this.isLoading = false;
       }, error => {
         console.log(error);
         this.failed = true;
+        setTimeout(() => this.failed = false, 3500);
       });
 
   }
