@@ -49,6 +49,7 @@ export class MainFiltreSelectionComponent implements OnInit {
     this.showL = true;
   }
   loadedPublication;
+  publication;
   markers;
   NumberOfPub: Number;
   isLoading;
@@ -71,24 +72,31 @@ export class MainFiltreSelectionComponent implements OnInit {
      {
       this.loadedPublication = new Array<any>();
       this.markers = new Array<any>();
+      this.publication = new Array<any>();
      }
 
   ngOnInit(): void {
 
     this.isLoading = true;
+
+    
     
     const macarte = L.map('map', {center : [38,8], maxZoom :20 }).setView([48.8587741, 2.2069771], 5 );
-  
-    
-    const markerClusters = L.markerClusterGroup();
-    const layerGroup = L.layerGroup()
-    
+    const markerClusters = new L.markerClusterGroup();
+    markerClusters.clearLayers();
 
+    macarte.removeMarkers = function() {
+      this.markers.remove();
+    }
+ 
+ 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
       attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
       minZoom: 1,
       maxZoom: 20,
     }).addTo(macarte);
+
+   
    
     // récupération des paramètres de la requête
     this.route.queryParams.subscribe(params => {
@@ -101,76 +109,48 @@ export class MainFiltreSelectionComponent implements OnInit {
 
       this._params = '';
       this.loadedPublication = [];
+      this.publication ={};
       this.markers = [];
-      //  this.macarte='',
+      markerClusters.clearLayers();
+      
       this.createRequestParams();
       
-      // L.Map.include({
-      //   'clearLayers': function () {
-      //     this.eachLayer(function (markers) {
-      //       this.removeLayer(markers);
-      //       this.removeMarker(markers);
-      //     }, this);
-      //   }
-      // });
-
-    //   macarte.eachLayer(function (layer) {
-    //     // macarte.removeLayer(layer);
-       
-    // });
-
-    macarte.removeMarkers = function() {
-      console.log(this.markers);
-      this.markers = [];
-      
-  }
+      macarte.removeMarkers = function() {
+        this.markers.remove();
+      }
    
     
       this.pubsService.getFilteredPubs(this._url + this._params)
         .subscribe(publications => {
-         
+          this.loadedPublication = [];
           for (let i in publications) {
           this.loadedPublication.push(publications[i]);
           this.NumberOfPub=this.loadedPublication.length;
-          const publication = publications[i];
-          const adresse = publication.profile.numVoie + ' ' + publication.profile.nameVoie + ' '
-          + publication.profile.codePostal+ ' ' + publication.profile.city + ' ' + publication.profile.country;
+
+          this.publication = publications[i];
+         
+          const adresse = this.publication.profile.numVoie + ' ' + this.publication.profile.nameVoie + ' '
+          + this.publication.profile.codePostal+ ' ' + this.publication.profile.city + ' ' + this.publication.profile.country;
  
-         const pubDetails = '<strong>' + publication.user.firstName + '</strong><br>' + publication.title + '<br>' +
-         publication.action.actions + '<br>' + publication.profile.type.type + '<br>' + publication.publicCible.name +
-         '<br>' + publication.theme.theme +'<br><a  href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>';
+         const pubDetails = '<strong>' + this.publication.user.firstName + '</strong><br>' + this.publication.title + '<br>' +
+         this.publication.action.actions + '<br>' + this.publication.profile.type.type + '<br>' + this.publication.publicCible.name +
+         '<br>' + this.publication.theme.theme +'<br><a  href=\'/publications-details/' + this.publication.id + '\'>' + 'Voir le détail</a>';
          this.getCor(adresse).subscribe(response=> {
 
            if (Object.keys(response.data[0]).length !== 0) {
             var marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
+            
             marker.bindPopup(pubDetails);
             markerClusters.addLayer(marker);
            this.markers.push(marker);
            macarte.addLayer(markerClusters);
-            // if (macarte.hasLayer(layerGroup)) {           
-            //   console.log("count1 =>", macarte.hasLayer(layerGroup));
-            //     layerGroup.clearLayers();
-            //     macarte.removeLayer(layerGroup);             
-            //       }else {
-            //         console.log("count2 =>", macarte.hasLayer(layerGroup));  
-            //       }
-           }
+              }
          });
 
-        }//endfor
-
-        // if (macarte.hasLayer(layerGroup)) {
-        //   console.log("count1 =>", macarte.hasLayer(layerGroup));
-        //     layerGroup.clearLayers();
-        //     macarte.removeLayer(layerGroup);
-        //       }else {
-        //         console.log("count2 =>", macarte.hasLayer(layerGroup));
-        //       }
-      });
-    });
-    
+        } // endfor
+      }); // end pubsService
+    }); //end route.queryParams.subscribe
     this.isLoading = false;
-
   }  //ngOnInit()
 
   getCor(infos){
