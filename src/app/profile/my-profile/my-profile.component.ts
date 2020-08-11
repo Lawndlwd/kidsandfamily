@@ -119,18 +119,19 @@ n;
         this.profileService.createProfile(type, sousType, adressComplete, city, codePostal, country, rue, numProfile, voie, state, lon, lat)
           .subscribe(resData => {
             console.log(resData);
-            this.success = true;
             this.router.navigate(['mon-compte/profiles']);
             this.isLoading = false;
           }, error => {
             console.log(error);
             this.failed = true;
+            setTimeout(() => this.failed = false, 3500);
             this.isLoading = false;
 
           });
         }else {
         this.isLoading = false;
         this.failed = true;
+        setTimeout(() => this.failed = false, 2500);
       }
       }, error => {
       console.log(error);

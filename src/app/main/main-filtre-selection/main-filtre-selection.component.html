@@ -5,7 +5,7 @@
 <div class="row my-4  justify-content-center mr-5">
   <div class="col-md-6 text-center">
     <mat-button-toggle-group name="condition" aria-label="condition">
-      <mat-button-toggle value="Liste" (click)="ShowList()"  class="mat-button-toggle-label-content" checked>
+      <mat-button-toggle value="Liste" (click)="ShowList()"  class=" mat-button-toggle-label-content" checked>
         Liste
       </mat-button-toggle>
       <mat-button-toggle value="Carte" (click)="ShowCard()"  class="mat-button-toggle-label-content">
@@ -23,19 +23,26 @@
 
 <br>
 
-<div [hidden]="showL"  class="row justify-content-end mr-5">
-  <div class="col-4 mt-5" *ngFor="let pub of loadedPublication | paginate: {id: 'publicationsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
-    <div class="card shadow-lg h-100 ">
-      <span class="card-subtitle py-2 pl-3 mb-2 text-muted">   {{pub.user.firstName}} - {{pub.profile.type.type}} </span>
-      <span class="card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</span>
-      <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
+<div [hidden]="showL"  class="row justify-content-center">
+  <div class="col-11 col-sm-5 col-md-4 col-xl-3 mt-5 " *ngFor="let pub of loadedPublication | paginate: {id: 'publicationsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
+    <div class="card h-100 ">
+      <div class="row justify-content-around">
+        <div class="col-3 m-2">
+          <img class="" src="assets/img/avatar.png" width="40">
+        </div>
+        <div class="col-8">
+          <p class="  text-right card-subtitle py-2 pl-3 mb-2 ">   {{pub.user.firstName}} - {{ pub.profile.type.type }}  </p>
+          <p class="text-right card-subtitle py-1 pl-3 text-muted">{{pub.createdAtAgo }}</p>
+        </div>
+      </div><img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
       <div class="card-body">
         <h6 class="card-title">{{pub.title}}</h6>
         <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }}  |</span>
         <span class="card-subtitle mb-2 text-muted">   {{pub.action.actions}}  |</span>
         <p class="card-subtitle mb-2 text-muted"> {{pub.publicCible.name}}</p>
-        <a class="card-link" routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
-      </div>
+        <div class=" row justify-content-end">
+          <a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect routerLink="/publications-details/{{pub.id}}" routerLinkActive="router-link-active">En Details</a>
+        </div>      </div>
       <div class="card-footer">
         <span class="card-subtitle mb-2 text-muted" *ngIf="pub.structure">   {{pub.structure.name}}  |</span>
         <span class="card-subtitle mb-2 text-muted">   {{ pub.theme.theme }} &nbsp;&nbsp; | &nbsp;&nbsp;</span>
@@ -44,7 +51,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12 justify-content-center  mx-auto my-5">
+  <div class="col-12 justify-content-center text-center  mx-auto my-5">
       <pagination-controls id="publicationsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
   </div>
 </div> <!--showL-->
