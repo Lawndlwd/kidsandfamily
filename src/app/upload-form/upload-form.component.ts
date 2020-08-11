@@ -24,7 +24,9 @@ export class UploadFormComponent implements OnInit {
   ngOnInit(): void {
     this.download.getPublicationPictures(this.publicationId, this.token)
       .subscribe(response => {
-        this.publicationPictures = response['publicationPictures'];
+        console.log(response);
+
+        this.publicationPictures = response['publicationPictures'].sort((a,b) => a.priority - b.priority);
       }, error => {
         console.log(error);
       });
