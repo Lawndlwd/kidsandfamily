@@ -37,5 +37,5 @@ mat-button-toggle-group {
   }
 
   #map{ /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
-    height:800px;
+    height:500px;
 }

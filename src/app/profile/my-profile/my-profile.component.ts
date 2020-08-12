@@ -73,7 +73,7 @@ n;
 
   // tslint:disable-next-line:typedef
   onTypeSelected(){
-    this.isLoading = true;
+    
     const selectedType = this.ProfileForm.value.type;
 
     this.profileService.getSousTypes(selectedType).subscribe(resData => {

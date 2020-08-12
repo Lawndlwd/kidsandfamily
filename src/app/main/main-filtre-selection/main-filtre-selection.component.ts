@@ -1,12 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { Publication } from '../main-default/publication/Publication.model';
 import { PublicationsService } from '../../services/publications/publications.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { NgForm } from '@angular/forms';
-import { HttpClient, XhrFactory } from '@angular/common/http';
-import { Xliff2 } from '@angular/compiler';
-import { concatMap, flatMap } from 'rxjs/operators';
+import { HttpClient} from '@angular/common/http';
 declare const L: any;
 
 export class ResData {
@@ -49,10 +44,7 @@ export class MainFiltreSelectionComponent implements OnInit {
     this.showL = true;
   }
   loadedPublication;
-  publication;
-  markers;
   NumberOfPub: Number;
-  isLoading;
   page: Number = 1;
   // filters params infos
   profiles: string[] = [];
@@ -71,8 +63,6 @@ export class MainFiltreSelectionComponent implements OnInit {
      private route: ActivatedRoute)
      {
       this.loadedPublication = new Array<any>();
-      this.markers = new Array<any>();
-      this.publication = new Array<any>();
      }
 
   getCor(infos){
@@ -83,27 +73,17 @@ export class MainFiltreSelectionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.isLoading = true;
-
-    
-    
     const macarte = L.map('map', {center : [38,8], maxZoom :20 }).setView([48.8587741, 2.2069771], 5 );
+    const markers = [];
     const markerClusters = new L.markerClusterGroup();
-    markerClusters.clearLayers();
-
-    macarte.removeMarkers = function() {
-      this.markers.remove();
-    }
- 
+    
  
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
       attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-      minZoom: 1,
-      maxZoom: 20,
+      minZoom: 1
+      // maxZoom: 20,
     }).addTo(macarte);
 
-   
-   
     // récupération des paramètres de la requête
     this.route.queryParams.subscribe(params => {
       this.profiles = params.profil;
@@ -115,132 +95,54 @@ export class MainFiltreSelectionComponent implements OnInit {
 
       this._params = '';
       this.loadedPublication = [];
-      this.publication ={};
-      this.markers = [];
+     
       markerClusters.clearLayers();
       
       this.createRequestParams();
       
-      macarte.removeMarkers = function() {
-        this.markers.remove();
-      }
-   
     
       this.pubsService.getFilteredPubs(this._url + this._params)
         .subscribe(publications => {
-          this.loadedPublication = [];
+         
           for (let i in publications) {
           this.loadedPublication.push(publications[i]);
           this.NumberOfPub=this.loadedPublication.length;
 
-          this.publication = publications[i];
-         
-          const adresse = this.publication.profile.numVoie + ' ' + this.publication.profile.nameVoie + ' '
-          + this.publication.profile.codePostal+ ' ' + this.publication.profile.city + ' ' + this.publication.profile.country;
+          const publication = this.loadedPublication[i];
+          console.log(publication);
+          const adresse = publication.profile.numVoie + ' ' + publication.profile.nameVoie + ' '
+          + publication.profile.codePostal+ ' ' + publication.profile.city + ' ' + publication.profile.country;
           
           const pubDetails = '<div class="card h-100 ">' +
-        '<span class="card-subtitle py-2 pl-3 mb-2 text-muted">' +  this.publication.user.firstName +'<br>'+ this.publication.profile.type.type + '</span>' +
-          '<span class="card-subtitle py-1 pl-3 text-muted">' + this.publication.createdAtAgo + '</span>' +
+        '<span class="card-subtitle py-2 pl-3 mb-2 text-muted">' +  publication.user.firstName +'<br>'+ publication.profile.type.type + '</span>' +
+          '<span class="card-subtitle py-1 pl-3 text-muted">' + publication.createdAtAgo + '</span>' +
         '<img src="https://picsum.photos/400/200" class="card-img-top" alt="...">' +
         '<div class="card-body">' +
-        '<h6 class="card-title">' + this.publication.title + '</h6>' +
-        '<span class="card-subtitle mb-2 text-muted">   ' +  this.publication.theme.theme + '  |</span>' +
-          '<span class="card-subtitle mb-2 text-muted">   ' +  this.publication.action.actions + '  |</span>' +
-          '<p class="card-subtitle mb-2 text-muted"> ' +  this.publication.publicCible.name + '</p>' +
+        '<h6 class="card-title">' + publication.title + '</h6>' +
+        '<span class="card-subtitle mb-2 text-muted">   ' +  publication.theme.theme + '  |</span>' +
+          '<span class="card-subtitle mb-2 text-muted">   ' + publication.action.actions + '  |</span>' +
+          '<p class="card-subtitle mb-2 text-muted"> ' +  publication.publicCible.name + '</p>' +
           '<div class=" row justify-content-end">' +
-          // tslint:disable-next-line:max-line-length
-          '<a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect href=\'/publications-details/' + this.publication.id + '\'>' + 'Voir le détail</a>'
+          '<a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>'
           this.getCor(adresse).subscribe(response=> {
 
             if (Object.keys(response.data[0]).length !== 0) {
-             var marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
+             const marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
              
              marker.bindPopup(pubDetails);
              markerClusters.addLayer(marker);
-            this.markers.push(marker);
+            markers.push(marker);
             macarte.addLayer(markerClusters);
                }
           });
-          // '<a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect routerLink="/publications-details/'{{pub.id}}'" routerLinkActive="router-link-active">En Details</a>'
-      '</div>      </div>';
-
-        //  const pubDetails = '<strong>' + this.publication.user.firstName + '</strong><br>' + this.publication.title + '<br>' +
-        //  this.publication.action.actions + '<br>' + this.publication.profile.type.type + '<br>' + this.publication.publicCible.name +
-        //  '<br>' + this.publication.theme.theme +'<br><a  href=\'/publications-details/' + this.publication.id + '\'>' + 'Voir le détail</a>';
+      '</div> </div>';
    
 
         } // endfor
       }); // end pubsService
     }); //end route.queryParams.subscribe
-    this.isLoading = false;
+    
   }  //ngOnInit()
-
-  // getCor(infos){
-  //   const key = 'dad06ede9d99985348d1d5801c524a52';
-  //   const limit = 1;
-  //   return this.http.get<ResData>('http://api.positionstack.com/v1/forward?access_key='+key+'&query='+infos+'&limit=1');
-  //         for (const i in publications) {
-  //         this.loadedPublication.push(publications[i]);
-  //         this.NumberOfPub = this.loadedPublication.length;
-  //       }
-  //     });
-    // });
-
-    // this.isLoading = false;
-
-    // const macarte = L.map('map').setView([48.8587741, 2.2069771], 5 );
-    // const markers = [];
-    // L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-    //   attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-    //   minZoom: 1,
-    //   maxZoom: 20
-    // }).addTo(macarte);
-
-    // const markerClusters = L.markerClusterGroup();
-
-    // this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').subscribe(publications =>
-    // {
-    //   this.loadedPublicationCarte = publications;
-    //   const x = this.loadedPublication.length;
-
-    //   for (let key = 0; key < x; key++) {
-    //     const publication = this.loadedPublicationCarte[key];
-    //     const adresse = publication.profile.numVoie + ' ' + publication.profile.nameVoie + ' ' + publication.profile.codePostal
-    //     + ' ' + publication.profile.city + ' ' + publication.profile.country;
-
-      //   const pubDetails = '<div class="card h-100 ">' +
-      //   '<span class="card-subtitle py-2 pl-3 mb-2 text-muted">' +  publication.user.firstName + publication.profile.type.type + '</span>' +
-      //     '<span class="card-subtitle py-1 pl-3 text-muted">' + publication.createdAtAgo + '</span>' +
-      //   '<img src="https://picsum.photos/400/200" class="card-img-top" alt="...">' +
-      //   '<div class="card-body">' +
-      //   '<h6 class="card-title">' + publication.title + '</h6>' +
-      //   '<span class="card-subtitle mb-2 text-muted">   ' +  publication.theme.theme + '  |</span>' +
-      //     '<span class="card-subtitle mb-2 text-muted">   ' +  publication.action.actions + '  |</span>' +
-      //     '<p class="card-subtitle mb-2 text-muted"> ' + publication.publicCible.name + '</p>' +
-      //     '<div class=" row justify-content-end">' +
-      //     // tslint:disable-next-line:max-line-length
-      //     '<a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>' +
-      //     // '<a mdbBtn class="card-link " size="sm" color="deep-purple" mdbWavesEffect routerLink="/publications-details/'{{pub.id}}'" routerLinkActive="router-link-active">En Details</a>'
-      // '</div>      </div>';
-
-
-
-
-
-  //       const pubDetailss = '<strong>' + publication.user.firstName + '</strong><br>' + publication.title + '<br>' +
-  //       publication.action.actions + '<br><a  href=\'/publications-details/' + publication.id + '\'>' + 'Voir le détail</a>';
-  //       this.getCor(adresse).subscribe(response => {
-  //         if (Object.keys(response.data[0]).length !== 0) {
-  //           const marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
-  //           marker.bindPopup(pubDetails);
-  //           markerClusters.addLayer(marker);
-  //           markers.push(marker);
-  //         }
-  //       });
-  //       macarte.addLayer(markerClusters);
-  //     }
-  //   });
-  // }
 
 createRequestParams() {
     // traitement filtre profile
