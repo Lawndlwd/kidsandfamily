@@ -1,6 +1,9 @@
+import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from './../services/upload/upload.service';
 import { DownloadService } from '../services/download/download.service';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upload-form',
@@ -24,7 +27,7 @@ export class UploadFormComponent implements OnInit {
   ngOnInit(): void {
     this.download.getPublicationPictures(this.publicationId, this.token)
       .subscribe(response => {
-        console.log(response);
+        // console.log(response);
 
         this.publicationPictures = response['publicationPictures'].sort((a,b) => a.priority - b.priority);
       }, error => {
@@ -63,5 +66,29 @@ export class UploadFormComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  toUpper(event) {
+    const indexPubPictureSelected = event.target.value;
+    
+    this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected - 1])
+      .subscribe(response => {
+        // console.log(response);
+        this.ngOnInit();
+      }, error => {
+        console.log(error);
+      })
+  }
+
+  toLower(event) {
+    const indexPubPictureSelected = event.target.value;
+    
+    this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected + 1])
+      .subscribe(response => {
+        // console.log(response);
+        this.ngOnInit();
+      }, error => {
+        console.log(error);
+      })
   }
 }

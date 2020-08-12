@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,25 @@ export class UploadService {
     return this.http.delete(
       `https://localhost:8000/api/publication_pictures/${publicationPictureId}`
     );
+  }
+
+  inversePriority(pubPicture_1, pubPicture_2) {
+    const priorityPubPicture_2 = pubPicture_2['priority'];
+
+    const status_1 = this.http.put(
+      `https://localhost:8000/api/publication_pictures/${pubPicture_2['id']}.json`,
+      {
+        "priority": pubPicture_1['priority']
+      }
+    );
+
+    const status_2 = this.http.put(
+      `https://localhost:8000/api/publication_pictures/${pubPicture_1['id']}.json`,
+      {
+        "priority": priorityPubPicture_2
+      }
+    );
+
+    return forkJoin([status_1, status_2]);
   }
 }
