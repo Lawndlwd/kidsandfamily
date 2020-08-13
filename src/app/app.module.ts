@@ -9,7 +9,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 
 
 
-import { AppRoutingModule } from './app.routing.module';
+import { AppRouting } from './app.routing';
 import { AppComponent } from './app.component';
 import { PublicationDetailsComponent } from './main/main-default/publication-details/publication-details.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -39,8 +39,30 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { CenterOfInterestComponent } from './profile/center-of-interest/center-of-interest.component';
 import { SecurityComponent } from './profile/security/security.component';
 import { SetPasswordComponent } from './profile/security/set-password/set-password.component';
-
-
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { AdminComponent } from './admin/admin.component';
+import { SidebarComponent } from './admin/sidebar/sidebar.component';
+import { DashoardComponent } from './admin/dashoard/dashoard.component';
+import { PubsComponent } from './admin/pubs/pubs.component';
+import { ProfilesComponent } from './admin/profiles/profiles.component';
+import { UsersComponent } from './admin/users/users.component';
+import { CreateUserComponent } from './admin/users/create-user/create-user.component';
+import { EditUserComponent } from './admin/users/edit-user/edit-user.component';
+import { ShowUsersComponent } from './admin/users/show-users/show-users.component';
+import { ShowProfilesComponent } from './admin/profiles/show-profiles/show-profiles.component';
+import { EditPubComponent } from './admin/pubs/edit-pub/edit-pub.component';
+import { CreatePubComponent } from './admin/pubs/create-pub/create-pub.component';
+import { ShowPubsComponent } from './admin/pubs/show-pubs/show-pubs.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AdminEditProfileComponent } from './admin/profiles/admin-edit-profile/admin-edit-profile.component';
 
 
 @NgModule({
@@ -71,19 +93,42 @@ import { SetPasswordComponent } from './profile/security/set-password/set-passwo
     CenterOfInterestComponent,
     SecurityComponent,
     SetPasswordComponent,
-
+    AdminComponent,
+    SidebarComponent,
+    DashoardComponent,
+    PubsComponent,
+    ProfilesComponent,
+    UsersComponent,
+    CreateUserComponent,
+    EditUserComponent,
+    ShowUsersComponent,
+    ShowProfilesComponent,
+    EditPubComponent,
+    CreatePubComponent,
+    ShowPubsComponent,
+    PageNotFoundComponent,
+    AdminEditProfileComponent,
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        NgxPaginationModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MatButtonToggleModule,
-        AppRoutingModule,
-        RecaptchaModule,
-        MDBBootstrapModule.forRoot(),
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    NgxPaginationModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonToggleModule,
+    AppRouting,
+    RecaptchaModule,
+    MDBBootstrapModule.forRoot(),
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
 
   providers: [
     FiltersService,

@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {exhaustMap, take, tap} from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {ProfileService} from '../profile/profile.service';
 
 export class AuthResponseData {
   token?: string;
@@ -89,13 +90,14 @@ export class AuthService {
 
 
   // tslint:disable-next-line:typedef
-  signUp(fName: string, lName: string , email: string, password: string){
+  signUp(fName: string, lName: string , email: string, password: string, roles: any[]){
     return this.http.post<RegResponseData>('https://127.0.0.1:8000/api/users',
     {
       email,
       password,
       firstName: fName,
-      LastName: lName
+      LastName: lName,
+      roles
     }
     );
   }

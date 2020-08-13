@@ -23,7 +23,7 @@
 
 
     <form class="text-center  p-5 " #editProfileForm="ngForm" (ngSubmit)="onSubmit()" *ngIf = "!isLoading">
-      <p class="h4 mb-5">Mon Compte - Mes Profiles</p>
+      <p class="h4 mb-5">{{ admin ? 'Profile' :'Mon Compte - Mes Profiles'}}</p>
       <div class="row justify-content-around my-5 ">
         <div class="form-group col-11 col-md-5 col-lg-3 px-0 mt-3 text-left ">
           <label for="type">Type</label>
@@ -124,7 +124,7 @@
         </div>
       </div>
       <div class="col-11 align-items-start">
-        <button class="mt-5 mx-3 text-info" mdbBtn  mdbWavesEffect routerLink="/mon-compte/profiles" type="button" >{{"Retour"}}</button>
+        <button class="mt-5 mx-3 text-info" mdbBtn  mdbWavesEffect (click)="backClicked()" type="button" >{{"Retour"}}</button>
 
         <button class="mt-5 mx-3" mdbBtn color="amber" mdbWavesEffect type="submit" [disabled]="!editProfileForm.valid">{{"Enregistrer"}}</button>
       </div>

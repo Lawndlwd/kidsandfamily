@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ProfileService} from '../../services/profile/profile.service';
 import {Profile, SousType, Type} from '../../main/main-default/publication/publication.model';
 import {NgForm} from '@angular/forms';
+import { Location } from '@angular/common';
 import {CardService} from '../../services/card/card.service';
 
 @Component({
@@ -19,16 +20,18 @@ export class EditProfileComponent implements OnInit {
   types: Type[];
   sousTypes: SousType[];
   typeSelected = false;
+  admin = false;
 
 
   @ViewChild('editProfileForm') ProfileForm: NgForm;
 
 
-  constructor(private route: ActivatedRoute, private profileService: ProfileService, private cardService: CardService) { }
+  constructor(private location: Location, private route: ActivatedRoute, private profileService: ProfileService, private cardService: CardService) { }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.id = this.route.snapshot.params.id;
+    this.admin = location.pathname !== 'mon-compte/edit-profile/' + this.id;
     this.profileService.getProfiles(this.id)
       .subscribe(resData => {
         this.profile = resData;
@@ -52,6 +55,7 @@ export class EditProfileComponent implements OnInit {
       this.types = resData;
       this.isLoading = false;
     });
+
 
 
   }
@@ -115,5 +119,9 @@ export class EditProfileComponent implements OnInit {
         setTimeout(() => this.failed = false, 3500);
       }
     });
+  }
+
+  backClicked(): void {
+    this.location.back();
   }
 }

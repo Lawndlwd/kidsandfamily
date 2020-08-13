@@ -33,13 +33,16 @@
               "node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
               "node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
               "node_modules/animate.css/animate.css",
+              "node_modules/startbootstrap-sb-admin-2/css/sb-admin-2.min.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/chart.js/dist/Chart.js",
+              "./node_modules/startbootstrap-sb-admin-2/js/sb-admin-2.min.js",
               "node_modules/hammerjs/hammer.min.js"
             ]
           },

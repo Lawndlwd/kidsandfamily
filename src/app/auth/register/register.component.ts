@@ -14,6 +14,11 @@ export class RegisterComponent implements OnInit {
   isLoading = false;
   error: string = null;
   recaptcha: any[];
+  dRecaptcha = true;
+  templateUnchecked = false;
+  templateChecked = true;
+  template = true;
+  admin = false;
 
   @ViewChild('authForm') signUpForm: NgForm;
 
@@ -22,6 +27,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (location.pathname === '/admin/users/create-user'){
+      this.dRecaptcha = false;
+    }
   }
 
 
@@ -39,6 +47,9 @@ export class RegisterComponent implements OnInit {
     if (!this.signUpForm.valid){
       return;
     }
+    if (!this.dRecaptcha){
+      this.admin = this.signUpForm.value.admin;
+    }
     const email = this.signUpForm.value.email;
     const password = this.signUpForm.value.password;
     const rePassword = this.signUpForm.value.rePassword;
@@ -51,27 +62,47 @@ export class RegisterComponent implements OnInit {
 
 
       this.isLoading = true;
-      this.authService.signUp(fName, lName, email, password).subscribe(resData => {
-        // tslint:disable-next-line:no-shadowed-variable
-        this.authService.sendActivation(resData.id).subscribe(resData => {
+      if (!this.dRecaptcha){
+        this.authService.signUp(fName, lName, email, password, this.admin ? ['ROLE_ADMIN'] : []).subscribe(resData1 => {
+          // tslint:disable-next-line:no-shadowed-variable
+          console.log(resData1);
           this.isLoading = false;
-          this.router.navigate(['/activateAccount']);
+        }, errorRes => {
+          // tslint:disable-next-line:triple-equals
+          if (errorRes.error['hydra:description'] == 'email: This value is already used.'){
+
+            this.error = 'email: Cette valeur est déjà utilisée.';
+          }else{
+
+            this.error = 'Erreur inconnue';
+          }
+          console.log(errorRes);
+          this.isLoading = false;
 
         });
-      }, errorRes => {
-        // tslint:disable-next-line:triple-equals
-        if (errorRes.error['hydra:description'] == 'email: This value is already used.'){
 
-          this.error = 'email: Cette valeur est déjà utilisée.';
-        }else{
+      }else {
+        this.authService.signUp(fName, lName, email, password, []).subscribe(resData => {
+          // tslint:disable-next-line:no-shadowed-variable
+          this.authService.sendActivation(resData.id).subscribe(resData => {
+            this.isLoading = false;
+            this.router.navigate(['/activateAccount']);
 
-          this.error = 'Erreur inconnue';
-        }
-        console.log(errorRes);
-        this.isLoading = false;
+          });
+        }, errorRes => {
+          // tslint:disable-next-line:triple-equals
+          if (errorRes.error['hydra:description'] == 'email: This value is already used.') {
 
-      });
+            this.error = 'email: Cette valeur est déjà utilisée.';
+          } else {
 
+            this.error = 'Erreur inconnue';
+          }
+          console.log(errorRes);
+          this.isLoading = false;
+
+        });
+      }
     }
     this.signUpForm.controls.password.reset();
     this.signUpForm.controls.rePassword.reset();

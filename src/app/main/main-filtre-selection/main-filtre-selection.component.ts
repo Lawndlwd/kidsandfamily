@@ -59,7 +59,7 @@ export class MainFiltreSelectionComponent implements OnInit {
   structures: string[] = [];
   regions: string[] = [];
 
-  private _url = 'https://127.0.0.1:8000/api/publications.json?';
+  private _url = 'https://127.0.0.1:8000/api/publications.json?user.isblocked=0&';
   private _params: string;
 
 
@@ -125,7 +125,7 @@ export class MainFiltreSelectionComponent implements OnInit {
 
     const markerClusters = L.markerClusterGroup();
 
-    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1').subscribe(publications =>
+    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?user.isblocked=0&page=1').subscribe(publications =>
     {
       this.loadedPublicationCarte = publications;
       const x = this.loadedPublication.length;

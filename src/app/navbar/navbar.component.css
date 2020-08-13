@@ -1,7 +1,5 @@
 .navbar-toggler-icon {
-  top: 10px;
-  right: 15px;
-  position: absolute;
+border: none;
 }
 .nav-item {
   border-bottom:2px solid #51d6a2;

@@ -25,7 +25,7 @@ export class PublicationDetailsComponent implements OnInit {
     //     this.id = params['id'];
     // })
 
-    this.pubService.getPubsWithArgment(this.url + this.id + '.json')
+    this.pubService.getPubsWithArgment(this.url + this.id + '.json?user.isBlocked=0&page=1')
     .subscribe(publications => {
       this.loadedDetails = publications;
     });

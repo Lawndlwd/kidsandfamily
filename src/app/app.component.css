@@ -1,9 +1,9 @@
 .page-container {
     position: relative;
     min-height: 100vh;
-  
+
   }
 
 .content-wrap {
-    padding-bottom: 20vh; 
+    min-height:  calc(100vh - ( 70px));
 }

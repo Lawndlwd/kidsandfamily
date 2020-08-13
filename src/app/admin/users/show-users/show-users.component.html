@@ -1,0 +1,66 @@
+<div class="container">
+  <table  mdbTable class="table col-12  table-responsive  table-hover ml-lg-5 mt-5 pt-5">
+    <thead>
+    <tr>
+<!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
+<!--      </th>-->
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+      <th>#</th>
+      <th [mdbTableSort]="users" sortBy="firstName"><mdb-icon fas icon="sort"></mdb-icon>First Name</th>
+      <th [mdbTableSort]="users" sortBy="LastName"><mdb-icon fas icon="sort"></mdb-icon>Last Name</th>
+      <th [mdbTableSort]="users" sortBy="email"><mdb-icon fas icon="sort"></mdb-icon>Email</th>
+      <th [mdbTableSort]="users" sortBy="gender"><mdb-icon fas icon="sort"></mdb-icon>Gender</th>
+      <th [mdbTableSort]="users" sortBy="createdAt"><mdb-icon fas icon="sort"></mdb-icon>Created at</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+
+    <tr *ngFor=" let i = index; let el of users | paginate: {id: 'pubsList', itemsPerPage: 10, currentPage: page, totalItems: NumberOfPub  }">
+      <td>
+        <a  routerLink="/admin/users/{{el.id}}/edit"><mdb-icon class="purple-text" fas icon="pencil-alt"></mdb-icon></a>
+      </td>
+      <td>
+        <mdb-icon fas icon="trash-alt" (click)="basicModal.show()" class="pink-text ml-3"  mdbWavesEffect></mdb-icon>
+
+        <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                  <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">Attention,</h4>
+              </div>
+              <div class="modal-body">
+                Supprimer mon profil<br>
+                Toutes les publications liées à ce profil seront supprimées, vous ne pourrez plus récupérer votre profil
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
+                <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(el.id); deletePubsAndProfiles();" >Confirmer la suppression</button>
+              </div>
+            </div>
+          </div>
+        </div></td>
+      <td>{{i+1}}</td>
+      <td>{{el.firstName}}</td>
+      <td>{{el.LastName}}</td>
+      <td>{{el.email}}</td>
+      <td>{{el.gender}}</td>
+      <td>{{el.createdAt | date}}</td>
+
+
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="4">
+        <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</div>
