@@ -76,8 +76,8 @@ export class MainFiltreSelectionComponent implements OnInit {
     const macarte = L.map('map', {center : [38,8], maxZoom :20 }).setView([48.8587741, 2.2069771], 5 );
     const markers = [];
     const markerClusters = new L.markerClusterGroup();
-    
- 
+
+
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
       attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
       minZoom: 1
@@ -95,15 +95,15 @@ export class MainFiltreSelectionComponent implements OnInit {
 
       this._params = '';
       this.loadedPublication = [];
-     
+
       markerClusters.clearLayers();
-      
+
       this.createRequestParams();
-      
-    
+
+
       this.pubsService.getFilteredPubs(this._url + this._params)
         .subscribe(publications => {
-         
+
           for (let i in publications) {
           this.loadedPublication.push(publications[i]);
           this.NumberOfPub=this.loadedPublication.length;
@@ -112,7 +112,7 @@ export class MainFiltreSelectionComponent implements OnInit {
           console.log(publication);
           const adresse = publication.profile.numVoie + ' ' + publication.profile.nameVoie + ' '
           + publication.profile.codePostal+ ' ' + publication.profile.city + ' ' + publication.profile.country;
-          
+
           const pubDetails = '<div class="card h-100 ">' +
         '<span class="card-subtitle py-2 pl-3 mb-2 text-muted">' +  publication.user.firstName +'<br>'+ publication.profile.type.type + '</span>' +
           '<span class="card-subtitle py-1 pl-3 text-muted">' + publication.createdAtAgo + '</span>' +
@@ -128,7 +128,7 @@ export class MainFiltreSelectionComponent implements OnInit {
 
             if (Object.keys(response.data[0]).length !== 0) {
              const marker = L.marker([response.data[0].latitude, response.data[0].longitude]).addTo(macarte);
-             
+
              marker.bindPopup(pubDetails);
              markerClusters.addLayer(marker);
             markers.push(marker);
@@ -136,45 +136,55 @@ export class MainFiltreSelectionComponent implements OnInit {
                }
           });
       '</div> </div>';
-   
+
 
         } // endfor
       }); // end pubsService
     }); //end route.queryParams.subscribe
-    
+
   }  //ngOnInit()
 
 createRequestParams() {
     // traitement filtre profile
-    if (this.profiles.length != 0) {
+  if (this.profiles){
+    if (this.profiles.length !== 0) {
       for (const i in this.profiles) {
         this._params += 'profile.type.id[]=' + this.profiles[i] + '&';
       }
     }
+  }
     // traitement filtre public
-    if (this.publics.length != 0) {
+  if (this.publics){
+  if (this.publics.length !== 0) {
       for (const i in this.publics) {
         this._params += 'publicCible.id[]=' + this.publics[i] + '&';
       }
     }
+  }
     // traitement filtre theme
-    if (this.themes.length != 0) {
+  if (this.themes){
+  if (this.themes.length !== 0) {
       for (const i in this.themes) {
         this._params += 'theme.id[]=' + this.themes[i] + '&';
       }
     }
+  }
     // traitement filtre action
-    if (this.actions.length != 0) {
+  if (this.actions){
+  if (this.actions.length !== 0) {
       for (const i in this.actions) {
         this._params += 'action.id[]=' + this.actions[i] + '&';
       }
     }
+}
     // traitement filtre structure
-    if (this.structures.length != 0) {
+  if (this.structures) {
+    if (this.structures.length !== 0) {
       for (const i in this.structures) {
         this._params += 'structure.id[]=' + this.structures[i] + '&';
       }
     }
+  }
     // ajouter traitement du filtre region après ajout du champen base de données
   }
 }

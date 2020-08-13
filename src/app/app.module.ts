@@ -68,6 +68,7 @@ import { FiltersService } from './services/filters/filters.service';
 import { AuthService } from './services/auth/auth.service';
 import { UploadService } from './services/upload/upload.service';
 import { DownloadService } from './services/download/download.service';
+import { GetEmailComponent } from './resetpass/get-email/get-email.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { DownloadService } from './services/download/download.service';
     ShowPubsComponent,
     PageNotFoundComponent,
     AdminEditProfileComponent,
+    GetEmailComponent,
   ],
   imports: [
     BrowserModule,
