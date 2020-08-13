@@ -25,13 +25,14 @@ export class PublicationComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?page=1')
+    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?user.isblocked=0&page=1')
     .subscribe(publications => {
+      console.log(publications);
       this.loadedPub = publications;
       this.NumberOfPub = this.loadedPub.length;
     });
 
-    for(let i = 0; i < this.NumberOfPub; i++){
+    for (let i = 0; i < this.NumberOfPub; i++){
       console.log(this.loadedPub[i]);
     }
 

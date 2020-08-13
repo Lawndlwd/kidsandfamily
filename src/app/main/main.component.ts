@@ -24,6 +24,5 @@ export class MainComponent implements OnInit {
       }
       }
     );
-    console.log(location.pathname);
   }
 }

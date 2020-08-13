@@ -1,0 +1,83 @@
+<div class="container-fluid">
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Publication List</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="display table" id="dataTable" width="100%">
+          <thead>
+          <tr>
+            <th [mdbTableSort]="pubs" sortBy="title">Title</th>
+            <th>description</th>
+            <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>
+            <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>
+            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th [mdbTableSort]="pubs" sortBy="title">Title</th>
+            <th>description</th>
+            <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>
+            <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>
+            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
+            </td>
+          </tr>
+          </tfoot>
+          <tbody>
+          <tr *ngFor="let el of pubs | paginate: {id: 'pubsList', itemsPerPage: 5, currentPage: page, totalItems: NumberOfPub }">
+            <td>{{el.title}}</td>
+            <td>{{el.shortDescription}}</td>
+            <td>{{el.profile.id}}</td>
+            <td>{{el.publicCible.name}}</td>
+            <td>{{el.createdAtAgo }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!--<div class="container">-->
+<!--  <table  mdbTable class="table col-12  table-responsive  table-hover ml-lg-5 mt-5 pt-5">-->
+<!--    <thead>-->
+<!--    <tr>-->
+      <!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
+      <!--      </th>-->
+<!--      <th [mdbTableSort]="pubs" sortBy="title">Title</th>-->
+<!--      <th>description</th>-->
+<!--      <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>-->
+<!--      <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>-->
+<!--      <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let el of pubs | paginate: {id: 'pubsList', itemsPerPage: 5, currentPage: page, totalItems: NumberOfPub }">-->
+<!--      <td>{{el.title}}</td>-->
+<!--      <td>{{el.shortDescription}}</td>-->
+<!--      <td>{{el.profile.id}}</td>-->
+<!--      <td>{{el.publicCible.name}}</td>-->
+<!--      <td>{{el.createdAtAgo }}</td>-->
+
+
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--    <tfoot>-->
+<!--    <tr>-->
+<!--      <td colspan="4">-->
+<!--        <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    </tfoot>-->
+<!--  </table>-->
+<!--</div>-->

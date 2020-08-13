@@ -91,9 +91,25 @@
           <small class="text-danger text-left" *ngIf="rePassword.value !==  password.value"></small>
         </div>
       </div>
-      <re-captcha class="recaptcha" (resolved)= "resolved($event)" siteKey="6Lcxn7UZAAAAAKGwv5QvzhwYi-mBF0wqJMyeFyKq" required ></re-captcha>
+      <div class="text-left" *ngIf="!dRecaptcha">
+        <h4>Role:</h4>
+        <!-- Default unchecked -->
+        <div class="custom-control mt-3 custom-radio">
+          <input type="radio" class="custom-control-input" id="defaultUnchecked" name="admin" [(ngModel)]="template" [value]="templateChecked">
+          <label class="custom-control-label" for="defaultUnchecked">Administrateur</label>
+        </div>
+
+        <!-- Default checked -->
+        <div class="custom-control mb-3 custom-radio">
+          <input type="radio" class="custom-control-input" id="defaultChecked"  name="user"   [(ngModel)]="template" [value]="templateUnchecked" >
+          <label class="custom-control-label" for="defaultChecked">Utilisateur</label>
+        </div>
+      </div>
+      <div *ngIf="dRecaptcha">
+        <re-captcha class="recaptcha" (resolved)= "resolved($event)" siteKey="6Lcxn7UZAAAAAKGwv5QvzhwYi-mBF0wqJMyeFyKq" required ></re-captcha>
+      </div>
       <div>
-        <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!authForm.valid || !submitCaptcha " >
+        <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!authForm.valid || dRecaptcha ? !submitCaptcha : false " >
           {{"S'inscrire"}}
         </button>
       </div>

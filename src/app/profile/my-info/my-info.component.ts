@@ -23,7 +23,7 @@ export class UserObject {
   profession?: any;
   isActivated: boolean;
   resetPassword?: string;
-
+  isBlocked?: boolean;
 }
 export class ProfessionObject {
   id: number;
