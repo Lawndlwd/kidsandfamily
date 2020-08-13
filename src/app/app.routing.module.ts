@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -16,6 +15,7 @@ import {MyInfoComponent} from './profile/my-info/my-info.component';
 import {MyProfileComponent} from './profile/my-profile/my-profile.component';
 import {ShowMyProfilenComponent} from './profile/show-my-profilen/show-my-profilen.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
+import { UploadFormComponent } from './upload-form/upload-form.component';
 import {CenterOfInterestComponent} from './profile/center-of-interest/center-of-interest.component';
 import {SecurityComponent} from './profile/security/security.component';
 
@@ -45,7 +45,8 @@ const appRoutes: Routes = [
       { path: 'center-of-interest', component: CenterOfInterestComponent},
       { path: 'security-setting', component: SecurityComponent},
     ]
-  }
+  },
+  { path: 'upload-picture', component: UploadFormComponent }
 ];
 
 @NgModule({

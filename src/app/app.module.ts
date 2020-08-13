@@ -1,3 +1,4 @@
+// Modules
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -6,10 +7,10 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RecaptchaModule } from 'ng-recaptcha';
-
-
-
 import { AppRoutingModule } from './app.routing.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
+// Components
 import { AppComponent } from './app.component';
 import { PublicationDetailsComponent } from './main/main-default/publication-details/publication-details.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -24,24 +25,25 @@ import { PublicationComponent } from './main/main-default/publication/publicatio
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner/loading-spinner.component';
 import { AuthGuard } from './auth/auth.guard';
-import { FiltersService } from './services/filters/filters.service';
 import { RegisterComponent } from './auth/register/register.component';
 import { ActivationComponent } from './activation/activation.component';
 import { ActivationTokenComponent } from './activation-token/activation-token.component';
-import { AuthService } from './services/auth/auth.service';
-import {MDBBootstrapModule} from 'angular-bootstrap-md';
-import {ProfileComponent} from './profile/profile.component';
-import {MyInfoComponent} from './profile/my-info/my-info.component';
+import { ProfileComponent } from './profile/profile.component';
+import { MyInfoComponent } from './profile/my-info/my-info.component';
 import { ProfileFilterComponent } from './profile/profile-filter/profile-filter.component';
 import { MyProfileComponent } from './profile/my-profile/my-profile.component';
 import { ShowMyProfilenComponent } from './profile/show-my-profilen/show-my-profilen.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { UploadFormComponent } from './upload-form/upload-form.component';
 import { CenterOfInterestComponent } from './profile/center-of-interest/center-of-interest.component';
 import { SecurityComponent } from './profile/security/security.component';
 import { SetPasswordComponent } from './profile/security/set-password/set-password.component';
 
-
-
+// services
+import { FiltersService } from './services/filters/filters.service';
+import { AuthService } from './services/auth/auth.service';
+import { UploadService } from './services/upload/upload.service';
+import { DownloadService } from './services/download/download.service';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,7 @@ import { SetPasswordComponent } from './profile/security/set-password/set-passwo
     MyProfileComponent,
     ShowMyProfilenComponent,
     EditProfileComponent,
+    UploadFormComponent,
     CenterOfInterestComponent,
     SecurityComponent,
     SetPasswordComponent,
@@ -88,7 +91,9 @@ import { SetPasswordComponent } from './profile/security/set-password/set-passwo
   providers: [
     FiltersService,
     AuthGuard,
-    AuthService
+    AuthService,
+    UploadService,
+    DownloadService
   ],
   bootstrap: [AppComponent]
 })
