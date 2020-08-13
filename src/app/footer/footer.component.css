@@ -1,8 +1,9 @@
 .footer {
   position: relative;
   bottom:0;
-  margin-top: 200px;
+  /*margin-top: 200px;*/
   width: 100%;
+  min-height: 70px;
 }
 
 .liens, .liens:hover

@@ -29,7 +29,7 @@
 
     </tr>
     </thead>
-    <tbody *ngFor=" let profile of userProfiles">
+    <tbody *ngFor=" let profile of userProfiles; let i = index">
       <tr>
         <td>
 
@@ -58,7 +58,7 @@
               </div>
             </div>
           </div></td>
-        <th scope="row">{{ profile.numProfile }}</th>
+        <th scope="row">{{ i+1 }}</th>
         <td>{{ profile.type.type }}</td>
         <td>{{ profile.sousType.sousType }}</td>
         <td>{{ profile.numVoie }}, {{ profile.nameVoie |uppercase}}</td>

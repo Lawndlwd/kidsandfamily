@@ -6,7 +6,6 @@ import {Profile} from '../../main/main-default/publication/publication.model';
 import {CardService} from '../../services/card/card.service';
 import {Router} from '@angular/router';
 
-
 export class Type {
   id: number;
   type: string;
@@ -24,8 +23,6 @@ export class SousType {
 })
 export class MyProfileComponent implements OnInit {
 
-
-
   constructor(private profileService: ProfileService, private cardService: CardService, private router: Router) { }
 
   types: Type[];
@@ -38,9 +35,7 @@ export class MyProfileComponent implements OnInit {
   success = false;
   failed = false;
 
-
   @ViewChild('myProfileForm') ProfileForm: NgForm;
-n;
 
   ngOnInit(): void {
 
@@ -57,23 +52,13 @@ n;
     this.profileService.getTypes().subscribe(resData  => {
       this.types = resData;
       this.isLoading = false;
-
-
     });
     this.typeSelected = true;
-
-
-
-
-
-
   }
-
-
 
   // tslint:disable-next-line:typedef
   onTypeSelected(){
-    this.isLoading = true;
+    
     const selectedType = this.ProfileForm.value.type;
 
     this.profileService.getSousTypes(selectedType).subscribe(resData => {
@@ -115,7 +100,6 @@ n;
         const lon: string = String(resCor.data[0].longitude);
         const lat: string = String(resCor.data[0].latitude);
 
-
         this.profileService.createProfile(type, sousType, adressComplete, city, codePostal, country, rue, numProfile, voie, state, lon, lat)
           .subscribe(resData => {
             console.log(resData);
@@ -136,10 +120,5 @@ n;
       }, error => {
       console.log(error);
     });
-
-
-
-
   }
-
 }
