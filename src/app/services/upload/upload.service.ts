@@ -22,27 +22,40 @@ export class UploadService {
     );
   }
 
-  deletePublicationPicture(publicationPictureId) {
+  deletePublicationPicture(publicationPictureId, token) {
+    // token utilisateur connecté pour envoyer données à l'api
+    const authorizationToken = new HttpHeaders({
+      Authorization: 'Bearer ' + token._token
+    });
+
     return this.http.delete(
-      `https://localhost:8000/api/publication_pictures/${publicationPictureId}`
+      `https://localhost:8000/api/publication_pictures/${publicationPictureId}`,
+      { headers: authorizationToken }
     );
   }
 
-  inversePriority(pubPicture_1, pubPicture_2) {
+  inversePriority(pubPicture_1, pubPicture_2, token) {
     const priorityPubPicture_2 = pubPicture_2['priority'];
+
+    // token utilisateur connecté pour envoyer données à l'api
+    const authorizationToken = new HttpHeaders({
+      Authorization: 'Bearer ' + token._token
+    });
 
     const status_1 = this.http.put(
       `https://localhost:8000/api/publication_pictures/${pubPicture_2['id']}.json`,
       {
         "priority": pubPicture_1['priority']
-      }
+      },
+      { headers: authorizationToken }
     );
 
     const status_2 = this.http.put(
       `https://localhost:8000/api/publication_pictures/${pubPicture_1['id']}.json`,
       {
         "priority": priorityPubPicture_2
-      }
+      },
+      { headers: authorizationToken }
     );
 
     return forkJoin([status_1, status_2]);
