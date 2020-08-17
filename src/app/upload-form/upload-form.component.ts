@@ -58,7 +58,7 @@ export class UploadFormComponent implements OnInit {
 
   onDelete(event) {
     this.publicationPictureId = event.target.value;
-    this.upload.deletePublicationPicture(this.publicationPictureId)
+    this.upload.deletePublicationPicture(this.publicationPictureId, this.token)
       .subscribe(response => {
         // console.log(response);
         this.ngOnInit();
@@ -71,7 +71,7 @@ export class UploadFormComponent implements OnInit {
   toUpper(event) {
     const indexPubPictureSelected = event.target.value;
     
-    this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected - 1])
+    this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected - 1], this.token)
       .subscribe(response => {
         // console.log(response);
         this.ngOnInit();
@@ -83,7 +83,7 @@ export class UploadFormComponent implements OnInit {
   toLower(event) {
     const indexPubPictureSelected = event.target.value;
     
-    this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected + 1])
+    this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected + 1], this.token)
       .subscribe(response => {
         // console.log(response);
         this.ngOnInit();
