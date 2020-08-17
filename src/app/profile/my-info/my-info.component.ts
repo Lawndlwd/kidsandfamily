@@ -24,6 +24,7 @@ export class UserObject {
   isActivated: boolean;
   resetPassword?: string;
   isBlocked?: boolean;
+  roles?: any;
 }
 export class ProfessionObject {
   id: number;
@@ -73,6 +74,7 @@ export class MyInfoComponent implements OnInit {
         publications: resData.publications,
         profession: resData.profession,
         isActivated: resData.isActivated,
+        roles: resData.roles,
       };
     });
 

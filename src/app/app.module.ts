@@ -69,6 +69,7 @@ import { AuthService } from './services/auth/auth.service';
 import { UploadService } from './services/upload/upload.service';
 import { DownloadService } from './services/download/download.service';
 import { GetEmailComponent } from './resetpass/get-email/get-email.component';
+import { FiltrTablesComponent } from './admin/filtr-tables/filtr-tables.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { GetEmailComponent } from './resetpass/get-email/get-email.component';
     PageNotFoundComponent,
     AdminEditProfileComponent,
     GetEmailComponent,
+    FiltrTablesComponent,
   ],
   imports: [
     BrowserModule,

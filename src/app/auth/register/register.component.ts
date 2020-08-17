@@ -63,9 +63,10 @@ export class RegisterComponent implements OnInit {
 
       this.isLoading = true;
       if (!this.dRecaptcha){
-        this.authService.signUp(fName, lName, email, password, this.admin ? ['ROLE_ADMIN'] : []).subscribe(resData1 => {
+        this.authService.signUp(fName, lName, email, password, this.admin ? ['ROLE_SUPER_ADMIN'] : []).subscribe(resData1 => {
           // tslint:disable-next-line:no-shadowed-variable
           console.log(resData1);
+          this.router.navigate(['/admin/users']);
           this.isLoading = false;
         }, errorRes => {
           // tslint:disable-next-line:triple-equals

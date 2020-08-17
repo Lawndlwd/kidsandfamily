@@ -32,6 +32,7 @@ import {EditUserComponent} from './admin/users/edit-user/edit-user.component';
 import {AdminEditProfileComponent} from './admin/profiles/admin-edit-profile/admin-edit-profile.component';
 import {CreatePubComponent} from './admin/pubs/create-pub/create-pub.component';
 import {GetEmailComponent} from './resetpass/get-email/get-email.component';
+import {FiltrTablesComponent} from './admin/filtr-tables/filtr-tables.component';
 
 
 
@@ -65,6 +66,7 @@ const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent,
     children: [
       { path: '', component: DashoardComponent},
+      { path: 'filter-items', component: FiltrTablesComponent},
       { path: 'users', component: UsersComponent,
         children: [
           { path: '', component: ShowUsersComponent},
