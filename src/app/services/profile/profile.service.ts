@@ -244,13 +244,20 @@ export class ProfileService {
 
   // tslint:disable-next-line:typedef
   resetPassword(id, password) {
-    return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password', {
-      password,
-    }, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
-      })
-    });
+    if (this.token) {
+      return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password', {
+        password,
+      }, {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + this.token._token
+        })
+      });
+    }
+    if (!this.token) {
+      return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password', {
+        password,
+      });
+    }
   }
 
 

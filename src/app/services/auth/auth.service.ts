@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import {exhaustMap, take, tap} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {ProfileService} from '../profile/profile.service';
+import {UserObject} from '../../profile/my-info/my-info.component';
 
 export class AuthResponseData {
   token?: string;
@@ -111,6 +112,9 @@ export class AuthService {
 
   checkToken(token, id){
     return this.http.get<RegResponseData>('https://127.0.0.1:8000/api/' + id + '/register/' + token);
+  }
+  emailResetPass(email){
+    return this.http.get<UserObject>('https://127.0.0.1:8000/api/reset-pass/' + email);
   }
 }
 

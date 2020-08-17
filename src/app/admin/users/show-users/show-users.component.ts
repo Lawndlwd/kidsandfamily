@@ -29,6 +29,7 @@ export class ShowUsersComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getListOfUsers().subscribe(resData => {
       this.users = resData;
+      console.log(resData);
       this.NumberOfPub = this.users.length;
 
     });

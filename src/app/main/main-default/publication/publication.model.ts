@@ -1,3 +1,5 @@
+import {UserObject} from '../../../profile/my-info/my-info.component';
+
 export interface Publication {
     id: number;
     title: string;
@@ -13,12 +15,14 @@ export interface Publication {
     theme:Theme ;
     shortDescription?:string;
     createdAtAgo:string;
-    user: User;
+    user: UserObject;
 }
 export interface Need {
+  id: number;
     need: string;
 }
 export interface Action {
+  id: number;
     actions: string;
 }
 export interface Theme  {

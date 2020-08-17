@@ -21,6 +21,7 @@ export class ShowProfilesComponent implements OnInit {
   NumberOfPub: number;
   page = 1;
   isLoading = false;
+  typeObject: {};
 
 
   constructor(private profileAdminService: ProfileAdminService, private profileService: ProfileService  ) { }
@@ -44,7 +45,13 @@ export class ShowProfilesComponent implements OnInit {
               // typeLenght.push(resData1);
                typeLenght.push(resData1);
                this.arrType = typeLenght;
-               this.chartBar();
+
+
+               const result = {};
+            // tslint:disable-next-line:no-shadowed-variable
+               this.types.forEach((key, i) => result[key] = this.arrType[i]);
+               this.typeObject = result;
+               console.log(result);
                console.log(this.arrType);
                this.isLoading = false;
 
@@ -69,30 +76,30 @@ export class ShowProfilesComponent implements OnInit {
       },  error => console.log(error), this.isLoading = false);
   }
 
-  chartBar(): void {
-    // tslint:disable-next-line:forin
-
-    const canvas = document.getElementById('myChart') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d');
-      // @ts-ignore
-    const chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
-
-        // The data for our dataset
-        data: {
-          labels: this.types,
-          datasets: [{
-            label: '#',
-            backgroundColor: '#58b9cc',
-            hoverBackgroundColor: '#2e59d9',
-            borderColor: '#4e73df',
-            data: this.arrType,
-          }]
-        },
-
-        // Configuration options go here
-        options: {},
-      });
-    }
+  // chartBar(): void {
+  //   // tslint:disable-next-line:forin
+  //
+  //   const canvas = document.getElementById('myChart') as HTMLCanvasElement;
+  //   const ctx = canvas.getContext('2d');
+  //     // @ts-ignore
+  //   const chart = new Chart(ctx, {
+  //       // The type of chart we want to create
+  //       type: 'bar',
+  //
+  //       // The data for our dataset
+  //       data: {
+  //         labels: this.types,
+  //         datasets: [{
+  //           label: '#',
+  //           backgroundColor: '#58b9cc',
+  //           hoverBackgroundColor: '#2e59d9',
+  //           borderColor: '#4e73df',
+  //           data: this.arrType,
+  //         }]
+  //       },
+  //
+  //       // Configuration options go here
+  //       options: {},
+  //     });
+  //   }
 }

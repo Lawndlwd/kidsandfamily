@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <div class="col-md-3 customAlert" *ngFor="let message of messages" [class.visible]="messages">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" >
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="col-md-3 customAlert" *ngFor="let err of error" [class.visible]="error">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+      {{err}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-around my-5" >
+      <div class="card shadow my-4 col-lg-7">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Réinitialiser le mot de passe</h6>
+        </div>
+        <div class="card-body">
+          <div class="row justify-content-center" *ngIf="!canChange">
+          <form class="text-center col-md-6 p-5" #emailForm="ngForm" (ngSubmit)="onSubmit(emailForm)" *ngIf="!email">
+            <div class="form-group md-form">
+              <label for="email">E-Mail</label>
+              <input mdbInput type="email" id="email" class="form-control" ngModel name= username required email  />
+            </div>
+            <div>
+              <button mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!emailForm.valid ">
+                {{"S'identifier"}}
+              </button>
+            </div>
+          </form>
+          <form class="text-center col-md-4 " #secretKeyForm="ngForm" (ngSubmit)="onSubmitCode()" *ngIf="email">
+            <p class="h4 mb-4">Code de vérification</p>
+            <div class="row justify-content-between ">
+              <div class="md-form col-12 px-0">
+
+                <label for="key">Code de vérification</label>
+                <input mdbInput type="text" id="key" class="form-control " ngModel  name= key  #key="ngModel"/>
+
+              </div>
+              <div class="col-12">
+                <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit" [disabled]="!secretKeyForm.valid " >{{"Confirmer"}}</button>
+              </div>
+            </div>
+          </form>
+          </div>
+          <div *ngIf="canChange">
+            <div class="row justify-content-center mt-5">
+              <form class="text-center col-md-6  p-5" #resetPasswordForm="ngForm" (ngSubmit)="onSubmitPass()">
+                <div class="md-form col-12">
+                  <label for="password">Nouveau  Mot de passe</label>
+                  <input mdbInput type="password" id="password" class="form-control " ngModel name= password pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$"  required minlength="8 "#password="ngModel" />
+
+
+                  <div class="text-left" *ngIf="password.invalid && (password.dirty || password.touched)" >
+                    <small class="text-danger text-left" *ngIf="password.errors.required">
+                      Mot de passe obligatoire
+                    </small>
+                    <div class=" text-left" *ngIf="password.errors.pattern">
+                      <small id="passwordHelpBlockMD" class="form-text text-muted">
+                        Le mot de passe doit être au moins:
+                        <br> 8 caractères
+                        <br> Une lettre majuscule
+                        <br>Un Numéro
+                      </small>
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="md-form col-12">
+                  <label for="rePassword"> Confirmez le mot de passe </label>
+                  <input mdbInput type="password" id="rePassword" class="form-control " ngModel  name= rePassword pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$"  required minlength="8 "#rePassword="ngModel" />
+                  <div class="text-left" *ngIf="rePassword.invalid && (rePassword.dirty || rePassword.touched) " >
+                    <small class="text-danger text-left" *ngIf="rePassword.errors.required">
+                      Confirmation le mot de passe est obligatoire
+                    </small>
+                    <small class="text-danger text-left" *ngIf="rePassword.value !==  password.value"></small>
+                  </div>
+                </div>
+                <div>
+                  <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!resetPasswordForm.valid " >{{"Confirmer"}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+

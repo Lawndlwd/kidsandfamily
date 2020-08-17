@@ -3,7 +3,7 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Publication List</h6>
+      <h6 class="m-0 font-weight-bold text-primary">{{"List des Publication" | uppercase}}</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -11,7 +11,7 @@
           <thead>
           <tr>
             <th [mdbTableSort]="pubs" sortBy="title">Title</th>
-            <th>description</th>
+            <th [mdbTableSort]="pubs" sortBy="user.email">email</th>
             <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>
             <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>
             <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>
@@ -20,7 +20,7 @@
           <tfoot>
           <tr>
             <th [mdbTableSort]="pubs" sortBy="title">Title</th>
-            <th>description</th>
+            <th [mdbTableSort]="pubs" sortBy="user.email">email</th>
             <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>
             <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>
             <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>
@@ -34,8 +34,8 @@
           <tbody>
           <tr *ngFor="let el of pubs | paginate: {id: 'pubsList', itemsPerPage: 5, currentPage: page, totalItems: NumberOfPub }">
             <td>{{el.title}}</td>
-            <td>{{el.shortDescription}}</td>
-            <td>{{el.profile.id}}</td>
+            <td><a routerLink="/admin/users/{{el.user.id}}/edit">{{el.user.email}}</a></td>
+            <td><a routerLink="/admin/profile/{{el.profile.id}}/edit">{{el.profile.id}}</a></td>
             <td>{{el.publicCible.name}}</td>
             <td>{{el.createdAtAgo }}</td>
           </tr>
@@ -43,8 +43,20 @@
         </table>
       </div>
     </div>
+
   </div>
 
+  <div class="col-lg-4">
+    <div class="card shadow mb-4 ">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">{{"Total des Publications" | uppercase}}</h6>
+      </div>
+      <div class="card-body">
+        <h1 class="text-center text-info">{{NumberOfPub}}</h1>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 
