@@ -19,12 +19,12 @@ export class UserObject {
   themes?: Theme;
   userPubComments?: UserPubComment;
   centerOfInterests?: CenterOfIntreset;
-  publications?: Publication;
+  publication?: Publication;
   profession?: any;
   isActivated: boolean;
   resetPassword?: string;
   isBlocked?: boolean;
-  roles?: any;
+  roles?: any[];
 }
 export class ProfessionObject {
   id: number;
@@ -47,6 +47,7 @@ export class MyInfoComponent implements OnInit {
 
 
   @ViewChild('myInfoForm') infoForm: NgForm;
+  professionDefault: any;
 
   constructor(private profileService: ProfileService) { }
 
@@ -71,7 +72,7 @@ export class MyInfoComponent implements OnInit {
         themes: resData.themes ,
         userPubComments: resData.userPubComments,
         centerOfInterests: resData.centerOfInterests,
-        publications: resData.publications,
+        publication: resData.publication,
         profession: resData.profession,
         isActivated: resData.isActivated,
         roles: resData.roles,
@@ -81,7 +82,7 @@ export class MyInfoComponent implements OnInit {
 
     this.profileService.getProfession().subscribe(resData  => {
       this.loadedProf = resData;
-
+      this.professionDefault = resData[0].id;
     });
   }
 

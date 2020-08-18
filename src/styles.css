@@ -19,6 +19,9 @@ body {
 input.ng-invalid.ng-touched {
   border-bottom: 1px solid red;
 }
+select.ng-invalid.ng-touched {
+  border-bottom: 1px solid red;
+}
 
 .customAlert{
   position: fixed;
@@ -31,5 +34,11 @@ input.ng-invalid.ng-touched {
 .visible  {
   opacity: .8;
   transform: translateY(1.25rem);
+}
+tbody tr:hover {
+  background-color: #e8eaf6;
+}
+.pointer {
+  cursor: pointer;
 }
 

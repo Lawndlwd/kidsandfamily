@@ -3,27 +3,44 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">{{"List des Publication" | uppercase}}</h6>
+      <h6 class="m-0 font-weight-bold text-primary">{{"Liste des Publications" | uppercase}}</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="display table" id="dataTable" width="100%">
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+            <div class="md-form">
+              <input
+                type="text"
+                [(ngModel)]="searchText"
+                class="form-control"
+                id="search"
+                mdbInput
+              />
+              <label for="search">
+                <mdb-icon fas icon="search" class="mr-auto"></mdb-icon></label>
+            </div>
+          </div>
+        </div>
+        <table mdbTable  class="display table" id="dataTable" width="100%">
           <thead>
           <tr>
-            <th [mdbTableSort]="pubs" sortBy="title">Title</th>
+            <th>#</th>
+            <th [mdbTableSort]="pubs" sortBy="title">Titre</th>
             <th [mdbTableSort]="pubs" sortBy="user.email">email</th>
-            <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>
+            <th [mdbTableSort]="pubs" sortBy="profile.id">Profil</th>
             <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>
-            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>
+            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Crée a</th>
           </tr>
           </thead>
           <tfoot>
           <tr>
-            <th [mdbTableSort]="pubs" sortBy="title">Title</th>
+            <th>#</th>
+            <th [mdbTableSort]="pubs" sortBy="title">Titre</th>
             <th [mdbTableSort]="pubs" sortBy="user.email">email</th>
-            <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>
-            <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>
-            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>
+            <th [mdbTableSort]="pubs" sortBy="profile.id">Profil</th>
+            <th [mdbTableSort]="pubs" sortBy="publicCible.name">Public Cible</th>
+            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Crée a</th>
           </tr>
           <tr>
             <td colspan="4">
@@ -43,7 +60,6 @@
         </table>
       </div>
     </div>
-
   </div>
 
   <div class="col-lg-4">
@@ -58,38 +74,3 @@
 
   </div>
 </div>
-
-
-<!--<div class="container">-->
-<!--  <table  mdbTable class="table col-12  table-responsive  table-hover ml-lg-5 mt-5 pt-5">-->
-<!--    <thead>-->
-<!--    <tr>-->
-      <!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
-      <!--      </th>-->
-<!--      <th [mdbTableSort]="pubs" sortBy="title">Title</th>-->
-<!--      <th>description</th>-->
-<!--      <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>-->
-<!--      <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>-->
-<!--      <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr *ngFor="let el of pubs | paginate: {id: 'pubsList', itemsPerPage: 5, currentPage: page, totalItems: NumberOfPub }">-->
-<!--      <td>{{el.title}}</td>-->
-<!--      <td>{{el.shortDescription}}</td>-->
-<!--      <td>{{el.profile.id}}</td>-->
-<!--      <td>{{el.publicCible.name}}</td>-->
-<!--      <td>{{el.createdAtAgo }}</td>-->
-
-
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--    <tfoot>-->
-<!--    <tr>-->
-<!--      <td colspan="4">-->
-<!--        <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>-->
-<!--      </td>-->
-<!--    </tr>-->
-<!--    </tfoot>-->
-<!--  </table>-->
-<!--</div>-->

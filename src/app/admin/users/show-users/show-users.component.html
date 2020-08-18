@@ -6,101 +6,118 @@
     <div class="text-center spinner my-auto position-absolute" *ngIf = "isLoading" >
       <app-loading-spinner></app-loading-spinner>
     </div>
-    <div class="card shadow mb-4 col-lg-8" *ngIf = "!isLoading">
+    <div class="card shadow mb-4 col-lg-11" *ngIf = "!isLoading">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List d'Utilisateur</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Liste des Utilisateurs</h6>
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table class="display table" id="dataTable" width="100%">
-            <thead>
-    <tr>
-<!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
-<!--      </th>-->
-      <th>#</th>
-      <th [mdbTableSort]="users" sortBy="firstName">Prénom</th>
-      <th [mdbTableSort]="users" sortBy="LastName"> Nom</th>
-      <th [mdbTableSort]="users" sortBy="email"> Email</th>
-      <th [mdbTableSort]="users" sortBy="roles"> Role</th>
-      <th [mdbTableSort]="users" sortBy="createdAt">Créé à</th>
-      <th scope="col">Éditer</th>
-      <th scope="col">Supprimer</th>
-    </tr>
-    </thead>
-    <tfoot>
-    <tr>
-      <!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
-      <!--      </th>-->
-
-      <th>#</th>
-      <th [mdbTableSort]="users" sortBy="firstName"> Prénom</th>
-      <th [mdbTableSort]="users" sortBy="LastName"> Nom </th>
-      <th [mdbTableSort]="users" sortBy="email"> Email</th>
-      <th [mdbTableSort]="users" sortBy="roles"> Role</th>
-      <th [mdbTableSort]="users" sortBy="createdAt"> Créé à</th>
-      <th scope="col">Éditer</th>
-      <th scope="col">Supprimer</th>
-    </tr>
-    <tr>
-      <td colspan="4" class="text-center">
-        <pagination-controls lang="fr" id="pubsList" maxSize="3" directionLinks=false (pageChange)="page = $event"></pagination-controls>
-      </td>
-    </tr>
-    </tfoot>
-    <tbody>
-    <tr>
-
-    <tr *ngFor=" let i = index; let el of users | paginate: {id: 'pubsList', itemsPerPage: 10, currentPage: page, totalItems: NumberOfPub  }">
-
-      <td>{{i+1}}</td>
-      <td>{{el.firstName}}</td>
-      <td>{{el.LastName}}</td>
-      <td>{{el.email}}</td>
-      <td>{{el.roles == "ROLE_USER" ? 'User' : 'Admin'}}</td>
-      <td>{{el.createdAt | date}}</td>
-      <td>
-        <a  routerLink="/admin/users/{{el.id}}/edit"><mdb-icon class="purple-text" fas icon="pencil-alt"></mdb-icon></a>
-      </td>
-      <td>
-        <mdb-icon fas icon="trash-alt" (click)="basicModal.show()" class="pink-text ml-3"  mdbWavesEffect></mdb-icon>
-
-        <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
-                  <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title w-100" id="myModalLabel">Attention</h4>
-              </div>
-              <div class="modal-body">
-                Supprimer un utilisateur<br>
-                Toutes les publications liées à utilisateur seront supprimées, vous ne pourrez plus récupérer le compte
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
-                <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(el.id); deletePubsAndProfiles();" >Confirmer la suppression</button>
+          <div class="row">
+            <div class="col-md-12 mx-auto">
+              <div class="md-form">
+                <input
+                  type="text"
+                  [(ngModel)]="searchText"
+                  class="form-control"
+                  id="search"
+                  mdbInput
+                />
+                <label for="search">
+                  <mdb-icon fas icon="search" class="mr-auto"></mdb-icon></label>
               </div>
             </div>
           </div>
-        </div></td>
+          <table mdbTable class="display table" id="dataTable" width="100%" >
+            <thead>
+                <tr>
+            <!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
+            <!--      </th>-->
+                  <th>#</th>
+                  <th [mdbTableSort]="users" sortBy="firstName">Prénom</th>
+                  <th [mdbTableSort]="users" sortBy="LastName"> Nom</th>
+                  <th [mdbTableSort]="users" sortBy="email"> Email</th>
+                  <th [mdbTableSort]="users" sortBy="profession.profession"> profession</th>
+                  <th [mdbTableSort]="users" sortBy="profiles"> Region</th>
+                  <th scope="col">Éditer</th>
+                  <th scope="col">Supprimer</th>
+                </tr>
+            </thead>
+            <tfoot>
+            <tr>
+              <!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
+              <!--      </th>-->
 
-    </tr>
-    </tbody>
-  </table>
-</div>
+              <th>#</th>
+              <th [mdbTableSort]="users" sortBy="firstName"> Prénom</th>
+              <th [mdbTableSort]="users" sortBy="LastName"> Nom </th>
+              <th [mdbTableSort]="users" sortBy="email"> Email</th>
+              <th [mdbTableSort]="users" sortBy="profession.profession"> profession</th>
+              <th [mdbTableSort]="users" sortBy="profiles.state"> Region</th>
+              <th scope="col">Éditer</th>
+              <th scope="col">Supprimer</th>
+            </tr>
+            <tr>
+              <td colspan="4" class="text-center">
+                <pagination-controls lang="fr" id="usersList" maxSize="3" directionLinks=false (pageChange)="page = $event"></pagination-controls>
+              </td>
+            </tr>
+            </tfoot>
+            <tbody>
+              <tr>
+
+              <tr *ngFor=" let i = index; let el of users | paginate: {id: 'usersList', itemsPerPage: 10, currentPage: page, totalItems: NumberOfPub  }" class="pointer" routerLink="/admin/users/{{el.id}}/edit">
+
+              <td>{{i+1}}</td>
+              <td>{{el.firstName}}</td>
+              <td>{{el.LastName}}</td>
+              <td>{{el.email}}</td>
+              <td>{{el.profession.profession}}</td>
+              <td><span *ngFor=" let profile of el.profiles"> {{profile.state }} | </span></td>
+              <td>
+                <a  routerLink="/admin/users/{{el.id}}/edit"><mdb-icon class="purple-text" fas icon="pencil-alt"></mdb-icon></a>
+              </td>
+              <td>
+                <mdb-icon fas icon="trash-alt" (click)="basicModal.show()" class="pink-text ml-3"  mdbWavesEffect></mdb-icon>
+
+                <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title w-100" >Attention</h4>
+                      </div>
+                      <div class="modal-body">
+                        Supprimer un utilisateur<br>
+                        Toutes les publications liées à utilisateur seront supprimées, vous ne pourrez plus récupérer le compte
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
+                        <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(el.id); deletePubsAndProfiles();" >Confirmer la suppression</button>
+                      </div>
+                    </div>
+                  </div>
+                </div></td>
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="col-lg-3">
-  <div class="card shadow mb-4 " *ngIf = "!isLoading">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Total Utilisateurss</h6>
+    <div class="card shadow mb-4 " *ngIf = "!isLoading">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Total Utilisateurs</h6>
+      </div>
+      <div class="card-body">
+        <h1 class="text-center text-info">{{NumberOfPub}}</h1>
+      </div>
     </div>
-    <div class="card-body">
-      <h1 class="text-center text-info">{{NumberOfPub}}</h1>
-    </div>
   </div>
   </div>
-  </div>
+
+
 </div>

@@ -14,16 +14,16 @@
       </div>
       <div class="form-group md-form ">
         <label for="password">Mot de passe</label>
-        <input mdbInput type="password" id="password " class="form-control " ngModel name= password  required minlength="6 " />
+        <input mdbInput type="password" id="password" class="form-control " ngModel name= password  required minlength="6 " />
       </div>
       <div>
-        <button mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!authForm.valid ">
+        <button mdbBtn color="amber" mdbWavesEffect type="submit" [disabled]="!authForm.valid ">
           {{"S'identifier"}}
         </button>
       </div>
       <div class="mt-lg-4 mt-1">
         <a  mdbWavesEffect routerLink="/reset-pass">
-          Forgot password?
+          Mot de passe oublié?
         </a>
       </div>
     </form>

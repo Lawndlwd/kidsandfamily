@@ -29,6 +29,9 @@
       <li class="nav-item mx-1" routerLinkActive="active" *ngIf="isAuth">
         <a class="nav-link waves-light" routerLink="/auth" (click)= "onLogOut()">log out</a>
       </li>
+      <li class="nav-item mx-1" routerLinkActive="active"  *ngIf="isAdmin">
+        <a class="nav-link waves-light" routerLink="/admin">Admin</a>
+      </li>
     </ul>
   </div>
   </div>

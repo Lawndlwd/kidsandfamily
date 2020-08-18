@@ -133,14 +133,14 @@
 
             <div class="form-group col-10 col-md-5 col-lg-3 text-left mt-3 px-0">
               <label for="profession">Profession</label>
-            <select id="profession" class="browser-default custom-select " [(ngModel)]="!loadedData.profession ? 1 : loadedData.profession.id" name= profession    #profession="ngModel" >
+            <select id="profession" class="browser-default custom-select " [(ngModel)]="!loadedData.profession ? professionDefault : loadedData.profession.id" name= profession required="required"   #profession="ngModel" >
               <option  *ngFor="let profession of loadedProf" [value]="profession.id ">{{ profession.profession }}</option>
             </select>
           </div>
           </div>
 
             <div>
-                <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit " [disabled]="!myInfoForm.valid " >{{"Enregistrer"}}</button>
+                <button class="mt-5" mdbBtn color="amber" mdbWavesEffect type="submit" [disabled]="!myInfoForm.valid " >{{"Enregistrer"}}</button>
             </div>
         </form>
     </div>
