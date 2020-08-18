@@ -15,9 +15,16 @@ export class UploadFormComponent implements OnInit {
   publicationPictures;
 
   // upload
-  selectedFiles: string[];
+  selectedFiles: string[] = [];
   publicationId: string = '7';
   token = JSON.parse(localStorage.getItem('userToken'));
+
+  // upload errors
+  errorMessages = { 
+    sizeError: null
+  };
+  notUploadedPicturesName: string[] = [];
+  isError = false;
 
   // delete
   publicationPictureId: string = '31';
@@ -36,10 +43,30 @@ export class UploadFormComponent implements OnInit {
   }
 
   onSelected(event) {
-    this.selectedFiles = event.target.files;
+    const maxSize = 2000000;
+    const errorSize = "La taille maximale autorisée d'une image est 2Mo";
+
+    this.errorMessages['sizeError'] = null;
+    this.notUploadedPicturesName = [];
+    this.isError = false;
+    
+    for(let i=0; i < event.target.files.length; i++) {
+      if (event.target.files[i].size > maxSize) {
+        if (this.errorMessages['sizeError'] === null) {
+          this.errorMessages['sizeError'] = errorSize;
+        }
+        this.notUploadedPicturesName.push(event.target.files[i].name);
+      } else {
+        this.selectedFiles.push(event.target.files[i]);
+      }
+    }
   }
 
   onUpload() {
+    if(this.errorMessages['sizeError'] != null) {
+      this.isError = true;
+    }
+
     const formData = new FormData();
     for(let file of this.selectedFiles) {
       formData.append('file', file);
@@ -52,8 +79,9 @@ export class UploadFormComponent implements OnInit {
         }, error => {
           console.log(error);
         }
-      );
-    }
+        );
+      }
+      this.selectedFiles = [];
   }
 
   onDelete(event) {

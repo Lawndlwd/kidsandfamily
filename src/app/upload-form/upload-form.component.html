@@ -7,6 +7,16 @@
                 <button class="btn btn-light" (click)="onUpload()">Upload</button>
             </form>
         </div>
+        <div class="row" *ngIf="isError">
+            <div class="alert alert-danger mx-auto" role="alert" *ngIf="errorMessages.sizeError">
+                {{ errorMessages.sizeError }}
+                <div>Non uploadé(s) :
+                    <ul *ngFor="let imageName of notUploadedPicturesName">
+                        <li>{{ imageName }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-md-8">
         <h1 class="text-center mb-5">Images associées à la publication</h1>
