@@ -21,9 +21,11 @@ export class UploadFormComponent implements OnInit {
 
   // upload errors
   errorMessages = { 
-    sizeError: null
+    sizeError: null,
+    typeError: null
   };
-  notUploadedPicturesName: string[] = [];
+  notUploadedSizeError: string[] = [];
+  notUploadedTypeError: string[] = [];
   isError = false;
 
   // delete
@@ -43,11 +45,14 @@ export class UploadFormComponent implements OnInit {
   }
 
   onSelected(event) {
-    const maxSize = 2000000;
-    const errorSize = "La taille maximale autorisée d'une image est 2Mo";
-
+    const acceptedTypes: string[] = ['image/jpeg', 'image/png'];
+    const maxSize: number = 2000000;
+    const errorSize: string = "La taille maximale autorisée d'une image est 2Mo";
+    const errorType: string = "Les extensions autorisées : \"jpeg\", \".png\"";
     this.errorMessages['sizeError'] = null;
-    this.notUploadedPicturesName = [];
+    this.errorMessages['typeError'] = null;
+    this.notUploadedSizeError = [];
+    this.notUploadedTypeError = [];
     this.isError = false;
     
     for(let i=0; i < event.target.files.length; i++) {
@@ -55,15 +60,22 @@ export class UploadFormComponent implements OnInit {
         if (this.errorMessages['sizeError'] === null) {
           this.errorMessages['sizeError'] = errorSize;
         }
-        this.notUploadedPicturesName.push(event.target.files[i].name);
+        this.notUploadedSizeError.push(event.target.files[i].name);
       } else {
-        this.selectedFiles.push(event.target.files[i]);
+        if (!acceptedTypes.includes(event.target.files[i].type)) {
+          if (this.errorMessages['typeError'] === null) {
+            this.errorMessages['typeError'] = errorType;
+          }
+          this.notUploadedTypeError.push(event.target.files[i].name);
+        } else {
+          this.selectedFiles.push(event.target.files[i]);
+        }
       }
     }
   }
 
   onUpload() {
-    if(this.errorMessages['sizeError'] != null) {
+    if(this.errorMessages['sizeError'] != null || this.errorMessages['typeError'] != null) {
       this.isError = true;
     }
 
@@ -97,6 +109,7 @@ export class UploadFormComponent implements OnInit {
   }
 
   toUpper(event) {
+    console.log(event.target);
     const indexPubPictureSelected = event.target.value;
     
     this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected - 1], this.token)
