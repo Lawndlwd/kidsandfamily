@@ -35,7 +35,6 @@ export class AdminGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot,
               router: RouterStateSnapshot
   ): boolean  | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
-    if (this.profileService.token) {
       return this.profileService.getUserInfo()
         .pipe(map(res => {
           const isAuth = res.roles.includes('ROLE_SUPER_ADMIN');
@@ -46,8 +45,5 @@ export class AdminGuard implements CanActivate {
             return false;
           }
         }));
-    }else {
-      return this.route.createUrlTree(['/auth']);
-    }
   }
 }
