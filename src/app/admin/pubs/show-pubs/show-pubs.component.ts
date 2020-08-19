@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {Publication} from '../../../main/main-default/publication/publication.model';
 import {PubService} from '../../service/pub/pub.service';
 import {MdbTableDirective} from 'angular-bootstrap-md';
@@ -7,8 +7,8 @@ import {MdbTableDirective} from 'angular-bootstrap-md';
   templateUrl: './show-pubs.component.html',
   styleUrls: ['./show-pubs.component.css']
 })
-export class ShowPubsComponent implements OnInit, AfterViewInit {
-   @ViewChild( MdbTableDirective , {static: true}) mdbTable: MdbTableDirective ;
+export class ShowPubsComponent implements OnInit {
+  @ViewChild(MdbTableDirective, {static: true}) mdbTable: MdbTableDirective;
 
   pubs: Publication[] ;
   NumberOfPub: number;
@@ -17,30 +17,21 @@ export class ShowPubsComponent implements OnInit, AfterViewInit {
   previous: string;
 
 
-
   constructor(private pubsService: PubService, private cdRef: ChangeDetectorRef) { }
-
-
   @HostListener('input') oninput(): void {
     this.searchItems();
   }
-
   ngOnInit(): void {
-    console.log(this.mdbTable);
     this.pubsService.getListOfPubs().subscribe(resData => {
       console.log(resData);
       this.pubs = resData;
       this.NumberOfPub = this.pubs.length;
+      this.mdbTable.setDataSource(this.pubs);
+      this.previous = this.mdbTable.getDataSource();
 
     }, error => console.log(error));
 
 
-  }
-
-  ngAfterViewInit(): void {
-    console.log(this.mdbTable); // correctly outputs the element in console, not undefined
-    this.mdbTable.setDataSource(this.pubs);
-    this.previous = this.mdbTable.getDataSource();
   }
 
   searchItems(): void {

@@ -1,7 +1,7 @@
-import {AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ProfileAdminService} from '../../service/profile/profile-admin.service';
-import {ProfileService} from '../../../services/profile/profile.service';
-import {MdbTableDirective, MdbTableService} from 'angular-bootstrap-md';
+import {MdbTableDirective} from 'angular-bootstrap-md';
+import {Profile} from '../../../main/main-default/publication/publication.model';
 
 @Component({
   selector: 'app-show-profiles',
@@ -9,11 +9,11 @@ import {MdbTableDirective, MdbTableService} from 'angular-bootstrap-md';
   styleUrls: ['./show-profiles.component.css'],
 })
 
-export class ShowProfilesComponent implements OnInit, AfterViewInit {
-  @ViewChild ( MdbTableDirective, {static: true} ) mdbTable: MdbTableDirective;
+export class ShowProfilesComponent implements OnInit {
+  @ViewChild(MdbTableDirective, {static: true}) mdbTable: MdbTableDirective;
 
 
-  profiles: any ;
+  profiles: Profile[] ;
   types: any[];
   arrType = [];
   NumberOfPub: number;
@@ -23,20 +23,19 @@ export class ShowProfilesComponent implements OnInit, AfterViewInit {
   searchText = '';
   previous: string;
 
-  constructor(private profileAdminService: ProfileAdminService, private profileService: ProfileService  ) { }
-
+  constructor(private profileAdminService: ProfileAdminService  ) { }
   @HostListener('input') oninput(): void {
     this.searchItems();
   }
 
 
   ngOnInit(): void {
-    console.log(this.mdbTable);
     this.isLoading = true;
     this.profileAdminService.getListOfProfile().subscribe(resData => {
       this.profiles = resData;
       this.NumberOfPub = this.profiles.length;
-
+      this.mdbTable.setDataSource(this.profiles);
+      this.previous = this.mdbTable.getDataSource();
 
     }, error => console.log(error));
 
@@ -73,12 +72,6 @@ export class ShowProfilesComponent implements OnInit, AfterViewInit {
 
   }
 
-
-  ngAfterViewInit(): void {
-    console.log(this.mdbTable); // correctly outputs the element in console, not undefined
-    this.mdbTable.setDataSource(this.profiles);
-    this.previous = this.mdbTable.getDataSource();
-  }
   searchItems(): void {
     const prev = this.mdbTable.getDataSource();
     if (!this.searchText) {

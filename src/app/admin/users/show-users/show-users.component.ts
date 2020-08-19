@@ -18,8 +18,7 @@ export interface UserAdmin {
 })
 export class ShowUsersComponent implements OnInit {
 
-  @ViewChild(MdbTableDirective, {static: true})
-  mdbTable: MdbTableDirective;
+  @ViewChild(MdbTableDirective, {static: true}) mdbTable: MdbTableDirective;
 
   users: UserObject[] ;
   NumberOfPub: number;

@@ -1,12 +1,12 @@
 <div class="container-fluid">
 
   <!-- DataTales Example -->
-
+  <div class="text-center spinner my-auto position-absolute" *ngIf = "isLoading" >
+    <app-loading-spinner></app-loading-spinner>
+  </div>
   <div class="row justify-content-around" >
-    <div class="text-center spinner my-auto position-absolute" *ngIf = "isLoading" >
-      <app-loading-spinner></app-loading-spinner>
-    </div>
-  <div class="card shadow mb-4 col-lg-7" *ngIf = "!isLoading">
+
+  <div class="card shadow mb-4 col-lg-7" >
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">Liste des profils</h6>
     </div>
@@ -22,22 +22,21 @@
                 id="search"
                 mdbInput
               />
-              <label for="search">
-                <mdb-icon fas icon="search" class="mr-auto"></mdb-icon></label>
+              <label for="search">Search</label>
             </div>
           </div>
         </div>
         <table mdbTable class="display table" id="dataTable" width="100%">
           <thead>
             <tr>
-            <th>#</th>
-            <th [mdbTableSort]="profiles" sortBy="type.type">Type</th>
-            <th [mdbTableSort]="profiles" sortBy="sousType.sousType">Sous Type</th>
-            <th [mdbTableSort]="profiles" sortBy="nameVoie">Rue</th>
-            <th [mdbTableSort]="profiles" sortBy="city">Ville</th>
-            <th scope="col">Éditer</th>
-            <th scope="col">Supprimer</th>
-          </tr>
+              <th>#</th>
+              <th [mdbTableSort]="profiles" sortBy="type.type">Type</th>
+              <th [mdbTableSort]="profiles" sortBy="sousType.sousType">Sous Type</th>
+              <th [mdbTableSort]="profiles" sortBy="nameVoie">Rue</th>
+              <th [mdbTableSort]="profiles" sortBy="city">Ville</th>
+              <th scope="col">Éditer</th>
+              <th scope="col">Supprimer</th>
+            </tr>
           </thead>
           <tfoot>
           <tr>
@@ -46,8 +45,8 @@
             <th [mdbTableSort]="profiles" sortBy="sousType.sousType">Sous Type</th>
             <th [mdbTableSort]="profiles" sortBy="nameVoie">Rue</th>
             <th [mdbTableSort]="profiles" sortBy="city">Ville</th>
-<!--            <th scope="col">Éditer</th>-->
-<!--            <th scope="col">Supprimer</th>-->
+            <th scope="col">Éditer</th>
+            <th scope="col">Supprimer</th>
           </tr>
           <tr>
             <td class="text-center" colspan="4">
@@ -62,33 +61,33 @@
             <td>{{el.sousType.sousType}}</td>
             <td>{{el.numVoie}} {{el.nameVoie}}</td>
             <td>{{el.codePostal}} {{el.city}}</td>
-<!--            <td>-->
-<!--              <a  routerLink="/admin/profile/{{el.id}}/edit"><mdb-icon class="purple-text" fas icon="pencil-alt"></mdb-icon></a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--              <mdb-icon fas icon="trash-alt" (click)="basicModal.show()" class="pink-text ml-3"  mdbWavesEffect></mdb-icon>-->
+            <td>
+              <a  routerLink="/admin/profile/{{el.id}}/edit"><mdb-icon class="purple-text" fas icon="pencil-alt"></mdb-icon></a>
+            </td>
+            <td>
+              <mdb-icon fas icon="trash-alt" (click)="basicModal.show()" class="pink-text ml-3"  mdbWavesEffect></mdb-icon>
 
-<!--              <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">-->
-<!--                <div class="modal-dialog" role="document">-->
-<!--                  <div class="modal-content">-->
-<!--                    <div class="modal-header">-->
-<!--                      <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">-->
-<!--                        <span aria-hidden="true">×</span>-->
-<!--                      </button>-->
-<!--                      <h4 class="modal-title w-100" id="myModalLabel">Attention</h4>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                      Supprimer  profil<br>-->
-<!--                      Toutes les publications liées à ce profil seront supprimées, vous ne pourrez plus récupérer cette profil-->
+              <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                      <h4 class="modal-title w-100" id="myModalLabel">Attention</h4>
+                    </div>
+                    <div class="modal-body">
+                      Supprimer  profil<br>
+                      Toutes les publications liées à ce profil seront supprimées, vous ne pourrez plus récupérer cette profil
 
-<!--                    </div>-->
-<!--                    <div class="modal-footer">-->
-<!--                      <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>-->
-<!--                      <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(el.id);" >Confirmer la suppression</button>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div></td>-->
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
+                      <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(el.id);" >Confirmer la suppression</button>
+                    </div>
+                  </div>
+                </div>
+              </div></td>
           </tr>
           </tbody>
         </table>
