@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
 import {ProfileService} from '../../services/profile/profile.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-get-email',
@@ -20,8 +21,8 @@ export class GetEmailComponent implements OnInit {
   email = false;
   code: string;
   canChange =  false;
-  messages: any;
-  constructor(private authService: AuthService, private  profileService: ProfileService) { }
+  messages = [];
+  constructor(private router: Router ,private authService: AuthService, private  profileService: ProfileService) { }
 
   ngOnInit(): void {
   }
@@ -56,10 +57,15 @@ export class GetEmailComponent implements OnInit {
     }
     this.profileService.resetPassword(this.id, pass).subscribe(resData => {
       console.log(resData);
-      this.canChange = false;
-      this.email = false;
       this.messages.push('Votre mot de passe a été bien changé ');
-      setTimeout(() => this.messages = [], 3500);
+      setTimeout(() => {
+        this.messages = [];
+        this.router.navigate(['/auth']);
+        this.canChange = false;
+        this.email = false;
+      }, 2500);
+
+
 
     }, error1 => console.log(error1));
   }

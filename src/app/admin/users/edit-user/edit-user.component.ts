@@ -4,6 +4,8 @@ import {ProfileService} from '../../../services/profile/profile.service';
 import {ProfessionObject, UserObject} from '../../../profile/my-info/my-info.component';
 import {UserService} from '../../service/user/user.service';
 import {ActivatedRoute, Route, Router} from '@angular/router';
+import {Profile, Publication} from '../../../main/main-default/publication/publication.model';
+import {ProfileAdminService} from '../../service/profile/profile-admin.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -18,13 +20,24 @@ export class EditUserComponent implements OnInit {
   success = false;
   failed = false;
   id: number;
+  professionDefault: number;
 
 
   @ViewChild('myInfoForm') infoForm: NgForm;
+  profileArr: Profile[];
+  profiles: Profile[];
+  hasProfile: boolean;
+  hasPubs: boolean;
+  pubs: Publication[];
+  page = 1;
+  page1 = 1;
+  NumberOfPub: number;
+  NumberOfProfile: number;
 
   constructor(private profileService: ProfileService,
               private userService: UserService,
-              private router: ActivatedRoute
+              private router: ActivatedRoute,
+              private profileAdminService: ProfileAdminService
               ) { }
 
 
@@ -46,18 +59,53 @@ export class EditUserComponent implements OnInit {
         phoneMobile: resData.phoneMobile,
         createdAt: resData.createdAt,
         profiles: resData.profiles,
-        themes: resData.themes ,
+        themes: resData.themes,
         userPubComments: resData.userPubComments,
         centerOfInterests: resData.centerOfInterests,
-        publications: resData.publications,
+        publication: resData.publication,
         profession: resData.profession,
         isActivated: resData.isActivated,
       };
+      console.log(resData);
+
+      if (resData.profiles) {
+
+        if (Object.entries(resData.profiles).length !== 0) {
+          this.hasProfile = true;
+          const profiles = [];
+          for (const i in resData.profiles){
+            if (resData.profiles.hasOwnProperty(i)){
+              profiles.push(resData.profiles[i]);
+            }
+          }
+          this.profiles = profiles;
+          this.NumberOfPub = Object.entries(resData.publication).length;
+        } else {
+          this.hasProfile = false;
+        }
+      }
+
+      if (Object.entries(resData.publication).length !== 0) {
+        this.hasPubs = true;
+        const pubs = [];
+        for (const pub in resData.publication){
+          if (resData.publication.hasOwnProperty(pub)){
+            pubs.push(resData.publication[pub]);
+          }
+        }
+        this.pubs = pubs;
+        this.NumberOfProfile = Object.entries(resData.profiles).length;
+      } else {
+        this.hasPubs = false;
+      }
+      console.log(this.hasPubs);
     });
+
 
 
     this.profileService.getProfession().subscribe(resData  => {
       this.loadedProf = resData;
+      this.professionDefault = resData[0].id;
 
     });
   }
@@ -94,5 +142,13 @@ export class EditUserComponent implements OnInit {
 
   }
 
-
+  onDelete(id): void {
+    this.isLoading = true;
+    this.profileAdminService.deleteProfile(id)
+      .subscribe(resData => {
+        console.log(resData);
+        this.isLoading = false;
+        this.ngOnInit();
+      },  error => console.log(error), this.isLoading = false);
+  }
 }

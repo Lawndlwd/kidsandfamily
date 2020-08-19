@@ -1,5 +1,10 @@
 import {UserObject} from '../../../profile/my-info/my-info.component';
 
+export interface Structure {
+  id: number;
+  name: string;
+}
+
 export interface Publication {
     id: number;
     title: string;
@@ -11,11 +16,12 @@ export interface Publication {
     action: Action ;
     profile?: Profile ;
     publicCible: PublicCible ;
-    userPubComment?:UserPubComment ;
-    theme:Theme ;
-    shortDescription?:string;
-    createdAtAgo:string;
+    userPubComment?: UserPubComment ;
+    theme: Theme ;
+    shortDescription?: string;
+    createdAtAgo: string;
     user: UserObject;
+    structure: Structure;
 }
 export interface Need {
   id: number;

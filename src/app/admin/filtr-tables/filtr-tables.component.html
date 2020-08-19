@@ -80,12 +80,6 @@
                 <div mdbModal #editModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="editModal.hide(); getType()">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title w-100" id="myModalLabelType1">Attention,</h4>
-                      </div>
                       <div class="modal-body">
                         <div class="row justify-content-center m-0 p-0">
                           <div class="col-xs-11 col-md-11 col-md-offset-3 ">
@@ -96,7 +90,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="editModal.hide(); getType()" mdbWavesEffect>Annuler</button>
-                                <button type="submit" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="editModal.hide()" >Confirmer la suppression</button>
+                                <button type="submit" mdbBtn color="default" class="relative waves-light" mdbWavesEffect (click)="editModal.hide()" >Confirmer</button>
                               </div>
                             </form>
                           </div>
@@ -123,7 +117,7 @@
                         <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
                           <span aria-hidden="true">×</span>
                         </button>
-                        <h4 class="modal-title w-100" id="myModalLabelType2">Attention,</h4>
+                        <h4 class="modal-title w-100" id="myModalLabelType2">Attention</h4>
                       </div>
                       <div class="modal-body">
                          Supprimer le type<br>
@@ -226,12 +220,6 @@
                 <div mdbModal #actionEditModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="actionEditModal.hide(); getAction()">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title w-100" id="myModalLabel1">Attention,</h4>
-                      </div>
                       <div class="modal-body">
                         <div class="row justify-content-center m-0 p-0">
                           <div class="col-xs-11 col-md-11 col-md-offset-3 ">
@@ -242,7 +230,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="actionEditModal.hide(); getAction()" mdbWavesEffect>Annuler</button>
-                                <button type="submit" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="actionEditModal.hide()" >Confirmer la suppression</button>
+                                <button type="submit" mdbBtn color="default" class="relative waves-light" mdbWavesEffect (click)="actionEditModal.hide()" >Confirmer</button>
                               </div>
                             </form>
                           </div>
@@ -269,7 +257,7 @@
                         <button type="button" class="close pull-right" aria-label="Close" (click)="actionDeleteModal.hide()">
                           <span aria-hidden="true">×</span>
                         </button>
-                        <h4 class="modal-title w-100" id="myModalLabel2">Attention,</h4>
+                        <h4 class="modal-title w-100" id="myModalLabel2">Attention</h4>
                       </div>
                       <div class="modal-body">
                          Supprimer l'action<br>
@@ -373,12 +361,6 @@
                 <div mdbModal #needEditModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="needEditModal.hide(); getNeed()">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title w-100">Attention,</h4>
-                      </div>
                       <div class="modal-body">
                         <div class="row justify-content-center m-0 p-0">
                           <div class="col-xs-11 col-md-11 col-md-offset-3 ">
@@ -389,7 +371,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="needEditModal.hide(); getNeed()" mdbWavesEffect>Annuler</button>
-                                <button type="submit" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="needEditModal.hide()" >Confirmer la suppression</button>
+                                <button type="submit" mdbBtn color="default" class="relative waves-light" mdbWavesEffect (click)="needEditModal.hide()" >Confirmer</button>
                               </div>
                             </form>
                           </div>
@@ -416,7 +398,7 @@
                         <button type="button" class="close pull-right" aria-label="Close" (click)="needDeleteModal.hide()">
                           <span aria-hidden="true">×</span>
                         </button>
-                        <h4 class="modal-title w-100">Attention,</h4>
+                        <h4 class="modal-title w-100">Attention</h4>
                       </div>
                       <div class="modal-body">
                          Supprimer le besoin<br>
@@ -519,12 +501,6 @@
                 <div mdbModal #intrestEditModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="intrestEditModal.hide(); getCenterOfIntrest()">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title w-100">Attention,</h4>
-                      </div>
                       <div class="modal-body">
                         <div class="row justify-content-center m-0 p-0">
                           <div class="col-xs-11 col-md-11 col-md-offset-3 ">
@@ -535,7 +511,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="intrestEditModal.hide(); getCenterOfIntrest()" mdbWavesEffect>Annuler</button>
-                                <button type="submit" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="intrestEditModal.hide()" >Confirmer la suppression</button>
+                                <button type="submit" mdbBtn color="default" class="relative waves-light" mdbWavesEffect (click)="intrestEditModal.hide()" >Confirmer</button>
                               </div>
                             </form>
                           </div>
@@ -562,7 +538,7 @@
                         <button type="button" class="close pull-right" aria-label="Close" (click)="CenterOfIntrestFormDeleteModal.hide()">
                           <span aria-hidden="true">×</span>
                         </button>
-                        <h4 class="modal-title w-100">Attention,</h4>
+                        <h4 class="modal-title w-100">Attention</h4>
                       </div>
                       <div class="modal-body">
                          Supprimer le interest<br>
@@ -664,12 +640,6 @@
                 <div mdbModal #professionsEditModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="professionsEditModal.hide(); getProfession()">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title w-100">Attention,</h4>
-                      </div>
                       <div class="modal-body">
                         <div class="row justify-content-center m-0 p-0">
                           <div class="col-xs-11 col-md-11 col-md-offset-3 ">
@@ -680,7 +650,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="professionsEditModal.hide(); getProfession()" mdbWavesEffect>Annuler</button>
-                                <button type="submit" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="professionsEditModal.hide()" >Confirmer la suppression</button>
+                                <button type="submit" mdbBtn color="default" class="relative waves-light" mdbWavesEffect (click)="professionsEditModal.hide()" >Confirmer</button>
                               </div>
                             </form>
                           </div>
@@ -707,7 +677,7 @@
                         <button type="button" class="close pull-right" aria-label="Close" (click)="professionFormDeleteModal.hide()">
                           <span aria-hidden="true">×</span>
                         </button>
-                        <h4 class="modal-title w-100">Attention,</h4>
+                        <h4 class="modal-title w-100">Attention</h4>
                       </div>
                       <div class="modal-body">
                          Supprimer la profession<br>

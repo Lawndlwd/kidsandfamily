@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import {ProfileService} from '../../services/profile/profile.service';
 
 @Component({
   selector: 'app-register',
@@ -21,8 +22,10 @@ export class RegisterComponent implements OnInit {
   admin = false;
 
   @ViewChild('authForm') signUpForm: NgForm;
+  loadedProf: any;
+  professionDefault: any;
 
-  constructor(private authService: AuthService, private router: Router ){
+  constructor(private profileService: ProfileService  , private authService: AuthService, private router: Router ){
 
   }
 
@@ -30,6 +33,10 @@ export class RegisterComponent implements OnInit {
     if (location.pathname === '/admin/users/create-user'){
       this.dRecaptcha = false;
     }
+    this.profileService.getProfession().subscribe(resData  => {
+      this.loadedProf = resData;
+      this.professionDefault = resData[0].id;
+    });
   }
 
 
@@ -55,6 +62,8 @@ export class RegisterComponent implements OnInit {
     const rePassword = this.signUpForm.value.rePassword;
     const lName = this.signUpForm.value.LastName;
     const fName = this.signUpForm.value.firstName;
+    const profession = '/api/professions/' + this.signUpForm.value.profession;
+
     console.log(this.signUpForm.value);
     if (password !== rePassword){
       this.error = 'the two password does not match';
@@ -63,7 +72,7 @@ export class RegisterComponent implements OnInit {
 
       this.isLoading = true;
       if (!this.dRecaptcha){
-        this.authService.signUp(fName, lName, email, password, this.admin ? ['ROLE_SUPER_ADMIN'] : []).subscribe(resData1 => {
+        this.authService.signUp(fName, lName, email, password, this.admin ? ['ROLE_SUPER_ADMIN'] : [], profession).subscribe(resData1 => {
           // tslint:disable-next-line:no-shadowed-variable
           console.log(resData1);
           this.router.navigate(['/admin/users']);
@@ -83,7 +92,7 @@ export class RegisterComponent implements OnInit {
         });
 
       }else {
-        this.authService.signUp(fName, lName, email, password, []).subscribe(resData => {
+        this.authService.signUp(fName, lName, email, password, ['ROLE_ADMIN'], profession).subscribe(resData => {
           // tslint:disable-next-line:no-shadowed-variable
           this.authService.sendActivation(resData.id).subscribe(resData => {
             this.isLoading = false;

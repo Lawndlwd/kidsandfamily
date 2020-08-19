@@ -7,7 +7,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RecaptchaModule } from 'ng-recaptcha';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {MDBBootstrapModule, MdbTableDirective} from 'angular-bootstrap-md';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -70,6 +70,8 @@ import { UploadService } from './services/upload/upload.service';
 import { DownloadService } from './services/download/download.service';
 import { GetEmailComponent } from './resetpass/get-email/get-email.component';
 import { FiltrTablesComponent } from './admin/filtr-tables/filtr-tables.component';
+import { PageNotAllowedComponent } from './page-not-allowed/page-not-allowed.component';
+import { UserInfoComponent } from './admin/users/user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +119,8 @@ import { FiltrTablesComponent } from './admin/filtr-tables/filtr-tables.componen
     AdminEditProfileComponent,
     GetEmailComponent,
     FiltrTablesComponent,
+    PageNotAllowedComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,

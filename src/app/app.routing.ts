@@ -5,7 +5,7 @@ import { ActivationComponent } from './activation/activation.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { PublicationDetailsComponent } from './main/main-default/publication-details/publication-details.component';
 import { MainFiltreSelectionComponent } from './main/main-filtre-selection/main-filtre-selection.component';
-import { AuthGuard } from './auth/auth.guard';
+import {AdminGuard, AuthGuard} from './auth/auth.guard';
 import { AuthComponent } from './auth/auth.component';
 import { ActivationTokenComponent } from './activation-token/activation-token.component';
 import { MainComponent } from './main/main.component';
@@ -33,6 +33,8 @@ import {AdminEditProfileComponent} from './admin/profiles/admin-edit-profile/adm
 import {CreatePubComponent} from './admin/pubs/create-pub/create-pub.component';
 import {GetEmailComponent} from './resetpass/get-email/get-email.component';
 import {FiltrTablesComponent} from './admin/filtr-tables/filtr-tables.component';
+import {PageNotAllowedComponent} from './page-not-allowed/page-not-allowed.component';
+import {UserInfoComponent} from './admin/users/user-info/user-info.component';
 
 
 
@@ -63,7 +65,7 @@ const appRoutes: Routes = [
   },
   { path: 'upload-picture', component: UploadFormComponent },
   { path: 'reset-pass', component: GetEmailComponent },
-  { path: 'admin', component: AdminComponent,
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard],
     children: [
       { path: '', component: DashoardComponent},
       { path: 'filter-items', component: FiltrTablesComponent},
@@ -72,6 +74,8 @@ const appRoutes: Routes = [
           { path: '', component: ShowUsersComponent},
           { path: 'create-user', component: CreateUserComponent},
           { path: ':id/edit', component: EditUserComponent},
+          { path: ':id/info', component: UserInfoComponent},
+
         ]},
       { path: 'publications', component: PubsComponent,
         children: [
@@ -86,6 +90,7 @@ const appRoutes: Routes = [
       // { path: 'center-of-interest', component: CenterOfInterestComponent},
       // { path: 'security-setting', component: SecurityComponent},
     ]},
+  { path: 'not-allowed', component: PageNotAllowedComponent},
   { path: '**', component: PageNotFoundComponent}
 ];
 

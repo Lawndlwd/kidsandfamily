@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import {exhaustMap, take, tap} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {ProfileService} from '../profile/profile.service';
-import {UserObject} from '../../profile/my-info/my-info.component';
+import {ProfessionObject, UserObject} from '../../profile/my-info/my-info.component';
 
 export class AuthResponseData {
   token?: string;
@@ -17,6 +17,7 @@ export class RegResponseData {
    password: string;
    LastName?: string ;
    firstName?: string ;
+   profession: ProfessionObject;
   }
 
 
@@ -26,7 +27,6 @@ export class RegResponseData {
 export class AuthService {
 
   user = new BehaviorSubject<User>(null);
-
   private tokenExpDate: any;
 
   constructor(private http: HttpClient, private router: Router ) { }
@@ -91,14 +91,15 @@ export class AuthService {
 
 
   // tslint:disable-next-line:typedef
-  signUp(fName: string, lName: string , email: string, password: string, roles: any[]){
+  signUp(fName: string, lName: string , email: string, password: string, roles: any[], profession: string){
     return this.http.post<RegResponseData>('https://127.0.0.1:8000/api/users',
     {
       email,
       password,
       firstName: fName,
       LastName: lName,
-      roles
+      roles,
+      profession
     }
     );
   }

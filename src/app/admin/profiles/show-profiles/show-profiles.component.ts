@@ -1,36 +1,41 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {Profile} from '../../../main/main-default/publication/publication.model';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ProfileAdminService} from '../../service/profile/profile-admin.service';
-import * as Chart from 'chart.js';
-import {ProfileService} from '../../../services/profile/profile.service';
-import {Type} from '../../../profile/my-profile/my-profile.component';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {MdbTableDirective} from 'angular-bootstrap-md';
+import {Profile} from '../../../main/main-default/publication/publication.model';
 
 @Component({
   selector: 'app-show-profiles',
   templateUrl: './show-profiles.component.html',
-  styleUrls: ['./show-profiles.component.css']
+  styleUrls: ['./show-profiles.component.css'],
 })
+
 export class ShowProfilesComponent implements OnInit {
+  @ViewChild(MdbTableDirective, {static: true}) mdbTable: MdbTableDirective;
 
 
-  profiles: any ;
+  profiles: Profile[] ;
   types: any[];
   arrType = [];
   NumberOfPub: number;
   page = 1;
   isLoading = false;
   typeObject: {};
+  searchText = '';
+  previous: string;
 
+  constructor(private profileAdminService: ProfileAdminService  ) { }
+  @HostListener('input') oninput(): void {
+    this.searchItems();
+  }
 
-  constructor(private profileAdminService: ProfileAdminService, private profileService: ProfileService  ) { }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.profileAdminService.getListOfProfile().subscribe(resData => {
       this.profiles = resData;
       this.NumberOfPub = this.profiles.length;
+      this.mdbTable.setDataSource(this.profiles);
+      this.previous = this.mdbTable.getDataSource();
 
     }, error => console.log(error));
 
@@ -67,6 +72,19 @@ export class ShowProfilesComponent implements OnInit {
 
   }
 
+  searchItems(): void {
+    const prev = this.mdbTable.getDataSource();
+    if (!this.searchText) {
+      this.mdbTable.setDataSource(this.previous);
+      this.profiles = this.mdbTable.getDataSource();
+    }
+    if (this.searchText) {
+      this.profiles = this.mdbTable.searchLocalDataBy(this.searchText);
+      this.mdbTable.setDataSource(prev);
+    }
+  }
+
+
   onDelete(id): void {
     this.isLoading = true;
     this.profileAdminService.deleteProfile(id)
@@ -102,4 +120,5 @@ export class ShowProfilesComponent implements OnInit {
   //       options: {},
   //     });
   //   }
+
 }

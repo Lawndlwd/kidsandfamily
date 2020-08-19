@@ -3,27 +3,41 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">{{"List des Publication" | uppercase}}</h6>
+      <h6 class="m-0 font-weight-bold text-primary">{{"Liste des Publications" | uppercase}}</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="display table" id="dataTable" width="100%">
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+            <div class="md-form">
+              <input
+                type="text"
+                [(ngModel)]="searchText"
+                class="form-control"
+                id="search"
+                mdbInput
+              />
+              <label for="search">Search</label>
+            </div>
+          </div>
+        </div>
+        <table mdbTable class="display table" id="dataTable" width="100%">
           <thead>
           <tr>
-            <th [mdbTableSort]="pubs" sortBy="title">Title</th>
+            <th [mdbTableSort]="pubs" sortBy="title">Titre</th>
             <th [mdbTableSort]="pubs" sortBy="user.email">email</th>
-            <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>
+            <th [mdbTableSort]="pubs" sortBy="profile.id">Profil</th>
             <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>
-            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>
+            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Crée a</th>
           </tr>
           </thead>
           <tfoot>
           <tr>
-            <th [mdbTableSort]="pubs" sortBy="title">Title</th>
+            <th [mdbTableSort]="pubs" sortBy="title">Titre</th>
             <th [mdbTableSort]="pubs" sortBy="user.email">email</th>
-            <th [mdbTableSort]="pubs" sortBy="profile.id">Profile</th>
-            <th [mdbTableSort]="pubs" sortBy="publicCible.name">PublicCible</th>
-            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Created at</th>
+            <th [mdbTableSort]="pubs" sortBy="profile.id">Profil</th>
+            <th [mdbTableSort]="pubs" sortBy="publicCible.name">Public Cible</th>
+            <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Crée a</th>
           </tr>
           <tr>
             <td colspan="4">

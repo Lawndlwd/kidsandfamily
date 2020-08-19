@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit, Output} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import {AuthService} from '../services/auth/auth.service';
@@ -18,7 +18,7 @@ export class AuthComponent {
   isLoading = false;
   error: string = null;
   token: any;
-
+  isAdmin: boolean;
 
   constructor(private authService: AuthService, private router: Router, private profileService: ProfileService , private http: HttpClient) {
   }
@@ -38,6 +38,9 @@ export class AuthComponent {
           Authorization: 'Bearer ' + this.token
         })
       }).subscribe(res => {
+        if (res.roles.includes('ROLE_SUPER_ADMIN')){
+          this.isAdmin = true;
+        }
         console.log(res);
         if (res.isBlocked === false){
           this.isLoading = false;
