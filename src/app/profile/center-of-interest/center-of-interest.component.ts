@@ -37,7 +37,6 @@ export class CenterOfInterestComponent implements OnInit {
       this.id = resData.id;
       this.loadedData = resData.centerOfInterests;
       this.int.push(resData.centerOfInterests);
-      console.log(this.loadedData);
 
       this.isLoading = false;
     }, error => {
@@ -58,27 +57,18 @@ export class CenterOfInterestComponent implements OnInit {
         this.int.splice(index, 1);
       }
     }
-    console.log(this.int);
   }
 
   onSubmit(): void {
 
     // tslint:disable-next-line:prefer-for-of
     this.profileService.setCenterOfIntreset(this.id, [{id: 3}]).subscribe(resData => {
-
-      console.log(resData.centerOfInterests);
-      console.log(this.interests);
       this.int = [];
     }, error => {
       console.log(error);
     });
 
   }
-
-  hgj(): void{
-    console.log(this.idOfCenter);
-  }
-
 }
 
 

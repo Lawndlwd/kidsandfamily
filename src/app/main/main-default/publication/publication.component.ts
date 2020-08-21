@@ -1,7 +1,6 @@
 import { Publication } from './Publication.model';
 import { PublicationsService } from '../../../services/publications/publications.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -10,37 +9,25 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./publication.component.css']
 })
 export class PublicationComponent implements OnInit {
-  loadedPub: Publication[] = [];
+  loadedPub: Publication[];
   publicationId: number ;
   NumberOfPub: number;
   page = 1;
+  usersArray: any;
+  searchText = '';
 
 
 
   constructor(
     private pubsService: PublicationsService,
-    private router: Router,
-    ) {
-      this.loadedPub = new Array<any>();
-   }
+    ) {}
 
   ngOnInit(): void {
     this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?user.isblocked=0&page=1')
     .subscribe(publications => {
-      console.log(publications);
       this.loadedPub = publications;
       this.NumberOfPub = this.loadedPub.length;
     });
-
-    for (let i = 0; i < this.NumberOfPub; i++){
-      console.log(this.loadedPub[i]);
-    }
-
   }
-
-  // enDtails(){
-  //       this.router.navigate(['/publications-details/]);
-  //       this.ngOnInit()
-  //     }
 
 }

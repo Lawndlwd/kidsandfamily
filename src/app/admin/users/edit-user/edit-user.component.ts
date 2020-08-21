@@ -45,7 +45,6 @@ export class EditUserComponent implements OnInit {
     this.id = this.router.snapshot.params.id;
     this.isLoading = true;
     this.userService.getUserInfo(this.id).subscribe(resData => {
-      console.log(resData);
       this.isLoading = false;
       this.loadedData = {
         id: resData.id,
@@ -66,7 +65,6 @@ export class EditUserComponent implements OnInit {
         profession: resData.profession,
         isActivated: resData.isActivated,
       };
-      console.log(resData);
 
       if (resData.profiles) {
 
@@ -98,7 +96,6 @@ export class EditUserComponent implements OnInit {
       } else {
         this.hasPubs = false;
       }
-      console.log(this.hasPubs);
     });
 
 
@@ -130,7 +127,6 @@ export class EditUserComponent implements OnInit {
     this.isLoading = true;
     this.profileService.saveMyInfo(this.loadedData.id, fName, lName, mStatus, birthday, gender, teleFix, teleMob, profession)
       .subscribe(resData => {
-        console.log(resData);
         this.success = true;
         setTimeout(() => this.success = false, 3500);
         this.isLoading = false;
@@ -146,7 +142,6 @@ export class EditUserComponent implements OnInit {
     this.isLoading = true;
     this.profileAdminService.deleteProfile(id)
       .subscribe(resData => {
-        console.log(resData);
         this.isLoading = false;
         this.ngOnInit();
       },  error => console.log(error), this.isLoading = false);

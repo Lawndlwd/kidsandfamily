@@ -19,7 +19,6 @@ export class ActivationTokenComponent implements OnInit {
 
 
     this.authService.checkToken(this.token, this.id).subscribe(resData => {
-      console.log(resData);
       if (resData){
           this.router.navigate(['/auth']);
       }

@@ -22,7 +22,7 @@
 <br>
 
 <div [hidden]="showL"  class="row justify-content-center">
-  <div class="col-11 col-sm-5 col-md-4 col-xl-3 mt-5 " *ngFor="let pub of loadedPublication | paginate: {id: 'publicationsList', itemsPerPage: 6, currentPage: page, totalItems: NumberOfPub }">
+  <div class="col-11 col-sm-5 col-md-4 col-xl-3 mt-5 " *ngFor="let pub of loadedPublication | paginate: {id: 'publicationsList', itemsPerPage: 12, currentPage: page, totalItems: NumberOfPub }">
     <div class="card h-100 ">
       <div class="row justify-content-around">
         <div class="col-3 m-2">

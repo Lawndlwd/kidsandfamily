@@ -55,7 +55,6 @@ export class MyInfoComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.profileService.getUserInfo().subscribe(resData => {
-      console.log(resData);
       this.isLoading = false;
       this.loadedData = {
         id: resData.id,
@@ -106,7 +105,6 @@ export class MyInfoComponent implements OnInit {
     this.isLoading = true;
     this.profileService.saveMyInfo(this.loadedData.id, fName, lName, mStatus, birthday, gender, teleFix, teleMob, profession)
       .subscribe(resData => {
-        console.log(resData);
         this.success = true;
         setTimeout(() => this.success = false, 3500);
         this.isLoading = false;

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CenterOfIntreset, ProfileService} from '../../../services/profile/profile.service';
-import {UserAdmin} from '../../users/show-users/show-users.component';
 import {map} from 'rxjs/operators';
-import {Action, Need, Profile} from '../../../main/main-default/publication/publication.model';
+import {Action, Need, Profile, PublicCible, Structure, Theme} from '../../../main/main-default/publication/publication.model';
 import {Observable} from 'rxjs';
-import {Type} from '../../../profile/my-profile/my-profile.component';
+import {SousType, Type} from '../../../profile/my-profile/my-profile.component';
 import {ProfessionObject} from '../../../profile/my-info/my-info.component';
 
 @Injectable({
@@ -29,6 +28,8 @@ export class ProfileAdminService {
         return arrProf;
       }));
   }
+
+
 
   delete(id, url ): Observable<any>{
     return this.http.delete('https://127.0.0.1:8000/api/' + url + '/' + id , {
@@ -240,101 +241,103 @@ export class ProfileAdminService {
       })
     });
   }
-  //
-  //
-  // //  Needs
-  //
-  // addNeed(need): Observable<any>{
-  //   return this.http.post('https://127.0.0.1:8000/api/.json', {
-  //     need
-  //   }, {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + this.profileService.token._token
-  //     })
-  //   });
-  // }
-  //
-  // editNeeds(id, need): Observable<any>{
-  //   return this.http.put('https://127.0.0.1:8000/api/needs/' + id , {
-  //     need
-  //   }, {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + this.profileService.token._token
-  //     })
-  //   });
-  // }
-  //
-  //
-  //
-  // //  Needs
-  //
-  // addNeed(need): Observable<any>{
-  //   return this.http.post('https://127.0.0.1:8000/api/.json', {
-  //     need
-  //   }, {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + this.profileService.token._token
-  //     })
-  //   });
-  // }
-  //
-  // editNeeds(id, need): Observable<any>{
-  //   return this.http.put('https://127.0.0.1:8000/api/needs/' + id , {
-  //     need
-  //   }, {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + this.profileService.token._token
-  //     })
-  //   });
-  // }
-  //
-  //
-  //
-  // //  Needs
-  //
-  // addNeed(need): Observable<any>{
-  //   return this.http.post('https://127.0.0.1:8000/api/.json', {
-  //     need
-  //   }, {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + this.profileService.token._token
-  //     })
-  //   });
-  // }
-  //
-  // editNeeds(id, need): Observable<any>{
-  //   return this.http.put('https://127.0.0.1:8000/api/needs/' + id , {
-  //     need
-  //   }, {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + this.profileService.token._token
-  //     })
-  //   });
-  // }
-  //
-  //
-  //
-  // //  Needs
-  //
-  // addNeed(need): Observable<any>{
-  //   return this.http.post('https://127.0.0.1:8000/api/.json', {
-  //     need
-  //   }, {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + this.profileService.token._token
-  //     })
-  //   });
-  // }
-  //
-  // editNeeds(id, need): Observable<any>{
-  //   return this.http.put('https://127.0.0.1:8000/api/needs/' + id , {
-  //     need
-  //   }, {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + this.profileService.token._token
-  //     })
-  //   });
-  // }
-  //
+
+
+  //  Public
+
+  addPublic(name: PublicCible): Observable<any>{
+    return this.http.post('https://127.0.0.1:8000/api/public_cibles.json', {
+      name,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.profileService.token._token
+      })
+    });
+  }
+
+  editPublic(id, name: PublicCible): Observable<any>{
+    return this.http.put('https://127.0.0.1:8000/api/public_cibles/' + id , {
+      name
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.profileService.token._token
+      })
+    });
+  }
+
+
+
+  //  SousType
+
+  addSousType(sousType: SousType, type: string): Observable<any>{
+    return this.http.post('https://127.0.0.1:8000/api/sous_types.json', {
+      sousType,
+      type
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.profileService.token._token
+      })
+    });
+  }
+
+  editSousType(id, sousType: SousType, type: string): Observable<any>{
+    return this.http.put('https://127.0.0.1:8000/api/sous_types/' + id , {
+      sousType,
+      type
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.profileService.token._token
+      })
+    });
+  }
+
+
+
+  //  themes
+
+  addtheme(theme: Theme): Observable<any>{
+    return this.http.post('https://127.0.0.1:8000/api/themes.json', {
+      theme
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.profileService.token._token
+      })
+    });
+  }
+
+  edittheme(id, theme: Theme): Observable<any>{
+    return this.http.put('https://127.0.0.1:8000/api/themes/' + id , {
+      theme
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.profileService.token._token
+      })
+    });
+  }
+
+
+
+  //  structure
+
+  addStructure(name: Structure): Observable<any>{
+    return this.http.post('https://127.0.0.1:8000/api/structures.json', {
+      name
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.profileService.token._token
+      })
+    });
+  }
+
+  editStructure(id, name: Structure): Observable<any>{
+    return this.http.put('https://127.0.0.1:8000/api/structures/' + id , {
+      name
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.profileService.token._token
+      })
+    });
+  }
+
 
 }

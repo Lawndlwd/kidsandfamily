@@ -32,7 +32,6 @@ export class ShowMyProfilenComponent implements OnInit {
         this.noProfiles = true;
       }else {
         this.userProfiles = resData;
-        console.log(this.userProfiles);
         this.isLoading = false;
       }
     });
@@ -41,7 +40,6 @@ export class ShowMyProfilenComponent implements OnInit {
   onDelete(id: number): void {
     this.isLoading = true;
     this.profileService.deleteProfile(id).subscribe(resData => {
-      console.log(resData);
       this.isLoading = false;
       this.ngOnInit();
 

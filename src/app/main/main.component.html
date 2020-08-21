@@ -1,14 +1,8 @@
 <mdb-carousel [isControls]="false" class="carousel slide  h-50 carousel-fade" [animation]="'fade'" *ngIf="home">
-  <mdb-carousel-item>
-    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(31).jpg" alt="First slide">
+  <mdb-carousel-item *ngFor="let imgPath of imgPaths">
+    <img class="d-block w-100" src="https://localhost:8000/home/pictures/{{ imgPath.filePath }}" alt="First slide">
 <!--  <div class="black-overlay"></div>-->
 <!--    <div class=" black-overlay-text mt-5 pt-5">In need of a button, but not the hefty background colors they bring? Replace the default modifier classes with the outline="true" ones to remove all background images and colors on any button.</div>-->
-  </mdb-carousel-item>
-  <mdb-carousel-item>
-    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(33).jpg" alt="Second slide">
-  </mdb-carousel-item>
-  <mdb-carousel-item>
-    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Third slide">
   </mdb-carousel-item>
 </mdb-carousel>
 

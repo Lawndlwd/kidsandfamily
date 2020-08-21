@@ -1,9 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CenterOfIntreset, ProfileService} from '../../services/profile/profile.service';
-import {Action, Need, Type} from '../../main/main-default/publication/publication.model';
+import {Action, Need, PublicCible, Structure, Theme, Type} from '../../main/main-default/publication/publication.model';
 import {NgForm} from '@angular/forms';
 import {ProfileAdminService} from '../service/profile/profile-admin.service';
 import {ProfessionObject} from '../../profile/my-info/my-info.component';
+import {SousType} from '../../profile/my-profile/my-profile.component';
+
 @Component({
   selector: 'app-filtr-tables',
   templateUrl: './filtr-tables.component.html',
@@ -37,9 +39,31 @@ export class FiltrTablesComponent implements OnInit {
   arrProfessions: any;
   page4 = 1;
 
+  publicCible: PublicCible[];
+  NumberOfPublic: number;
+  arrPublic: any;
+  page5 = 1;
+
+  structures: Structure[];
+  NumberOfStructure: number;
+  arrStructure: any;
+  page6 = 1;
+
+  theme: Theme[];
+  NumberOfTheme: number;
+  arrTheme: any;
+  page7 = 1;
+
+  sousType: SousType[];
+  NumberOfSousType: number;
+  arrSousType: any;
+  page8 = 1;
+
+
   isLoading = false;
   add = false;
-  error: any[] = [];
+  errors: any[] = [];
+  error = false;
 
 
   @ViewChild('addTypeForm') addTypeForm: NgForm;
@@ -47,6 +71,11 @@ export class FiltrTablesComponent implements OnInit {
   @ViewChild('addNeedForm') addNeedForm: NgForm;
   @ViewChild('addCenterOfIntrestForm') addCenterOfIntrestForm: NgForm;
   @ViewChild('addProfessionForm') addProfessionForm: NgForm;
+  @ViewChild('addPublicForm') addPublicForm: NgForm;
+  @ViewChild('addStructureForm') addStructureForm: NgForm;
+  @ViewChild('addThemeForm') addThemeForm: NgForm;
+  @ViewChild('addSousTypeForm') addSousTypeForm: NgForm;
+
 
   constructor(private profileService: ProfileService, private profileAdminSer: ProfileAdminService) {
   }
@@ -57,14 +86,20 @@ export class FiltrTablesComponent implements OnInit {
     this.getNeed();
     this.getCenterOfIntrest();
     this.getProfession();
-
+    this.getPublicCible();
+    this.getStructure();
+    this.getTheme();
+    this.getSousType();
   }
 
+  errorMessage(message): void{
+    this.errors.push(message);
+    setTimeout(() => this.errors = [] , 4500);
+  }
   /*type*/
 
   getType(): void {
     this.profileService.getTypes().subscribe(res => {
-      console.log(res);
       this.types = res;
       this.arrType = [];
       for (const key in this.types) {
@@ -72,7 +107,6 @@ export class FiltrTablesComponent implements OnInit {
           this.arrType.push(this.types[key].type);
         }
       }
-      console.log(this.arrType);
       this.NumberOfType = this.types.length;
     });
   }
@@ -81,31 +115,31 @@ export class FiltrTablesComponent implements OnInit {
 
     const newType = this.addTypeForm.value.type;
     if (this.arrType.includes(newType)) {
-      this.error.push('this item exist');
-      console.log(this.error);
-      this.error = [];
+      this.errors.push('this item exist');
+      this.errors = [];
     } else {
       this.profileAdminSer.addType(newType).subscribe(res => {
-        console.log(res);
         this.getType();
         this.add = false;
-      }, error => console.log(error));
+      }, errors => console.log(errors));
     }
   }
 
   onDelete(id): void {
     this.profileAdminSer.deleteType(id).subscribe(res => {
-      console.log(res);
       this.getType();
-    }, error => console.log(error));
+    }, errors => {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
   }
 
   onEdit(editTypeForm, id): void {
     const type = editTypeForm.value.type;
     this.profileAdminSer.editType(id, type).subscribe(res => {
-      console.log(res);
       this.getType();
-    }, error => console.log(error));
+    }, errors => {
+      console.log(errors);
+    });
   }
 
 
@@ -114,7 +148,6 @@ export class FiltrTablesComponent implements OnInit {
 
   getAction(): void {
     this.profileAdminSer.getActions().subscribe(res => {
-      console.log(res);
       this.actions = res;
       this.arrAction = [];
       for (const key in this.actions) {
@@ -129,30 +162,28 @@ export class FiltrTablesComponent implements OnInit {
   onSubmitAction(): void {
     const newAction = this.addActionForm.value.action;
     if (this.arrAction.includes(newAction)) {
-      this.error.push('this item exist');
-      this.error = [];
+      this.errors.push('this item exist');
+      this.errors = [];
     } else {
       this.profileAdminSer.addActions(newAction).subscribe(res => {
-        console.log(res);
         this.getAction();
-      }, error => console.log(error));
+      }, errors => console.log(errors));
     }
   }
 
   onDeleteAction(id): void {
     this.profileAdminSer.deleteActions(id).subscribe(res => {
-      console.log(res);
       this.getAction();
-    }, error => console.log(error));
+    }, errors =>  {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
   }
 
   onEditAction(actionForm: NgForm, id): void {
     const action = actionForm.value.actions;
-    console.log(action);
     this.profileAdminSer.editActions(id, action).subscribe(res => {
-      console.log(res);
       this.getAction();
-    }, error => console.log(error));
+    }, errors => console.log(errors));
   }
 
 
@@ -161,7 +192,6 @@ export class FiltrTablesComponent implements OnInit {
 
   getNeed(): void {
     this.profileAdminSer.get('needs').subscribe(res => {
-      console.log(res);
       this.needs = res;
       this.arrNeed = [];
       for (const key in this.needs) {
@@ -176,30 +206,28 @@ export class FiltrTablesComponent implements OnInit {
   onSubmitNeed(): void {
     const newNeed = this.addNeedForm.value.need;
     if (this.arrNeed.includes(newNeed)) {
-      this.error.push('this item exist');
-      this.error = [];
+      this.errors.push('this item exist');
+      this.errors = [];
     } else {
       this.profileAdminSer.addNeed(newNeed).subscribe(res => {
-        console.log(res);
         this.getNeed();
-      }, error => console.log(error));
+      }, errors => console.log(errors));
     }
   }
 
   onDeleteNeed(id): void {
     this.profileAdminSer.delete(id, 'needs').subscribe(res => {
-      console.log(res);
       this.getNeed();
-    }, error => console.log(error));
+    }, errors =>  {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
   }
 
   onEditNeed(needForm: NgForm, id): void {
     const need = needForm.value.need;
-    console.log(need);
     this.profileAdminSer.editNeeds(id, need).subscribe(res => {
-      console.log(res);
       this.getNeed();
-    }, error => console.log(error));
+    }, errors => console.log(errors));
   }
 
 
@@ -208,7 +236,6 @@ export class FiltrTablesComponent implements OnInit {
 
   getCenterOfIntrest(): void {
     this.profileAdminSer.get('center_of_interests').subscribe(res => {
-      console.log(res);
       this.centerOfIntrest = res;
       this.arrCenterOfIntrest = [];
       for (const key in this.centerOfIntrest) {
@@ -222,32 +249,29 @@ export class FiltrTablesComponent implements OnInit {
 
   onSubmitCenterOfIntrest(): void {
     const newCenterOfIntrest = this.addCenterOfIntrestForm.value.intrest;
-    console.log(newCenterOfIntrest);
     if (this.arrCenterOfIntrest.includes(newCenterOfIntrest)) {
-      this.error.push('this item exist');
-      this.error = [];
+      this.errors.push('this item exist');
+      this.errors = [];
     } else {
       this.profileAdminSer.addCenterOfIntrest(newCenterOfIntrest).subscribe(res => {
-        console.log(res);
         this.getCenterOfIntrest();
-      }, error => console.log(error));
+      }, errors => console.log(errors));
     }
   }
 
   onDeleteCenterOfIntrest(id): void {
     this.profileAdminSer.delete(id, 'center_of_interests').subscribe(res => {
-      console.log(res);
       this.getCenterOfIntrest();
-    }, error => console.log(error));
+    }, errors => {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
   }
 
   onEditCenterOfIntrest(CenterOfIntrestFormForm: NgForm, id): void {
     const CenterOfIntrest = CenterOfIntrestFormForm.value.CenterOfIntrestForm;
-    console.log(CenterOfIntrest);
     this.profileAdminSer.editCenterOfIntrest(id, CenterOfIntrest).subscribe(res => {
-      console.log(res);
       this.getNeed();
-    }, error => console.log(error));
+    }, errors => console.log(errors));
   }
 
 
@@ -255,7 +279,6 @@ export class FiltrTablesComponent implements OnInit {
 
   getProfession(): void {
     this.profileAdminSer.get('professions').subscribe(res => {
-      console.log(res);
       this.professions = res;
       this.arrProfessions = [];
       for (const key in this.professions) {
@@ -270,231 +293,216 @@ export class FiltrTablesComponent implements OnInit {
   onSubmitProfession(): void {
     const newProfessions = this.addProfessionForm.value.profession;
     if (this.arrProfessions.includes(newProfessions)) {
-      this.error.push('this item exist');
-      this.error = [];
+      this.errors.push('this item exist');
+      this.errors = [];
     } else {
       this.profileAdminSer.addProfession(newProfessions).subscribe(res => {
-        console.log(res);
         this.getProfession();
-      }, error => console.log(error));
+      }, errors => console.log(errors));
     }
   }
 
   onDeleteProfession(id): void {
     this.profileAdminSer.delete(id, 'professions').subscribe(res => {
-      console.log(res);
       this.getProfession();
-    }, error => console.log(error));
+    }, errors => {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
   }
 
   onEditProfession(professionForm: NgForm, id): void {
     const profession = professionForm.value.profession;
-    console.log(profession);
     this.profileAdminSer.editProfession(id, profession).subscribe(res => {
-      console.log(res);
       this.getProfession();
-    }, error => console.log(error));
+    }, errors => console.log(errors));
   }
 
 
-//
-//
-// /* PublicCible */
-//
-//
-//
-//
-//
-//   getPublicCible(): void{
-//     this.profileAdminSer.get('public_cibles').subscribe(res => {
-//       console.log(res);
-//       this.needs = res;
-//       this.arrNeed = [];
-//       for (const key in this.needs){
-//         if (this.needs.hasOwnProperty(key)) {
-//           this.arrNeed.push(this.needs[key].need);
-//         }
-//       }
-//       this.NumberOfNeeds = this.needs.length;
-//     });
-//   }
-//
-//   onSubmitPublicCible(): void{
-//     const newNeed = this.addNeedForm.value.need;
-//     if (this.arrNeed.includes(newNeed)){
-//       this.error.push('this item exist');
-//       this.error = [];
-//     }else{
-//       this.profileAdminSer.addNeeds(newNeed).subscribe(res => {
-//         console.log(res);
-//         this.getNeed();
-//       }, error => console.log(error));
-//     }
-//   }
-//
-//   onDeletePublicCible(id): void {
-//     this.profileAdminSer.deleteNeeds(id).subscribe(res => {
-//       console.log(res);
-//       this.getNeed();
-//     }, error => console.log(error));
-//   }
-//
-//   onEditPublicCible( needForm: NgForm, id): void{
-//     const need = needForm.value.need;
-//     console.log(need);
-//     this.profileAdminSer.editNeeds(id, need).subscribe(res => {
-//       console.log(res);
-//       this.getNeed();
-//     }, error => console.log(error));
-//   }
-//
-//
-//
-//   /* sousType*/
-//
-//
-//   getSousType(): void{
-//     this.profileAdminSer.get('sous_types').subscribe(res => {
-//       console.log(res);
-//       this.needs = res;
-//       this.arrNeed = [];
-//       for (const key in this.needs){
-//         if (this.needs.hasOwnProperty(key)) {
-//           this.arrNeed.push(this.needs[key].need);
-//         }
-//       }
-//       this.NumberOfNeeds = this.needs.length;
-//     });
-//   }
-//
-//   onSubmitSousType(): void{
-//     const newNeed = this.addNeedForm.value.need;
-//     if (this.arrNeed.includes(newNeed)){
-//       this.error.push('this item exist');
-//       this.error = [];
-//     }else{
-//       this.profileAdminSer.addNeeds(newNeed).subscribe(res => {
-//         console.log(res);
-//         this.getNeed();
-//       }, error => console.log(error));
-//     }
-//   }
-//
-//   onDeleteSousType(id): void {
-//     this.profileAdminSer.deleteNeeds(id).subscribe(res => {
-//       console.log(res);
-//       this.getNeed();
-//     }, error => console.log(error));
-//   }
-//
-//   onEditSousType( needForm: NgForm, id): void{
-//     const need = needForm.value.need;
-//     console.log(need);
-//     this.profileAdminSer.editNeeds(id, need).subscribe(res => {
-//       console.log(res);
-//       this.getNeed();
-//     }, error => console.log(error));
-//   }
-//
-//
-//
-//   /*structure */
-//
-//   getStructure(): void{
-//     this.profileAdminSer.get('structures').subscribe(res => {
-//       console.log(res);
-//       this.needs = res;
-//       this.arrNeed = [];
-//       for (const key in this.needs){
-//         if (this.needs.hasOwnProperty(key)) {
-//           this.arrNeed.push(this.needs[key].need);
-//         }
-//       }
-//       this.NumberOfNeeds = this.needs.length;
-//     });
-//   }
-//
-//   onSubmitStructure(): void{
-//     const newNeed = this.addNeedForm.value.need;
-//     if (this.arrNeed.includes(newNeed)){
-//       this.error.push('this item exist');
-//       this.error = [];
-//     }else{
-//       this.profileAdminSer.addNeeds(newNeed).subscribe(res => {
-//         console.log(res);
-//         this.getNeed();
-//       }, error => console.log(error));
-//     }
-//   }
-//
-//   onDeleteStructure(id): void {
-//     this.profileAdminSer.deleteNeeds(id).subscribe(res => {
-//       console.log(res);
-//       this.getNeed();
-//     }, error => console.log(error));
-//   }
-//
-//   onEditStructure( needForm: NgForm, id): void{
-//     const need = needForm.value.need;
-//     console.log(need);
-//     this.profileAdminSer.editNeeds(id, need).subscribe(res => {
-//       console.log(res);
-//       this.getNeed();
-//     }, error => console.log(error));
-//   }
-//
-//
-//
-//
-//   /*theme*/
-//
-//
-//
-//
-//   getTheme(): void{
-//     this.profileAdminSer.get('themes').subscribe(res => {
-//       console.log(res);
-//       this.needs = res;
-//       this.arrNeed = [];
-//       for (const key in this.needs){
-//         if (this.needs.hasOwnProperty(key)) {
-//           this.arrNeed.push(this.needs[key].need);
-//         }
-//       }
-//       this.NumberOfNeeds = this.needs.length;
-//     });
-//   }
-//
-//   onSubmitTheme(): void{
-//     const newNeed = this.addNeedForm.value.need;
-//     if (this.arrNeed.includes(newNeed)){
-//       this.error.push('this item exist');
-//       this.error = [];
-//     }else{
-//       this.profileAdminSer.addNeeds(newNeed).subscribe(res => {
-//         console.log(res);
-//         this.getNeed();
-//       }, error => console.log(error));
-//     }
-//   }
-//
-//   onDeleteTheme(id): void {
-//     this.profileAdminSer.deleteNeeds(id).subscribe(res => {
-//       console.log(res);
-//       this.getNeed();
-//     }, error => console.log(error));
-//   }
-//
-//   onEditTheme( needForm: NgForm, id): void{
-//     const need = needForm.value.need;
-//     console.log(need);
-//     this.profileAdminSer.editNeeds(id, need).subscribe(res => {
-//       console.log(res);
-//       this.getNeed();
-//     }, error => console.log(error));
-//   }
-//
-//
-//
-// }
+
+
+/* PublicCible */
+
+
+
+
+
+  getPublicCible(): void{
+    this.profileAdminSer.get('public_cibles').subscribe(res => {
+      this.publicCible = res;
+      this.arrPublic = [];
+      for (const key in this.publicCible){
+        if (this.publicCible.hasOwnProperty(key)) {
+          this.arrPublic.push(this.publicCible[key].name);
+        }
+      }
+      this.NumberOfPublic = this.publicCible.length;
+    });
+  }
+
+  onSubmitPublicCible(): void{
+    const newPublic = this.addPublicForm.value.public;
+    if (this.arrPublic.includes(newPublic)){
+      this.errors.push('this item exist');
+      this.errors = [];
+    }else{
+      this.profileAdminSer.addPublic(newPublic).subscribe(res => {
+        this.getPublicCible();
+      }, errors => console.log(errors));
+    }
+  }
+
+  onDeletePublicCible(id): void {
+    this.profileAdminSer.delete(id, 'public_cibles').subscribe(res => {
+      this.getPublicCible();
+    }, errors => {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
+  }
+
+  onEditPublicCible( publicForm: NgForm, id): void{
+    const name = publicForm.value.public;
+    this.profileAdminSer.editPublic(id, name).subscribe(res => {
+      this.getPublicCible();
+    }, errors => console.log(errors));
+  }
+
+
+
+  /* sousType*/
+
+
+  getSousType(): void{
+    this.profileAdminSer.get('sous_types').subscribe(res => {
+      this.sousType = res;
+      this.arrSousType = [];
+      for (const key in this.sousType){
+        if (this.sousType.hasOwnProperty(key)) {
+          this.arrSousType.push(this.sousType[key].sousType);
+        }
+      }
+      this.NumberOfSousType = this.sousType.length;
+    });
+  }
+
+  onSubmitSousType(): void{
+    const newSousType = this.addSousTypeForm.value.sousType;
+    const type = '/api/types/' + this.addSousTypeForm.value.type;
+    if (this.arrSousType.includes(newSousType)){
+      this.errors.push('this item exist');
+      this.errors = [];
+    }else{
+      this.profileAdminSer.addSousType(newSousType, type).subscribe(res => {
+        this.getSousType();
+      }, errors => console.log(errors));
+    }
+  }
+
+  onDeleteSousType(id): void {
+    this.profileAdminSer.delete(id, 'sous_types').subscribe(res => {
+      this.getSousType();
+    }, errors => {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
+  }
+
+  onEditSousType( sousTypeForm: NgForm, id): void{
+    const sousType = sousTypeForm.value.sousType;
+    const type = '/api/types/' + sousTypeForm.value.type;
+
+    this.profileAdminSer.editSousType(id, sousType, type).subscribe(res => {
+      this.getSousType();
+    }, errors => console.log(errors));
+  }
+
+
+
+  /*structure */
+
+  getStructure(): void{
+    this.profileAdminSer.get('structures').subscribe(res => {
+      this.structures = res;
+      this.arrStructure = [];
+      for (const key in this.structures){
+        if (this.structures.hasOwnProperty(key)) {
+          this.arrStructure.push(this.structures[key].name);
+        }
+      }
+      this.NumberOfStructure = this.structures.length;
+    });
+  }
+
+  onSubmitStructure(): void{
+    const newStructure = this.addStructureForm.value.structure;
+    if (this.arrStructure.includes(newStructure)){
+      this.errors.push('this item exist');
+      this.errors = [];
+    }else{
+      this.profileAdminSer.addStructure(newStructure).subscribe(res => {
+        this.getStructure();
+      }, errors => console.log(errors));
+    }
+  }
+
+  onDeleteStructure(id): void {
+    this.profileAdminSer.delete(id, 'structures').subscribe(res => {
+      this.getStructure();
+    }, errors => {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
+  }
+
+  onEditStructure( structureForm: NgForm, id): void{
+    const structure = structureForm.value.structure;
+    this.profileAdminSer.editStructure(id, structure).subscribe(res => {
+      this.getStructure();
+    }, errors => console.log(errors));
+  }
+
+
+
+
+  /*theme*/
+
+
+
+
+  getTheme(): void{
+    this.profileAdminSer.get('themes').subscribe(res => {
+      this.theme = res;
+      this.arrTheme = [];
+      for (const key in this.theme){
+        if (this.theme.hasOwnProperty(key)) {
+          this.arrTheme.push(this.theme[key].theme);
+        }
+      }
+      this.NumberOfTheme = this.theme.length;
+    });
+  }
+
+  onSubmitTheme(): void{
+    const newTheme = this.addThemeForm.value.theme;
+    if (this.arrTheme.includes(newTheme)){
+      this.errors.push('this item exist');
+      this.errors = [];
+    }else{
+      this.profileAdminSer.addtheme(newTheme).subscribe(res => {
+        this.getTheme();
+      }, errors => console.log(errors));
+    }
+  }
+
+  onDeleteTheme(id): void {
+    this.profileAdminSer.delete(id, 'themes').subscribe(res => {
+      this.getTheme();
+    }, errors => {
+      this.errorMessage('Désolé, vous ne pouvez pas supprimer cet élément, car des comptes utilisent cet élément.')
+    });
+  }
+
+  onEditTheme( themeForm: NgForm, id): void{
+    const theme = themeForm.value.theme;
+    this.profileAdminSer.edittheme(id, theme).subscribe(res => {
+      this.getTheme();
+    }, errors => console.log(errors));
+  }
 }

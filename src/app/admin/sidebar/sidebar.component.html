@@ -32,8 +32,8 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Custom:</h6>
-          <a class="collapse-item" routerLink="/admin/publications/create-pub">Creation un publication</a>
-          <a class="collapse-item" routerLink="/admin/publications">Afficher des publication</a>
+          <a class="collapse-item" routerLink="/admin/publications/create-pub">Créer un publication</a>
+          <a class="collapse-item" routerLink="/admin/publications">Afficher les publications</a>
         </div>
       </div>
     </li>
@@ -46,23 +46,28 @@
       </a>
       <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Utilities:</h6>
-          <a class="collapse-item" routerLink="/admin/users">Afficher des utilisateurs</a>
-          <a class="collapse-item" routerLink="/admin/users/create-user">creer un utilisateur</a>
+          <a class="collapse-item" routerLink="/admin/users">Afficher l'utilisateurs</a>
+          <a class="collapse-item" routerLink="/admin/users/create-user">Créer un utilisateur</a>
         </div>
       </div>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" routerLink="/admin/profile" >
-        <i class="fas fa-fw fa-wrench"></i>
-        <span>Les Profils</span>
-      </a>
-    </li>
+<!--    <li class="nav-item">-->
+<!--      <a class="nav-link collapsed" routerLink="/admin/profile" >-->
+<!--        <i class="fas fa-fw fa-wrench"></i>-->
+<!--        <span>Les Profils</span>-->
+<!--      </a>-->
+<!--    </li>-->
     <li class="nav-item">
       <a class="nav-link " routerLink="/admin/filter-items" >
         <i class="fas fa-fw fa-wrench"></i>
         <span>Les Filtres</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " routerLink="/admin/upload-home-page" >
+        <i class="fas fa-fw fa-wrench"></i>
+        <span>Les images</span>
       </a>
     </li>
 
@@ -87,6 +92,9 @@
         <!-- Sidebar Toggle (Topbar) -->
         <button id="sidebarToggleTop" class="btn btn-link d-md-none mr-3">
           <i class="fa fa-bars"></i>
+        </button>
+        <button  class="btn btn-link mr-3" (click)="backClicked()">
+          <mdb-icon class="cyan-text pr-3" size="lg" aria-hidden="true" fas icon="arrow-circle-left"></mdb-icon>
         </button>
 
         <!-- Topbar Search -->
@@ -272,17 +280,6 @@
 
     </div>
     <!-- End of Main Content -->
-
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Your Website 2020</span>
-        </div>
-      </div>
-    </footer>
-    <!-- End of Footer -->
-
   </div>
   <!-- End of Content Wrapper -->
 

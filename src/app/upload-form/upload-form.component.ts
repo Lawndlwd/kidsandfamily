@@ -1,6 +1,6 @@
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { UploadService } from './../services/upload/upload.service';
+import { UploadService } from '../services/upload/upload.service';
 import { DownloadService } from '../services/download/download.service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,11 +16,11 @@ export class UploadFormComponent implements OnInit {
 
   // upload
   selectedFiles: string[] = [];
-  publicationId: string = '7';
+  publicationId: string = '28';
   token = JSON.parse(localStorage.getItem('userToken'));
 
   // upload errors
-  errorMessages = { 
+  errorMessages = {
     sizeError: null,
     typeError: null
   };
@@ -54,7 +54,7 @@ export class UploadFormComponent implements OnInit {
     this.notUploadedSizeError = [];
     this.notUploadedTypeError = [];
     this.isError = false;
-    
+
     for(let i=0; i < event.target.files.length; i++) {
       if (event.target.files[i].size > maxSize) {
         if (this.errorMessages['sizeError'] === null) {
@@ -80,7 +80,7 @@ export class UploadFormComponent implements OnInit {
     }
 
     const formData = new FormData();
-    for(let file of this.selectedFiles) {
+    for (const file of this.selectedFiles) {
       formData.append('file', file);
       formData.append('publication', this.publicationId);
 
@@ -111,7 +111,7 @@ export class UploadFormComponent implements OnInit {
   toUpper(event) {
     console.log(event.target);
     const indexPubPictureSelected = event.target.value;
-    
+
     this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected - 1], this.token)
       .subscribe(response => {
         // console.log(response);
@@ -123,7 +123,7 @@ export class UploadFormComponent implements OnInit {
 
   toLower(event) {
     const indexPubPictureSelected = event.target.value;
-    
+
     this.upload.inversePriority(this.publicationPictures[indexPubPictureSelected], this.publicationPictures[+indexPubPictureSelected + 1], this.token)
       .subscribe(response => {
         // console.log(response);

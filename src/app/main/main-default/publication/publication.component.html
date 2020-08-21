@@ -1,6 +1,14 @@
-<h3 class="shadow  py-3 amber text-center mt-5">Dernières Publications</h3>
+<h3 class="shadow  py-3 amber text-center text-dark mt-5">Dernières Publications</h3>
+<div class="row justify-content-center mr-md-5">
+  <div class="col-12 mx-auto">
+      <div class="md-form form-inline md-form">
+        <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon>
+        <input type="search"  [(ngModel)]="searchText" class="form-control form-control-sm ml-3 col-11" placeholder="Rechercher dans les publications" mdbInput>
+      </div>
+    </div>
+  </div>
 <div class="row justify-content-center">
-  <div class="col-11 col-sm-5 col-md-4 col-xl-3 mt-5" *ngFor="let pub of loadedPub | paginate: {id: 'pubsList', itemsPerPage: 8, currentPage: page, totalItems: NumberOfPub }">
+  <div class="col-11 col-sm-5 col-md-4 col-xl-3 mt-5" *ngFor="let pub of loadedPub | appFilter: searchText  | paginate: {id: 'pubsList', itemsPerPage: 12, currentPage: page, totalItems: NumberOfPub} ">
     <div class="card h-100">
       <div class="row justify-content-around">
         <div class="col-3 m-2">
@@ -28,6 +36,6 @@
     </div>
   </div>
   <div class="col-12 justify-content-center text-center mx-auto my-5">
-    <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
+    <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="false " (pageChange)="page = $event"></pagination-controls>
   </div>
 </div>

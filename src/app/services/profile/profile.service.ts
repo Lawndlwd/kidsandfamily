@@ -108,7 +108,6 @@ export class ProfileService {
         Authorization: 'Bearer ' + this.token._token
       })
     }).pipe(map (resData => {
-      console.log(resData);
       const arrProf: Profile[] = [];
       for (const key in resData.profiles){
         if (resData.profiles.hasOwnProperty(key)){
@@ -169,8 +168,6 @@ export class ProfileService {
     lan: string,
     lat: string,
   ): Observable<Profile>{
-    console.log(lan);
-    console.log(lat);
 
     return this.http.post<Profile>('https://127.0.0.1:8000/api/profiles.json', {
       type,

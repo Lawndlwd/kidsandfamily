@@ -32,7 +32,8 @@ export interface Action {
     actions: string;
 }
 export interface Theme  {
-    theme: string;
+  id: number;
+  theme: string;
 }
 export interface SousType  {
   id: number;
@@ -68,5 +69,6 @@ export interface Comment  {
     comment: string;
 }
 export interface PublicCible  {
+    id: number;
     name: string;
 }

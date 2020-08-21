@@ -41,7 +41,6 @@ export class AuthComponent {
         if (res.roles.includes('ROLE_SUPER_ADMIN')){
           this.isAdmin = true;
         }
-        console.log(res);
         if (res.isBlocked === false){
           this.isLoading = false;
           this.router.navigate(['/']);
@@ -69,21 +68,5 @@ export class AuthComponent {
     });
 
     form.reset();
-
-    // const token = localStorage.getItem('userToken');
-    //
-    // this.authService.getFirstInfo(token).subscribe(user => {
-    //   console.log(user);
-    // }, error => {
-    //   console.log(error);
-    // });
-
   }
-
-  // onSubmitt(form: NgForm){
-  //   const place = form.value.username
-  //   this.authService.getCor(place).subscribe(resData=>{
-  //     console.log(resData);
-  //   })
-  // }
 }

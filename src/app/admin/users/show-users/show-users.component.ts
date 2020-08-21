@@ -26,6 +26,7 @@ export class ShowUsersComponent implements OnInit {
   isLoading = false;
   searchText = '';
   previous: string;
+  data = true;
 
   constructor(private userService: UserService, private cdRef: ChangeDetectorRef) { }
 
@@ -36,15 +37,11 @@ export class ShowUsersComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getListOfUsers().subscribe(resData => {
       this.users = resData;
-      console.log(resData);
       this.NumberOfPub = this.users.length;
       this.mdbTable.setDataSource(this.users);
       this.previous = this.mdbTable.getDataSource();
 
     });
-    console.log(this.mdbTable);
-
-
   }
 
   searchItems(): void {
@@ -55,7 +52,12 @@ export class ShowUsersComponent implements OnInit {
     }
     if (this.searchText) {
       this.users = this.mdbTable.searchLocalDataBy(this.searchText);
-      this.mdbTable.setDataSource(prev);
+      if (this.users.length !== 0){
+        this.data = true ;
+        this.mdbTable.setDataSource(prev);
+      }else {
+        this.data = false ;
+      }
     }
   }
 
@@ -71,16 +73,5 @@ export class ShowUsersComponent implements OnInit {
     });
   }
 
-  deletePubsAndProfiles(): void{
-    // this.userService.getPubsOfUser().subscribe(resData => {
-    //   console.log(resData);
-    // });
-    // this.userService.deleteUser(id).subscribe(resData1 => {
-    //   this.userService.getListOfUsers().subscribe(resData => {
-    //     this.users = resData;
-    //     this.NumberOfPub = this.users.length;
-    //   });
-    // });
-  }
 
 }

@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
+
 declare var $: any;
 
 @Component({
@@ -9,8 +11,11 @@ declare var $: any;
 export class SidebarComponent implements OnInit{
 
 
-  constructor() {
+  constructor(private back: Location)
+  {}
 
+  backClicked(): void {
+    this.back.back();
   }
 
   ngOnInit(): void {

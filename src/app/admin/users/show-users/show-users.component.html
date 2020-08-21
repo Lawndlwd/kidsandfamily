@@ -8,7 +8,7 @@
     </div>
     <div class="card shadow mb-4 col-lg-11">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Liste des Utilisateurs</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Liste des utilisateurs</h6>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -28,7 +28,10 @@
             </div>
           </div>
           <table mdbTable class="display table" id="dataTable" width="100%" >
-            <thead>
+            <tbody *ngIf="!data">
+              <tr class="text-center text-info">Il n'y a aucun résultat</tr>
+            </tbody>
+            <thead *ngIf="data">
                 <tr>
             <!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
             <!--      </th>-->
@@ -42,7 +45,7 @@
                   <th scope="col">Supprimer</th>
                 </tr>
             </thead>
-            <tfoot>
+            <tfoot *ngIf="data">
             <tr>
               <!--      <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="users" [sortBy]="headElements[i]">{{head}}-->
               <!--      </th>-->
@@ -62,10 +65,8 @@
               </td>
             </tr>
             </tfoot>
-            <tbody>
-              <tr>
-
-              <tr *ngFor=" let i = index; let el of users | paginate: {id: 'usersList', itemsPerPage: 10, currentPage: page, totalItems: NumberOfPub  }" class="pointer" routerLink="/admin/users/{{el.id}}/edit">
+            <tbody  *ngIf="data">
+              <tr *ngFor=" let i = index; let el of users | paginate: {id: 'usersList', itemsPerPage: 10, currentPage: page, totalItems: NumberOfPub  }"  >
 
               <td>{{i+1}}</td>
               <td>{{el.firstName}}</td>
@@ -74,10 +75,11 @@
               <td>{{el.profession.profession}}</td>
               <td><span *ngFor=" let profile of el.profiles"> {{profile.state }} | </span></td>
               <td>
-                <a  routerLink="/admin/users/{{el.id}}/edit"><mdb-icon class="purple-text" fas icon="pencil-alt"></mdb-icon></a>
+                <a  routerLink="/admin/users/{{el.id}}/edit"><mdb-icon class="purple-text mr-3" fas icon="pencil-alt"></mdb-icon></a>
+                <a  routerLink="/admin/users/{{el.id}}/edit"><mdb-icon far icon="eye"></mdb-icon></a>
               </td>
               <td>
-                <mdb-icon fas icon="trash-alt" (click)="basicModal.show()" class="pink-text ml-3"  mdbWavesEffect></mdb-icon>
+                <mdb-icon fas icon="trash-alt" (click)="basicModal.show()" class="pink-text ml-3 pointer"  mdbWavesEffect></mdb-icon>
 
                 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -95,7 +97,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" mdbBtn color="deep-purple" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Annuler</button>
-                        <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(el.id); deletePubsAndProfiles();" >Confirmer la suppression</button>
+                        <button type="button" mdbBtn color="red" class="relative waves-light" mdbWavesEffect (click)="basicModal.hide(); onDelete(el.id);" >Confirmer la suppression</button>
                       </div>
                     </div>
                   </div>
@@ -110,7 +112,7 @@
     <div class="col-lg-3">
     <div class="card shadow mb-4 " *ngIf = "!isLoading">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Total Utilisateurs</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Total des utilisateurs</h6>
       </div>
       <div class="card-body">
         <h1 class="text-center text-info">{{NumberOfPub}}</h1>

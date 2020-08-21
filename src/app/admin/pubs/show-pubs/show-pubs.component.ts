@@ -23,7 +23,6 @@ export class ShowPubsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.pubsService.getListOfPubs().subscribe(resData => {
-      console.log(resData);
       this.pubs = resData;
       this.NumberOfPub = this.pubs.length;
       this.mdbTable.setDataSource(this.pubs);

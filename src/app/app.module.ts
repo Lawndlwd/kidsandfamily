@@ -72,6 +72,10 @@ import { GetEmailComponent } from './resetpass/get-email/get-email.component';
 import { FiltrTablesComponent } from './admin/filtr-tables/filtr-tables.component';
 import { PageNotAllowedComponent } from './page-not-allowed/page-not-allowed.component';
 import { UserInfoComponent } from './admin/users/user-info/user-info.component';
+import { HomePageImagesComponent } from './admin/home-page-images/home-page-images.component';
+import { FilterPipe } from './main/main-default/publication/filter.pipe';
+import {MatCardModule} from '@angular/material/card';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -121,6 +125,8 @@ import { UserInfoComponent } from './admin/users/user-info/user-info.component';
     FiltrTablesComponent,
     PageNotAllowedComponent,
     UserInfoComponent,
+    HomePageImagesComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -141,6 +147,8 @@ import { UserInfoComponent } from './admin/users/user-info/user-info.component';
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
+    MatAutocompleteModule,
   ],
 
   providers: [

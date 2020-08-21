@@ -1,4 +1,53 @@
-<h3 class="shadow  py-3 amber text-center mt-5">{{loadedDetails[0].title}} </h3>
+
+<div class="container-fluid">
+
+  <!-- DataTales Example -->
+
+  <div class="row justify-content-around" >
+    <!--    type-->
+    <div class="card shadow mb-4 col-lg-10  " >
+      <div class="card-header py-3">
+        <div class="row justify-content-between">
+          <h4 class="p-2 font-weight-bold text-capitalize text-info"*ngFor="let pub of loadedDetails"> {{pub.title}}</h4>
+        </div>
+      </div>
+      <div class="card-body row ">
+        <div class="col-md-6">
+        <div class="row justify-content-around mt-5" *ngFor="let pub of loadedDetails">
+          <div class="row col-md-12 justify-content-around">
+            <span>{{pub.startedAt | date}} </span>
+            <span class="text-info"> jusqu'à </span>
+            <span> {{pub.startedAt | date}}</span>
+          </div>
+          <div class="row mt-5 col-md-12 justify-content-around">
+            <button mdbBtn type="button" color="deep-purple" size="sm" class="waves-light" mdbWavesEffect>{{pub.theme.theme}}</button>
+            <button mdbBtn type="button" color="deep-purple" size="sm" class="waves-light" mdbWavesEffect>{{pub.action.actions}}</button>
+            <button mdbBtn type="button" color="deep-purple" size="sm" class="waves-light" mdbWavesEffect> {{pub.profile.type.type}}</button>
+            <button mdbBtn type="button" color="deep-purple" size="sm" class="waves-light" mdbWavesEffect>{{pub.publicCible.name}}</button>
+          </div>
+          <div class="row mt-5 col-12">{{pub.description}}</div>
+        </div>
+        </div>
+        <div class="col-md-6 mt-sm-5 mt-5 mt-md-1">
+        <div class="row col-12 justify-content-center">
+        <mdb-carousel [isControls]=true class="carousel slide  carousel-fade" [animation]="'fade'">
+          <mdb-carousel-item >
+            <img class="d-block w-100" src="https://picsum.photos/id/1/400/500" alt="First slide">
+          </mdb-carousel-item>
+          <mdb-carousel-item >
+            <img class="d-block w-100" src="https://picsum.photos/id/10/400/500" alt="First slide">
+          </mdb-carousel-item>
+          <mdb-carousel-item >
+            <img class="d-block w-100" src="https://picsum.photos/id/1001/400/500" alt="First slide">
+          </mdb-carousel-item>
+        </mdb-carousel>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <!--    <h3 class="shadow  py-3 amber text-center mt-5">{{loadedDetails[0].title}} </h3>
 <div class="row justify-content-center">
     <div class="col-5 col-md-4 mt-5">
       <p class="h5 d-inline">theme: </p>
@@ -26,4 +75,4 @@
       <p class="h5 d-inline">Description: </p>
       <span>{{loadedDetails[0].description}}</span>
     </div>
-</div>
+</div>-->

@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-declare var $;
+import {DownloadService} from '../services/download/download.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -8,7 +8,8 @@ declare var $;
 })
 export class MainComponent implements OnInit {
   home = false;
-  constructor(private router: Router, private  route: ActivatedRoute) {
+  imgPaths: any[];
+  constructor(private router: Router, private  route: ActivatedRoute, private  download: DownloadService) {
   }
 
   ngOnInit(): void {
@@ -17,12 +18,18 @@ export class MainComponent implements OnInit {
     }
 
     this.router.events.subscribe(value => {
-      if (location.pathname === '/') {
-      this.home = true;
-      }else {
-        this.home = false;
-      }
+      this.home = location.pathname === '/';
       }
     );
+    this.download.getHomeImages().subscribe(res => {
+      const paths: object[] = [];
+      // tslint:disable-next-line:forin
+      for (const i in res) {
+        if (res.hasOwnProperty(i)) {
+          paths.push(res[i]);
+        }
+        this.imgPaths = paths;
+      }
+    }, error => console.log(error));
   }
 }

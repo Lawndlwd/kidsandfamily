@@ -31,7 +31,6 @@ export class GetEmailComponent implements OnInit {
   onSubmit(emailForm: NgForm): void {
     const email = this.emailForm.value.username;
     this.authService.emailResetPass(email).subscribe(res => {
-      console.log(res);
       this.id = res.id;
       this.code = res.resetPassword;
       this.email = true;
@@ -56,7 +55,6 @@ export class GetEmailComponent implements OnInit {
 
     }
     this.profileService.resetPassword(this.id, pass).subscribe(resData => {
-      console.log(resData);
       this.messages.push('Votre mot de passe a été bien changé ');
       setTimeout(() => {
         this.messages = [];

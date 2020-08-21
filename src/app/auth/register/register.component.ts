@@ -64,7 +64,6 @@ export class RegisterComponent implements OnInit {
     const fName = this.signUpForm.value.firstName;
     const profession = '/api/professions/' + this.signUpForm.value.profession;
 
-    console.log(this.signUpForm.value);
     if (password !== rePassword){
       this.error = 'the two password does not match';
     }else{
@@ -74,7 +73,6 @@ export class RegisterComponent implements OnInit {
       if (!this.dRecaptcha){
         this.authService.signUp(fName, lName, email, password, this.admin ? ['ROLE_SUPER_ADMIN'] : [], profession).subscribe(resData1 => {
           // tslint:disable-next-line:no-shadowed-variable
-          console.log(resData1);
           this.router.navigate(['/admin/users']);
           this.isLoading = false;
         }, errorRes => {

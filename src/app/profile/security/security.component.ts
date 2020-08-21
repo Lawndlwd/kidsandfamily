@@ -37,7 +37,6 @@ export class SecurityComponent implements OnInit {
   onResetPassword(): void {
 
     this.profileService.resetPasswordmail(this.id).subscribe(resData => {
-        console.log(resData);
         this.emailSent = true ;
       }, error => console.log(error)
     );
@@ -47,7 +46,6 @@ export class SecurityComponent implements OnInit {
     this.profileService.getUserInfo().subscribe(resData => {
       this.secretKey = resData.resetPassword;
       const formKey = (this.secretKeyForm.value.key).trim();
-      console.log(this.secretKey);
       if (this.secretKey !== formKey){
         this.error.push('Votre code est faux');
         setTimeout(() => this.error = [], 3500);
@@ -70,7 +68,6 @@ export class SecurityComponent implements OnInit {
 
     }
     this.profileService.resetPassword(this.id, pass).subscribe(resData => {
-      console.log(resData);
       this.canChange = false;
       this.emailSent = false;
       this.messages.push('Votre mot de passe a été bien changé ');
@@ -82,7 +79,6 @@ export class SecurityComponent implements OnInit {
   onDeleteUser(): void{
     this.isLoading = true;
     this.profileService.deleteUser(this.id).subscribe(resData => {
-      console.log(resData);
       setTimeout(() => this.isLoading = false , 2500);
       this.auth.logOut();
       this.router.navigate(['/']);

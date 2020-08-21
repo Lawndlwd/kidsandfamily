@@ -35,6 +35,7 @@ import {GetEmailComponent} from './resetpass/get-email/get-email.component';
 import {FiltrTablesComponent} from './admin/filtr-tables/filtr-tables.component';
 import {PageNotAllowedComponent} from './page-not-allowed/page-not-allowed.component';
 import {UserInfoComponent} from './admin/users/user-info/user-info.component';
+import {HomePageImagesComponent} from './admin/home-page-images/home-page-images.component';
 
 
 
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
     children: [
       { path: '', component: DashoardComponent},
       { path: 'filter-items', component: FiltrTablesComponent},
+      { path: 'upload-home-page', component: HomePageImagesComponent },
       { path: 'users', component: UsersComponent,
         children: [
           { path: '', component: ShowUsersComponent},
@@ -84,11 +86,11 @@ const appRoutes: Routes = [
         ]},
       { path: 'profile', component: ProfilesComponent,
         children: [
-          { path: '', component: ShowProfilesComponent},
+          // { path: '', component: ShowProfilesComponent},
           { path: ':id/edit', component: AdminEditProfileComponent}
         ]},
-      // { path: 'center-of-interest', component: CenterOfInterestComponent},
-      // { path: 'security-setting', component: SecurityComponent},
+      { path: 'center-of-interest', component: CenterOfInterestComponent},
+      { path: 'security-setting', component: SecurityComponent},
     ]},
   { path: 'not-allowed', component: PageNotAllowedComponent},
   { path: '**', component: PageNotFoundComponent}

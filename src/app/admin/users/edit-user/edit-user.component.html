@@ -77,7 +77,7 @@
       <div class="row justify-content-between ">
         <div class="form-group col-10 col-md-5 col-lg-3 mt-3 px-0">
           <div id="date-picker-example" class="text-left md-outline input-with-post-icon datepicker" inline="true"  >
-            <label for="dataOfBrith">Birthday</label>
+            <label for="dataOfBrith">Date de naissance</label>
             <input  placeholder="Select date" type="date" id="dataOfBrith" class=" form-control"
                     [(ngModel)]="loadedData.bithday" name= birthday   #birthday="ngModel" >
           </div>
@@ -166,21 +166,8 @@
         </tr>
         </thead>
           <tfoot>
-          <!--    <td>{{el.type.type}}</td>-->
-          <!--    <td>{{el.sousType.sousType}}</td>-->
-          <!--    <td>{{el.numVoie}} {{el.nameVoie}}</td>-->
-          <!--    <td>{{el.codePostal}} {{el.city}}-->
           <tr>
-            <th>#</th>
-            <th [mdbTableSort]="profiles" sortBy="type.type">Type</th>
-            <th [mdbTableSort]="profiles" sortBy="sousType.sousType">Sous Type</th>
-            <th [mdbTableSort]="profiles" sortBy="nameVoie">Rue</th>
-            <th [mdbTableSort]="profiles" sortBy="city">Ville</th>
-            <th scope="col">Éditer</th>
-            <th scope="col">Supprimer</th>
-          </tr>
-          <tr>
-            <td class="text-center" colspan="4">
+            <td class="text-center" colspan="7">
               <pagination-controls lang="fr" id="profileList" maxSize="6" directionLinks=false (pageChange)="page = $event"></pagination-controls>
             </td>
           </tr>
@@ -239,33 +226,28 @@
       <table class="display table" id="dataTable" width="100%">
         <thead>
         <tr>
+          <td>#</td>
           <th [mdbTableSort]="pubs" sortBy="title">Titre</th>
           <th [mdbTableSort]="pubs" sortBy="structure.name">Structure</th>
           <th [mdbTableSort]="pubs" sortBy="profile.state">Region</th>
-          <th [mdbTableSort]="pubs" sortBy="publicCible.name">Public Cible</th>
-          <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Crée a</th>
+          <th [mdbTableSort]="pubs" sortBy="publicCible.name">Public</th>
+          <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Date de creation</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-          <th [mdbTableSort]="pubs" sortBy="title">Titre</th>
-          <th [mdbTableSort]="pubs" sortBy="structure.name">Structure</th>
-          <th [mdbTableSort]="pubs" sortBy="profile.state">Region</th>
-          <th [mdbTableSort]="pubs" sortBy="publicCible.name">Public Cible</th>
-          <th [mdbTableSort]="pubs" sortBy="createdAtAgo">Crée a</th>
-        </tr>
-        <tr>
-          <td colspan="4">
-            <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="true " (pageChange)="page = $event"></pagination-controls>
+          <td class="text-center" colspan="6">
+            <pagination-controls lang="fr" id="pubsList" maxSize="6" directionLinks="false" (pageChange)="page = $event"></pagination-controls>
           </td>
         </tr>
         </tfoot>
         <tbody>
-        <tr *ngFor="let el of pubs | paginate: {id: 'pubsList', itemsPerPage: 5, currentPage: page, totalItems: NumberOfPub }">
+        <tr *ngFor="let i = index; let el of pubs | paginate: {id: 'pubsList', itemsPerPage: 5, currentPage: page, totalItems: NumberOfPub }">
+          <td>{{i+1}}</td>
           <td>{{el.title}}</td>
-          <td>{{el.structure.name}}</td>
-          <td>{{el.profile.state}}</td>
-          <td>{{el.publicCible.name}}</td>
+          <td>{{el.structure ? el.structure.name : ''}}</td>
+          <td>{{el.profile ? el.profile.state : ''}}</td>
+          <td>{{el.publicCible ? el.publicCible.name : ''}}</td>
           <td>{{el.createdAtAgo }}</td>
         </tr>
         </tbody>

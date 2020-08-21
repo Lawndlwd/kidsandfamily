@@ -97,14 +97,12 @@ export class EditProfileComponent implements OnInit {
 
     this.cardService.getLocalisation(address).subscribe(resCor => {
 
-      console.log(resCor);
       if (resCor.data[0]) {
         const lon: string = String(resCor.data[0].longitude);
         const lat: string = String(resCor.data[0].latitude);
         this.isLoading = true;
         this.profileService.editProfiles(this.profile.id, type, sousType, city, codePostal, country, rue, voie, state, adressComplete)
       .subscribe(resData => {
-        console.log(resData);
         this.success = true;
         setTimeout(() => this.success = false, 3500);
         this.isLoading = false;

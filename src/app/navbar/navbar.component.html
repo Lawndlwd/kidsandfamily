@@ -9,28 +9,28 @@
   <div class="collapse navbar-collapse " id="navbarNav">
     <ul class="navbar-nav ml-auto ">
       <li class="nav-item  mx-1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a class="nav-link waves-light" routerLink="/">Accueil</a>
+        <a class="nav-link waves-light" data-toggle="collapse" data-target="#navbarNav" routerLink="/">Accueil</a>
       </li>
       <li class="nav-item mx-1" routerLinkActive="active">
-        <a class="nav-link waves-light" href="#">Carte</a>
+        <a class="nav-link waves-light" data-toggle="collapse" data-target="#navbarNav" href="#">Carte</a>
       </li>
       <li class="nav-item mx-1" routerLinkActive="active">
-        <a class="nav-link waves-light" href="#">Boutique</a>
+        <a class="nav-link waves-light" data-toggle="collapse" data-target="#navbarNav" href="#">Boutique</a>
       </li>
-      <li class="nav-item mx-1" routerLinkActive="active"  *ngIf="!isAuth">
-        <a class="nav-link waves-light" routerLink="/inscription">Inscription</a>
+      <li class="nav-item mx-1" routerLinkActive="active"   *ngIf="!isAuth">
+        <a class="nav-link waves-light" data-toggle="collapse" data-target="#navbarNav" routerLink="/inscription">Inscription</a>
       </li>
       <li class="nav-item mx-1" routerLinkActive="active" *ngIf="!isAuth">
-        <a class="nav-link waves-light" routerLink="/auth" href="#">Connexion</a>
+        <a class="nav-link waves-light" data-toggle="collapse" data-target="#navbarNav" routerLink="/auth" href="#">Connexion</a>
       </li>
       <li class="nav-item  mx-1" routerLinkActive="active"  *ngIf="isAuth" >
-        <a class="nav-link waves-light" routerLink="/mon-compte">Mon compte</a>
+        <a class="nav-link waves-light" data-toggle="collapse"  data-target="#navbarNav" routerLink="/mon-compte">Mon compte</a>
       </li>
       <li class="nav-item mx-1" routerLinkActive="active" *ngIf="isAuth">
-        <a class="nav-link waves-light" routerLink="/auth" (click)= "onLogOut()">log out</a>
+        <a class="nav-link waves-light" data-toggle="collapse" data-target="#navbarNav" routerLink="/auth" (click)= "onLogOut()">log out</a>
       </li>
       <li class="nav-item mx-1" routerLinkActive="active"  *ngIf="isAdmin">
-        <a class="nav-link waves-light" routerLink="/admin">Admin</a>
+        <a class="nav-link waves-light" data-toggle="collapse" data-target="#navbarNav" routerLink="/admin">Admin</a>
       </li>
     </ul>
   </div>

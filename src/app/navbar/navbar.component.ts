@@ -1,13 +1,11 @@
 import { AuthService } from '../services/auth/auth.service';
-import {Component, OnInit, OnDestroy, Host, Injectable, Inject} from '@angular/core';
+import {Component, OnInit, OnDestroy, Host, Injectable, Inject, ViewChild} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {AdminGuard} from '../auth/auth.guard';
-import {map} from 'rxjs/operators';
-import {ProfileService} from '../services/profile/profile.service';
-import {AppComponent} from '../app.component';
-import {AuthComponent} from '../auth/auth.component';
 import {UserObject} from '../profile/my-info/my-info.component';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+
+declare var $: any;
 
 @Component({
   selector: 'app-navbar',
@@ -16,12 +14,12 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
+  constructor(private authServirce: AuthService, private authGuard: AdminGuard, private http: HttpClient) { }
+
   isAuth = false;
   isAdmin = false;
 
   private userSub: Subscription;
-
-  constructor(private authServirce: AuthService, private authGuard: AdminGuard, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.userSub = this.authServirce.user.subscribe(user => {
@@ -34,15 +32,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
         });
       }
     });
-    console.log(this.isAdmin);
   }
-
-  onLogOut(){
+  onLogOut(): void{
     this.authServirce.logOut();
     this.isAdmin = false;
   }
 
-  ngOnDestroy(){
+  ngOnDestroy(): void{
     this.userSub.unsubscribe();
   }
   getUserInfo(token): Observable<UserObject> {

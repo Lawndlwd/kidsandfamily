@@ -14,6 +14,7 @@ export class Type {
 export class SousType {
   id: number;
   sousType: string;
+  type?: Type;
 }
 
 @Component({
@@ -58,7 +59,7 @@ export class MyProfileComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   onTypeSelected(){
-    
+
     const selectedType = this.ProfileForm.value.type;
 
     this.profileService.getSousTypes(selectedType).subscribe(resData => {
@@ -93,7 +94,6 @@ export class MyProfileComponent implements OnInit {
     const country = this.ProfileForm.value.country;
     const address = voie + ' ' + rue + ',' + city  + ',' + country;
     const numProfile = +this.profiles.length + 1;
-    console.log(numProfile);
 
     this.cardService.getLocalisation(address).subscribe(resCor => {
       if (resCor.data[0]) {
@@ -102,7 +102,6 @@ export class MyProfileComponent implements OnInit {
 
         this.profileService.createProfile(type, sousType, adressComplete, city, codePostal, country, rue, numProfile, voie, state, lon, lat)
           .subscribe(resData => {
-            console.log(resData);
             this.router.navigate(['mon-compte/profiles']);
             this.isLoading = false;
           }, error => {
