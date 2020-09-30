@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
   getUserInfo(token): Observable<UserObject> {
-    return this.http.get<UserObject>('https://127.0.0.1:8000/getuser', {
+    return this.http.get<UserObject>('https://lit-depths-70205.herokuapp.com/getuser', {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
       })

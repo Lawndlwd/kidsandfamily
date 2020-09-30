@@ -33,7 +33,7 @@ export class AuthComponent {
     this.isLoading = true;
     this.authService.Login(email, password).subscribe(resData => {
       this.token = resData.token;
-      this.http.get<UserObject>('https://127.0.0.1:8000/getuser', {
+      this.http.get<UserObject>('https://lit-depths-70205.herokuapp.com/getuser', {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.token
         })

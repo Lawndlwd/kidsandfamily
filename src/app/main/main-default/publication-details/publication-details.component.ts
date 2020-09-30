@@ -11,7 +11,7 @@ import {Publication} from '../publication/publication.model';
 export class PublicationDetailsComponent implements OnInit {
   loadedDetails: Publication[] = [];
   id: number;
-  url = 'https://127.0.0.1:8000/api/publications/';
+  url = 'https://lit-depths-70205.herokuapp.com/api/publications/';
 
   constructor(private pubService: PublicationsService, private route: ActivatedRoute
     ) { }

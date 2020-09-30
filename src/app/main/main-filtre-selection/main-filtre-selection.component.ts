@@ -61,7 +61,7 @@ export class MainFiltreSelectionComponent implements OnInit {
   actions: string[] = [];
   structures: string[] = [];
   regions: string[] = [];
-  private _url: string = 'https://127.0.0.1:8000/api/publications.json?';
+  private _url: string = 'https://lit-depths-70205.herokuapp.com/api/publications.json?';
   private _params: string;
 
   // map

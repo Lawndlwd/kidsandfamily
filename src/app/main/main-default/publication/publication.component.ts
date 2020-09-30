@@ -23,7 +23,7 @@ export class PublicationComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.pubsService.getPubsNoArgment('https://127.0.0.1:8000/api/publications.json?user.isblocked=0&page=1')
+    this.pubsService.getPubsNoArgment('https://lit-depths-70205.herokuapp.com/api/publications.json?user.isblocked=0&page=1')
     .subscribe(publications => {
       this.loadedPub = publications;
       this.NumberOfPub = this.loadedPub.length;

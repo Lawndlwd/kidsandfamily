@@ -11,13 +11,13 @@ import {ProfessionObject} from '../../../profile/my-info/my-info.component';
   providedIn: 'root'
 })
 export class ProfileAdminService {
-  url = 'https://127.0.0.1:8000/api/';
+  url = 'https://lit-depths-70205.herokuapp.com/api/';
 
   constructor(private http: HttpClient, private  profileService: ProfileService) { }
 
   get(url): Observable<any>{
     return this.http.
-    get('https://127.0.0.1:8000/api/' + url + '.json')
+    get('https://lit-depths-70205.herokuapp.com/api/' + url + '.json')
       .pipe(map ((resData) => {
         const arrProf = [];
         for (const key in resData){
@@ -32,7 +32,7 @@ export class ProfileAdminService {
 
 
   delete(id, url ): Observable<any>{
-    return this.http.delete('https://127.0.0.1:8000/api/' + url + '/' + id , {
+    return this.http.delete('https://lit-depths-70205.herokuapp.com/api/' + url + '/' + id , {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.profileService.token._token
       })
@@ -89,7 +89,7 @@ export class ProfileAdminService {
 
   getTypes(): Observable<any>{
     return this.http.
-    get<Type>('https://127.0.0.1:8000/api/types.json')
+    get<Type>('https://lit-depths-70205.herokuapp.com/api/types.json')
       .pipe(map ((resData: Type) => {
         const arrProf: Type[] = [];
         for (const key in resData){
@@ -102,7 +102,7 @@ export class ProfileAdminService {
   }
 
   addType(type: Type): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/types.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/types.json', {
       type
     }, {
       headers: new HttpHeaders({
@@ -112,7 +112,7 @@ export class ProfileAdminService {
   }
 
   deleteType(id): Observable<any>{
-    return this.http.delete('https://127.0.0.1:8000/api/types/' + id , {
+    return this.http.delete('https://lit-depths-70205.herokuapp.com/api/types/' + id , {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.profileService.token._token
       })
@@ -120,7 +120,7 @@ export class ProfileAdminService {
   }
 
   editType(id, type): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/types/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/types/' + id , {
       type
     }, {
       headers: new HttpHeaders({
@@ -133,7 +133,7 @@ export class ProfileAdminService {
 
   getActions(): Observable<any>{
     return this.http.
-    get<Action>('https://127.0.0.1:8000/api/actions.json')
+    get<Action>('https://lit-depths-70205.herokuapp.com/api/actions.json')
       .pipe(map ((resData: Action) => {
         const arrProf: Action[] = [];
         for (const key in resData){
@@ -146,7 +146,7 @@ export class ProfileAdminService {
   }
 
   addActions(actions: Action): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/actions.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/actions.json', {
       actions
     }, {
       headers: new HttpHeaders({
@@ -156,7 +156,7 @@ export class ProfileAdminService {
   }
 
   deleteActions(id): Observable<any>{
-    return this.http.delete('https://127.0.0.1:8000/api/actions/' + id , {
+    return this.http.delete('https://lit-depths-70205.herokuapp.com/api/actions/' + id , {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.profileService.token._token
       })
@@ -164,7 +164,7 @@ export class ProfileAdminService {
   }
 
   editActions(id, actions): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/actions/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/actions/' + id , {
       actions
     }, {
       headers: new HttpHeaders({
@@ -176,7 +176,7 @@ export class ProfileAdminService {
 //  Needs
 
   addNeed(need: Need): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/needs.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/needs.json', {
       need
     }, {
       headers: new HttpHeaders({
@@ -186,7 +186,7 @@ export class ProfileAdminService {
   }
 
   editNeeds(id, need: Need): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/needs/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/needs/' + id , {
       need
     }, {
       headers: new HttpHeaders({
@@ -199,7 +199,7 @@ export class ProfileAdminService {
   //  CenterOfIntrest
 
   addCenterOfIntrest(CenterOfInterest: CenterOfIntreset): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/center_of_interests.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/center_of_interests.json', {
       CenterOfInterest
     }, {
       headers: new HttpHeaders({
@@ -209,7 +209,7 @@ export class ProfileAdminService {
   }
 
   editCenterOfIntrest(id, CenterOfInterest: CenterOfIntreset): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/center_of_interests/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/center_of_interests/' + id , {
       CenterOfInterest
     }, {
       headers: new HttpHeaders({
@@ -223,7 +223,7 @@ export class ProfileAdminService {
   //  Profession
 
   addProfession(profession: ProfessionObject): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/professions.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/professions.json', {
       profession
     }, {
       headers: new HttpHeaders({
@@ -233,7 +233,7 @@ export class ProfileAdminService {
   }
 
   editProfession(id, profession: ProfessionObject): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/professions/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/professions/' + id , {
       profession
     }, {
       headers: new HttpHeaders({
@@ -246,7 +246,7 @@ export class ProfileAdminService {
   //  Public
 
   addPublic(name: PublicCible): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/public_cibles.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/public_cibles.json', {
       name,
     }, {
       headers: new HttpHeaders({
@@ -256,7 +256,7 @@ export class ProfileAdminService {
   }
 
   editPublic(id, name: PublicCible): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/public_cibles/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/public_cibles/' + id , {
       name
     }, {
       headers: new HttpHeaders({
@@ -270,7 +270,7 @@ export class ProfileAdminService {
   //  SousType
 
   addSousType(sousType: SousType, type: string): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/sous_types.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/sous_types.json', {
       sousType,
       type
     }, {
@@ -281,7 +281,7 @@ export class ProfileAdminService {
   }
 
   editSousType(id, sousType: SousType, type: string): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/sous_types/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/sous_types/' + id , {
       sousType,
       type
     }, {
@@ -296,7 +296,7 @@ export class ProfileAdminService {
   //  themes
 
   addtheme(theme: Theme): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/themes.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/themes.json', {
       theme
     }, {
       headers: new HttpHeaders({
@@ -306,7 +306,7 @@ export class ProfileAdminService {
   }
 
   edittheme(id, theme: Theme): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/themes/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/themes/' + id , {
       theme
     }, {
       headers: new HttpHeaders({
@@ -320,7 +320,7 @@ export class ProfileAdminService {
   //  structure
 
   addStructure(name: Structure): Observable<any>{
-    return this.http.post('https://127.0.0.1:8000/api/structures.json', {
+    return this.http.post('https://lit-depths-70205.herokuapp.com/api/structures.json', {
       name
     }, {
       headers: new HttpHeaders({
@@ -330,7 +330,7 @@ export class ProfileAdminService {
   }
 
   editStructure(id, name: Structure): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/structures/' + id , {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/structures/' + id , {
       name
     }, {
       headers: new HttpHeaders({

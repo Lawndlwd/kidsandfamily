@@ -20,7 +20,7 @@ export class CenterOfIntreset {
   providedIn: 'root'
 })
 export class ProfileService {
-  urlInfo = 'https://127.0.0.1:8000/getuser';
+  urlInfo = 'https://lit-depths-70205.herokuapp.com/getuser';
   token = JSON.parse(localStorage.getItem('userToken'));
 
 
@@ -41,7 +41,7 @@ export class ProfileService {
 
     getProfession(): any {
       return this.http.
-      get<ProfessionObject>('https://127.0.0.1:8000/api/professions.json')
+      get<ProfessionObject>('https://lit-depths-70205.herokuapp.com/api/professions.json')
       .pipe(map ((resData: ProfessionObject) => {
         const arrProf: ProfessionObject[] = [];
         for (const key in resData){
@@ -64,7 +64,7 @@ export class ProfileService {
     teleMob?: string,
     profession?: string
   ): Observable<any>{
-    return this.http.put('https://127.0.0.1:8000/api/users/' + id + '.json', {
+    return this.http.put('https://lit-depths-70205.herokuapp.com/api/users/' + id + '.json', {
       firstName: fName,
       LastName: lName,
       maritalStatus: mStatus,
@@ -83,7 +83,7 @@ export class ProfileService {
 
   getTypes(): Observable<any>{
     return this.http.
-    get<Type>('https://127.0.0.1:8000/api/types.json')
+    get<Type>('https://lit-depths-70205.herokuapp.com/api/types.json')
     .pipe(map ((resData: Type) => {
       const arrProf: Type[] = [];
       for (const key in resData){
@@ -98,7 +98,7 @@ export class ProfileService {
 
   getSousTypes(id): Observable<SousType>{
     return this.http.
-    get<SousType>('https://127.0.0.1:8000/api/types.json?id=' + id);
+    get<SousType>('https://lit-depths-70205.herokuapp.com/api/types.json?id=' + id);
   }
 
 
@@ -119,7 +119,7 @@ export class ProfileService {
   }
 
   getProfiles(id){
-    return this.http.get<Profile>('https://127.0.0.1:8000/api/profiles/' + id + '.json')
+    return this.http.get<Profile>('https://lit-depths-70205.herokuapp.com/api/profiles/' + id + '.json')
       ;
   }
   editProfiles(
@@ -134,7 +134,7 @@ export class ProfileService {
     state: string,
     adressComplete?: string,
   ){
-    return this.http.put<Profile>('https://127.0.0.1:8000/api/profiles/' + id + '.json', {
+    return this.http.put<Profile>('https://lit-depths-70205.herokuapp.com/api/profiles/' + id + '.json', {
       type,
       sousType,
       adressComplete,
@@ -169,7 +169,7 @@ export class ProfileService {
     lat: string,
   ): Observable<Profile>{
 
-    return this.http.post<Profile>('https://127.0.0.1:8000/api/profiles.json', {
+    return this.http.post<Profile>('https://lit-depths-70205.herokuapp.com/api/profiles.json', {
       type,
       sousType,
       adressComplete,
@@ -190,7 +190,7 @@ export class ProfileService {
   }
 
   deleteProfile(id): Observable<Profile> {
-    return this.http.delete<Profile>('https://127.0.0.1:8000/api/profiles/' + id, {
+    return this.http.delete<Profile>('https://lit-depths-70205.herokuapp.com/api/profiles/' + id, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.token._token
       })
@@ -198,7 +198,7 @@ export class ProfileService {
   }
 
   getInterest(): Observable<any> {
-    return this.http.get<CenterOfIntreset>('https://127.0.0.1:8000/api/center_of_interests.json', {
+    return this.http.get<CenterOfIntreset>('https://lit-depths-70205.herokuapp.com/api/center_of_interests.json', {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.token._token
       })
@@ -220,7 +220,7 @@ export class ProfileService {
       id: number,
     }],
   ): Observable<any>{
-    return this.http.put<UserObject>('https://127.0.0.1:8000/api/users/' + id + '.json', {
+    return this.http.put<UserObject>('https://lit-depths-70205.herokuapp.com/api/users/' + id + '.json', {
       centerOfInterests,
     }, {
       headers: new HttpHeaders({
@@ -232,7 +232,7 @@ export class ProfileService {
 
   // tslint:disable-next-line:typedef
   resetPasswordmail(id) {
-    return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password-mail', {}, {
+    return this.http.put<UserObject>('https://lit-depths-70205.herokuapp.com/api/' + id + '/reset-password-mail', {}, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.token._token
       })
@@ -242,7 +242,7 @@ export class ProfileService {
   // tslint:disable-next-line:typedef
   resetPassword(id, password) {
     if (this.token) {
-      return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password', {
+      return this.http.put<UserObject>('https://lit-depths-70205.herokuapp.com/api/' + id + '/reset-password', {
         password,
       }, {
         headers: new HttpHeaders({
@@ -251,7 +251,7 @@ export class ProfileService {
       });
     }
     if (!this.token) {
-      return this.http.put<UserObject>('https://127.0.0.1:8000/api/' + id + '/reset-password', {
+      return this.http.put<UserObject>('https://lit-depths-70205.herokuapp.com/api/' + id + '/reset-password', {
         password,
       });
     }
@@ -259,7 +259,7 @@ export class ProfileService {
 
 
   deleteUser(id): any {
-    return this.http.delete('https://127.0.0.1:8000/api/users/' + id + '.json', {
+    return this.http.delete('https://lit-depths-70205.herokuapp.com/api/users/' + id + '.json', {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.token._token
       })

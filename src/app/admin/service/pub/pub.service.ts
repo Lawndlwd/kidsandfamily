@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators';
 })
 export class PubService {
 
-  url = 'https://127.0.0.1:8000/api/';
+  url = 'https://lit-depths-70205.herokuapp.com/api/';
 
   constructor(private http: HttpClient, private  profileService: ProfileService) { }
 

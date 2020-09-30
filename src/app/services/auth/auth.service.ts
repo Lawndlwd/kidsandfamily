@@ -32,7 +32,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router ) { }
 
   Login(email: string, password: string){
-    return this.http.post<AuthResponseData>('https://127.0.0.1:8000/api/login_check',
+    return this.http.post<AuthResponseData>('https://lit-depths-70205.herokuapp.com/api/login_check',
     {
       username: email,
       password
@@ -92,7 +92,7 @@ export class AuthService {
 
   // tslint:disable-next-line:typedef
   signUp(fName: string, lName: string , email: string, password: string, roles: any[], profession: string){
-    return this.http.post<RegResponseData>('https://127.0.0.1:8000/api/users',
+    return this.http.post<RegResponseData>('https://lit-depths-70205.herokuapp.com/api/users',
     {
       email,
       password,
@@ -107,15 +107,15 @@ export class AuthService {
 
   // tslint:disable-next-line:typedef
   sendActivation(id){
-    return this.http.put<AuthResponseData>('https://127.0.0.1:8000/api/' + id + '/register', {}
+    return this.http.put<AuthResponseData>('https://lit-depths-70205.herokuapp.com/api/' + id + '/register', {}
     );
   }
 
   checkToken(token, id){
-    return this.http.get<RegResponseData>('https://127.0.0.1:8000/api/' + id + '/register/' + token);
+    return this.http.get<RegResponseData>('https://lit-depths-70205.herokuapp.com/api/' + id + '/register/' + token);
   }
   emailResetPass(email){
-    return this.http.get<UserObject>('https://127.0.0.1:8000/api/reset-pass/' + email);
+    return this.http.get<UserObject>('https://lit-depths-70205.herokuapp.com/api/reset-pass/' + email);
   }
 }
 
