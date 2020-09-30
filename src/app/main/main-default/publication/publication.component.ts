@@ -1,4 +1,4 @@
-import { Publication } from './Publication.model';
+import { Publication } from './publication.model';
 import { PublicationsService } from '../../../services/publications/publications.service';
 import { Component, OnInit } from '@angular/core';
 
