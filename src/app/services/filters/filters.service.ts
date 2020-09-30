@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FiltersService {
-  private url: string = 'https://localhost:8000/api/';
+  private url: string = 'https://lit-depths-70205.herokuapp.com/api/';
 
   constructor(private http: HttpClient) {}
 
@@ -82,7 +82,7 @@ export class FiltersService {
       {
         id: 93,
         nom: "Provence-Alpes-Côte d'Azur"
-      } 
+      }
     ]
   }
 }
