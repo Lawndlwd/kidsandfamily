@@ -5,10 +5,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FiltersService {
-  private url: string = 'https://lit-depths-70205.herokuapp.com/api/';
+  private url = 'https://lit-depths-70205.herokuapp.com/api/';
 
   constructor(private http: HttpClient) {}
 
+  // tslint:disable-next-line:typedef
   getTypes() {
     return this.http.get(this.url + 'types.json');
   }
@@ -33,56 +34,56 @@ export class FiltersService {
     return [
       {
         id: 84,
-        nom: "Auvergne-Rhône-Alpes"
+        nom: 'Auvergne-Rhône-Alpes'
       },
       {
         id: 27,
-        nom: "Bourgogne-Franche-Comté"
+        nom: 'Bourgogne-Franche-Comté'
       },
       {
         id: 53,
-        nom: "Bretagne"
+        nom: 'Bretagne'
       },
       {
         id: 24,
-        nom: "Centre-Val de Loire"
+        nom: 'Centre-Val de Loire'
       },
       {
         id: 94,
-        nom: "Corse"
+        nom: 'Corse'
       },
       {
         id: 44,
-        nom: "Grand-Est"
+        nom: 'Grand-Est'
       },
       {
         id: 32,
-        nom: "Hauts-de-France"
+        nom: 'Hauts-de-France'
       },
       {
         id: 11,
-        nom: "Ile-de-France"
+        nom: 'Ile-de-France'
       },
       {
         id: 28,
-        nom: "Normandie"
+        nom: 'Normandie'
       },
       {
         id: 75,
-        nom: "Nouvelle-Aquitaine"
+        nom: 'Nouvelle-Aquitaine'
       },
       {
         id: 76,
-        nom: "Occitanie"
+        nom: 'Occitanie'
       },
       {
         id: 52,
-        nom: "Pays de la Loire"
+        nom: 'Pays de la Loire'
       },
       {
         id: 93,
-        nom: "Provence-Alpes-Côte d'Azur"
+        nom: 'Provence-Alpes-Côte d\'Azur'
       }
-    ]
+    ];
   }
 }
