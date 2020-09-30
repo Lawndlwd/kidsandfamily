@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FiltersService } from '../services/filters/filters.service';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import {Router} from '@angular/router';
-import { R3TargetBinder } from '@angular/compiler';
 
 @Component({
   selector: 'app-filters',
@@ -29,7 +27,7 @@ export class FiltersComponent implements OnInit {
   };
 
   // compteur de champs sélectionnés, si != 0 redirection composant main-filtre-selection
-  compteur: number = 0;
+  compteur = 0;
 
   constructor(private filtersService: FiltersService, private router: Router) {}
 
@@ -75,17 +73,17 @@ export class FiltersComponent implements OnInit {
       * e.target.value correspond au groupe du filtre sélectionné (ex : profil)
       * e.target.id.split(".")[1] correspond au filtre sélectionné (ex : particulier)
       */
-      this.selectFilters[e.target.value].push((e.target.id.split(".")[1]));
+      this.selectFilters[e.target.value].push((e.target.id.split('.')[1]));
       this.compteur++;
     } else {
-      this.selectFilters[e.target.value].splice(this.selectFilters[e.target.value].indexOf(e.target.id.split(".")[1]), 1);
+      this.selectFilters[e.target.value].splice(this.selectFilters[e.target.value].indexOf(e.target.id.split('.')[1]), 1);
       this.compteur--;
     }
 
-    let params = this.selectFilters;
+    const params = this.selectFilters;
 
     // au moins un filtre est sélectionné
-    if (this.compteur != 0) {
+    if (this.compteur !== 0) {
       this.router.navigate(['/publications-filter'], { queryParams: params });
     // aucun filtre n'est sélectionné
     } else {
