@@ -5,8 +5,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class DownloadService {
-  private _url = 'https://localhost:8000/api/publications/';
-  private _urlHome = 'https://localhost:8000/api/home_images';
+  private _url = 'https://lit-depths-70205.herokuapp.com/api/publications/';
+  private _urlHome = 'https://lit-depths-70205.herokuapp.com/api/home_images';
   private _jsonFormat = '.json';
   private _pubPicturesAPIPropertyFilter = '?properties[publicationPictures][]=filePath&properties[publicationPictures][]=id&properties[publicationPictures][]=priority';
   token = JSON.parse(localStorage.getItem('userToken'));

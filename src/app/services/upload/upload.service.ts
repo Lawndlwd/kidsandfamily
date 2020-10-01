@@ -16,7 +16,7 @@ export class UploadService {
     });
 
     return this.http.post(
-      'https://localhost:8000/api/publication_pictures',
+      'https://lit-depths-70205.herokuapp.com/api/publication_pictures',
       formData,
       { headers: authorizationToken }
     );
@@ -29,7 +29,7 @@ export class UploadService {
     });
 
     return this.http.delete(
-      `https://localhost:8000/api/publication_pictures/${publicationPictureId}`,
+      `https://lit-depths-70205.herokuapp.com/api/publication_pictures/${publicationPictureId}`,
       { headers: authorizationToken }
     );
   }
@@ -43,7 +43,7 @@ export class UploadService {
     });
 
     const status_1 = this.http.put(
-      `https://localhost:8000/api/publication_pictures/${pubPicture_2['id']}.json`,
+      `https://lit-depths-70205.herokuapp.com/api/publication_pictures/${pubPicture_2['id']}.json`,
       {
         "priority": pubPicture_1['priority']
       },
@@ -51,7 +51,7 @@ export class UploadService {
     );
 
     const status_2 = this.http.put(
-      `https://localhost:8000/api/publication_pictures/${pubPicture_1['id']}.json`,
+      `https://lit-depths-70205.herokuapp.com/api/publication_pictures/${pubPicture_1['id']}.json`,
       {
         "priority": priorityPubPicture_2
       },
