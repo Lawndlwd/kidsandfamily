@@ -26,7 +26,7 @@ export class DownloadService {
       formData
      , {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -34,7 +34,7 @@ export class DownloadService {
   deleteHomeImages(id) {
     return this.http.delete(this._urlHome + '/' + id + '.json', {
         headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.token._token
+          Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
         })
       });
   }
