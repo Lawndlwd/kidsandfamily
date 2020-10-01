@@ -50,7 +50,7 @@
     <h1 class="text-center mb-5">Images associées à la page d'accueil </h1>
     <div class="row">
       <div class="col-sm-6 col-md-4 mb-4 h-25" *ngFor="let img of imgPaths; let i = index; first as isFirst; last as isLast">
-        <img src="https://localhost:8000/home/pictures/{{ img['filePath'] }}" class="img-fluid mx-auto d-block "  alt="Responsive image">
+        <img src="https://lit-depths-70205.herokuapp.com/home/pictures/{{ img['filePath'] }}" class="img-fluid mx-auto d-block "  alt="Responsive image">
         <div class="text-center mt-1">
           <button class="btn btn-danger" value="{{ img['id'] }}" (click)="onDelete($event)">
             <svg value="{{ img['id'] }}" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
