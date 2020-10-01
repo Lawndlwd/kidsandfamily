@@ -21,7 +21,7 @@ export class UserService {
     return this.http.get<UserObject>(this.url +
       'users.json', {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     }).pipe(map ((resData: UserObject) => {
         const arrProf: UserObject[] = [];

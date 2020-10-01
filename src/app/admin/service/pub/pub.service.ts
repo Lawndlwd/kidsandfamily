@@ -18,7 +18,7 @@ export class PubService {
     return this.http.get<Publication>(this.url +
       'publications.json', {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     }).pipe(map ((resData: Publication) => {
       const arrProf: Publication[] = [];

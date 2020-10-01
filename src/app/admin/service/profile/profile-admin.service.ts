@@ -34,7 +34,7 @@ export class ProfileAdminService {
   delete(id, url ): Observable<any>{
     return this.http.delete('https://lit-depths-70205.herokuapp.com/api/' + url + '/' + id , {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -45,7 +45,7 @@ export class ProfileAdminService {
     return this.http.get<Profile>(this.url +
       'profiles.json', {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     }).pipe(map ((resData: Profile) => {
       const arrProf: Profile[] = [];
@@ -62,7 +62,7 @@ export class ProfileAdminService {
     return this.http.get<Profile>(this.url +
       'profiles.json?type.type=' + type, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     }).pipe(map ((resData: Profile) => {
       const arrProf: Profile[] = [];
@@ -79,7 +79,7 @@ export class ProfileAdminService {
     return this.http.delete(this.url +
       'profiles/' + id + '.json', {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -106,7 +106,7 @@ export class ProfileAdminService {
       type
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -114,7 +114,7 @@ export class ProfileAdminService {
   deleteType(id): Observable<any>{
     return this.http.delete('https://lit-depths-70205.herokuapp.com/api/types/' + id , {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -124,7 +124,7 @@ export class ProfileAdminService {
       type
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -150,7 +150,7 @@ export class ProfileAdminService {
       actions
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -158,7 +158,7 @@ export class ProfileAdminService {
   deleteActions(id): Observable<any>{
     return this.http.delete('https://lit-depths-70205.herokuapp.com/api/actions/' + id , {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -168,7 +168,7 @@ export class ProfileAdminService {
       actions
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -180,7 +180,7 @@ export class ProfileAdminService {
       need
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -190,7 +190,7 @@ export class ProfileAdminService {
       need
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -203,7 +203,7 @@ export class ProfileAdminService {
       CenterOfInterest
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -213,7 +213,7 @@ export class ProfileAdminService {
       CenterOfInterest
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -227,7 +227,7 @@ export class ProfileAdminService {
       profession
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -237,7 +237,7 @@ export class ProfileAdminService {
       profession
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -250,7 +250,7 @@ export class ProfileAdminService {
       name,
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -260,7 +260,7 @@ export class ProfileAdminService {
       name
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -275,7 +275,7 @@ export class ProfileAdminService {
       type
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -286,7 +286,7 @@ export class ProfileAdminService {
       type
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -300,7 +300,7 @@ export class ProfileAdminService {
       theme
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -310,7 +310,7 @@ export class ProfileAdminService {
       theme
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -324,7 +324,7 @@ export class ProfileAdminService {
       name
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -334,7 +334,7 @@ export class ProfileAdminService {
       name
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.profileService.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }

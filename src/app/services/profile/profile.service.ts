@@ -34,7 +34,7 @@ export class ProfileService {
   getUserInfo(): Observable<UserObject> {
     return this.http.get<UserObject>(this.urlInfo, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -75,7 +75,7 @@ export class ProfileService {
       profession
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -105,7 +105,7 @@ export class ProfileService {
   getUserProfile(): Observable<any> {
     return this.http.get<UserObject>(this.urlInfo, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     }).pipe(map (resData => {
       const arrProf: Profile[] = [];
@@ -146,7 +146,7 @@ export class ProfileService {
       state,
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     })
       ;
@@ -184,7 +184,7 @@ export class ProfileService {
       lat,
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -192,7 +192,7 @@ export class ProfileService {
   deleteProfile(id): Observable<Profile> {
     return this.http.delete<Profile>('https://lit-depths-70205.herokuapp.com/api/profiles/' + id, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -200,7 +200,7 @@ export class ProfileService {
   getInterest(): Observable<any> {
     return this.http.get<CenterOfIntreset>('https://lit-depths-70205.herokuapp.com/api/center_of_interests.json', {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     }).pipe(map (resData => {
       const arrProf: CenterOfIntreset[] = [];
@@ -224,7 +224,7 @@ export class ProfileService {
       centerOfInterests,
     }, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     })
       ;
@@ -234,7 +234,7 @@ export class ProfileService {
   resetPasswordmail(id) {
     return this.http.put<UserObject>('https://lit-depths-70205.herokuapp.com/api/' + id + '/reset-password-mail', {}, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
@@ -246,7 +246,7 @@ export class ProfileService {
         password,
       }, {
         headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.token._token
+          Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
         })
       });
     }
@@ -261,7 +261,7 @@ export class ProfileService {
   deleteUser(id): any {
     return this.http.delete('https://lit-depths-70205.herokuapp.com/api/users/' + id + '.json', {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.token._token
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userToken'))._token
       })
     });
   }
